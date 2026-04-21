@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <meta name="theme-color" content="#F5EFE3">
-<title>Candidature Musicien — La ChorAlchimie</title>
+<title>Formulaire Musicien — La ChorAlchimie</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -59,7 +59,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 
 <header class="header">
   <a href="../hub-musiciens/" class="back">←</a>
-  <span class="header-title">Candidature Musicien·ne</span>
+  <span class="header-title">Formulaire Musicien·ne</span>
 </header>
 
 <div class="form-intro">
@@ -197,7 +197,7 @@ document.getElementById('formMusician').addEventListener('submit', function(e) {
   .then(function(r) { return r.json(); })
   .then(function(data) {
     if (data.status === 'ok') {
-      showToast('✓ Candidature envoyée ! On te recontacte vite.', 'success');
+      showToast('✓ Formulaire envoyée ! On te recontacte vite.', 'success');
       document.getElementById('formMusician').reset();
       document.querySelectorAll('.chip.on').forEach(function(c) { c.classList.remove('on'); });
     } else {

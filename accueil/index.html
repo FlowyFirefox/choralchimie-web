@@ -21,7 +21,9 @@ html,body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-ser
 body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;padding:24px 20px env(safe-area-inset-bottom) 20px;text-align:center}
 body.night{--cream:#0A0A0A;--cream2:#111;--cream3:#181818;--white:#151515;--ink:#F0EBE3;--ink2:#D0C9BE;--muted:rgba(240,235,227,0.45);--sub:rgba(240,235,227,0.65);--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.06)}
 
-.logo{height:52px;width:auto;margin-bottom:28px}
+.logo-block{display:flex;flex-direction:column;align-items:center;margin-bottom:28px;gap:10px}
+.logo-square{height:130px;width:auto}
+.logo-text{width:180px;height:auto}
 .theme-toggle{position:fixed;top:16px;right:16px;width:40px;height:40px;border-radius:50%;border:none;background:var(--cream2);color:var(--ink);font-size:18px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.12);transition:transform .15s}.theme-toggle:active{transform:scale(.92)}
 
 .stats{display:flex;gap:20px;justify-content:center;margin-bottom:24px;flex-wrap:wrap}
@@ -48,6 +50,11 @@ body.night{--cream:#0A0A0A;--cream2:#111;--cream3:#181818;--white:#151515;--ink:
 .cta-sub{font-size:11px;opacity:.6;margin-top:2px}
 .cta-arrow{font-size:18px;opacity:.4}
 
+.social-row{display:flex;gap:10px;justify-content:center;margin-bottom:24px}
+.social-link{display:flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--sub);text-decoration:none;font-size:13px;font-weight:500;transition:all .15s;min-height:44px}
+.social-link:active{background:var(--cream2)}
+.social-link svg{flex-shrink:0}
+
 .link-qs{margin-top:28px;font-size:13px;color:var(--sub)}
 .link-qs a{color:var(--sub);text-decoration:none;border-bottom:1px solid var(--border)}
 .link-qs a:active{color:var(--braise)}
@@ -62,21 +69,35 @@ body.night{--cream:#0A0A0A;--cream2:#111;--cream3:#181818;--white:#151515;--ink:
 
 <button class="theme-toggle" id="themeBtn" title="Mode jour / nuit">🌙</button>
 
-<img src="../assets/ChorAlchimie_Horizontal_Texte_Day.png" alt="La ChorAlchimie" class="logo" id="logoImg">
+<div class="logo-block">
+  <img src="../assets/ChorAlchimie_Carré_Logo_New.png" alt="La ChorAlchimie" class="logo-square" id="logoSquare">
+  <img src="../assets/ChorAlchimie_Horizontal_Texte_Day.png" alt="La ChorAlchimie" class="logo-text" id="logoText">
+</div>
 
 <div class="stats">
-  <div class="stat"><span class="stat-num">4 ans</span><span class="stat-label">d'existence</span></div>
+  <div class="stat"><span class="stat-num">4 ans</span><span class="stat-label">on chante</span></div>
   <div class="stat"><span class="stat-num">250+</span><span class="stat-label">membres</span></div>
-  <div class="stat"><span class="stat-num">2x/mois</span><span class="stat-label">on se retrouve</span></div>
+  <div class="stat"><span class="stat-num">Sans audition</span><span class="stat-label">pour toustes</span></div>
 </div>
 
 <h1 class="hero-title">Ta voix t'attend.</h1>
-<p class="hero-sub">Groupe de chant choral ouvert à toustes, sans audition. On chante un mercredi sur 2 à Lyon.</p>
+<p class="hero-sub">Chant choral en plein air, au bord du Rhône. Sans audition, sans prérequis. Un mercredi sur 2.</p>
 
-<a href="../planning/" class="next-session">
+<a href="../sessions/29-avril.html" class="next-session">
   <div class="ns-label">Prochaine session</div>
   <div class="ns-info"><span class="ns-text">29 avr · Choraoké · Berges du Rhône</span><span class="ns-arrow">→</span></div>
 </a>
+
+<div class="social-row">
+  <a href="https://www.instagram.com/lachoralchimie/" target="_blank" rel="noopener" class="social-link" title="Instagram">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><defs><linearGradient id="ig" x1="0" y1="24" x2="24" y2="0"><stop offset="0%" stop-color="#FFDC80"/><stop offset="25%" stop-color="#F77737"/><stop offset="50%" stop-color="#E1306C"/><stop offset="75%" stop-color="#C13584"/><stop offset="100%" stop-color="#833AB4"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#ig)" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="url(#ig)" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="url(#ig)"/></svg>
+    Instagram
+  </a>
+  <a href="#" class="social-link" title="WhatsApp">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.77.46 3.43 1.27 4.88L2 22l5.23-1.24A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.1-.38-4.43-1.06l-.32-.17-3.1.74.78-3-.2-.33A7.96 7.96 0 014 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.37-5.97c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.93-1.18-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.1.16 1.52.1.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/></svg>
+    WhatsApp
+  </a>
+</div>
 
 <div class="cta-grid">
   <a href="../hub-chanteurs/" class="cta-btn primary">
@@ -84,7 +105,7 @@ body.night{--cream:#0A0A0A;--cream2:#111;--cream3:#181818;--white:#151515;--ink:
     <span class="cta-arrow">→</span>
   </a>
   <a href="../hub-musiciens/" class="cta-btn outline">
-    <div><div class="cta-label">🎸 Je suis musicien·ne</div><div class="cta-sub">Accompagne-nous en live</div></div>
+    <div><div class="cta-label">🎸 Je suis musicien·ne</div><div class="cta-sub">Tu joues, 30 voix chantent avec toi</div></div>
     <span class="cta-arrow">→</span>
   </a>
 </div>
@@ -94,12 +115,14 @@ body.night{--cream:#0A0A0A;--cream2:#111;--cream3:#181818;--white:#151515;--ink:
 <script>
 (function(){
   var btn=document.getElementById('themeBtn');
-  var logo=document.getElementById('logoImg');
+  var logoSq=document.getElementById('logoSquare');
+  var logoTx=document.getElementById('logoText');
   var meta=document.querySelector('meta[name="theme-color"]');
   function apply(night){
     document.body.classList.toggle('night',night);
     btn.textContent=night?'☀️':'🌙';
-    logo.src=night?'../assets/ChorAlchimie_Horizontal_Texte_Night.png':'../assets/ChorAlchimie_Horizontal_Texte_Day.png';
+    logoSq.src=night?'../assets/ChorAlchimie_Carré_Logo_New_Night.png':'../assets/ChorAlchimie_Carré_Logo_New.png';
+    logoTx.src=night?'../assets/ChorAlchimie_Horizontal_Texte_Night.png':'../assets/ChorAlchimie_Horizontal_Texte_Day.png';
     if(meta)meta.content=night?'#0A0A0A':'#F5EFE3';
     try{localStorage.setItem('theme',night?'night':'day')}catch(e){}
   }

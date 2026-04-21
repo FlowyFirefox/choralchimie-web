@@ -25,28 +25,30 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 .back:active{background:var(--cream2)}
 .header-logo{height:32px;width:auto}
 
-.hero{padding:32px 20px 24px;text-align:center}
-.hero-title{font-size:26px;font-weight:800;color:var(--ink);line-height:1.2;margin-bottom:8px}
-.hero-sub{font-size:14px;color:var(--sub);line-height:1.5;max-width:320px;margin:0 auto}
+.hero{padding:32px 20px 8px;text-align:center}
+.hero-title{font-size:26px;font-weight:800;color:var(--ink);line-height:1.2;margin-bottom:12px}
+.hero-sub{font-size:14px;color:var(--sub);line-height:1.6;max-width:340px;margin:0 auto}
 
-.info-block{margin:0 20px 24px;padding:16px;background:var(--white);border:1px solid var(--border2);border-radius:14px}
-.info-row{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:13px;color:var(--ink2)}
-.info-row span:first-child{font-size:16px;width:24px;text-align:center;flex-shrink:0}
-.info-row strong{font-weight:600;color:var(--ink)}
+.narrative{margin:20px 20px 24px;padding:18px;background:var(--white);border:1px solid var(--border2);border-radius:14px;font-size:14px;color:var(--ink2);line-height:1.7}
+
+.btn-outline-full{display:block;margin:0 20px 24px;padding:14px 20px;border-radius:14px;border:1.5px solid var(--border);background:transparent;color:var(--ink);text-decoration:none;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;text-align:center;transition:all .15s;min-height:48px}
+.btn-outline-full:active{background:var(--cream2)}
+
+.sep{margin:0 20px 24px;border:none;border-top:1px solid var(--border)}
 
 .cta-grid{display:flex;flex-direction:column;gap:12px;padding:0 20px 32px}
-.cta-btn{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-radius:14px;border:1.5px solid transparent;cursor:pointer;transition:all .18s;text-align:left;text-decoration:none;min-height:48px}
+.cta-btn{display:flex;align-items:center;justify-content:center;padding:18px 20px;border-radius:14px;border:1.5px solid transparent;cursor:pointer;transition:all .18s;text-decoration:none;min-height:52px;text-align:center}
 .cta-btn:active{transform:scale(.98)}
-.cta-btn.primary{background:var(--ink);color:#fff}
-.cta-btn.outline{background:transparent;border-color:var(--border);color:var(--ink)}
+.cta-btn.braise{background:var(--braise);color:#fff}
+.cta-btn.outline{background:transparent;border-color:var(--border);color:var(--ink);flex-direction:column;gap:2px}
 .cta-label{font-size:15px;font-weight:600}
-.cta-sub{font-size:11px;opacity:.6;margin-top:2px}
-.cta-arrow{font-size:18px;opacity:.4}
+.cta-sub{font-size:11px;opacity:.6}
 
 @media(min-width:600px){
   .hero-title{font-size:34px}
-  .info-block{max-width:400px;margin-left:auto;margin-right:auto}
-  .cta-grid{max-width:400px;margin-left:auto;margin-right:auto}
+  .narrative{max-width:440px;margin-left:auto;margin-right:auto}
+  .btn-outline-full{max-width:440px;margin-left:auto;margin-right:auto}
+  .cta-grid{max-width:440px;margin-left:auto;margin-right:auto}
 }
 </style>
 </head>
@@ -58,26 +60,25 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 </header>
 
 <div class="hero">
-  <h1 class="hero-title">Tu joues, on chante dessus.</h1>
-  <p class="hero-sub">Rejoins l'aventure en tant que musicien·ne. Sessions live en plein air, un mercredi sur deux.</p>
+  <h1 class="hero-title">Tes notes. Nos voix.</h1>
+  <p class="hero-sub">Tu poses ton instrument. 30 à 40 personnes chantent avec toi, en plein air au bord du Rhône. Un mercredi sur 2.</p>
 </div>
 
-<div class="info-block">
-  <div class="info-row"><span>📅</span><span>Sessions tous les <strong>mercredis soirs</strong></span></div>
-  <div class="info-row"><span>🎵</span><span>Pop, rock, soul, chanson française — <strong>répertoire varié et multilingue</strong></span></div>
-  <div class="info-row"><span>📍</span><span>Lyon — Parc de la Tête d'Or & alentours</span></div>
-  <div class="info-row"><span>👥</span><span><strong>250+ personnes</strong> qui chantent avec toi</span></div>
-  <a href="../choraoke-app/" style="display:block;margin-top:10px;font-size:13px;font-weight:600;color:var(--braise);text-decoration:none">Voir le répertoire →</a>
+<div class="narrative">
+  Pop, rock, soul, chanson française — le répertoire est large et varié. Tu peux jouer un morceau ou toute la soirée, c'est toi qui choisis. Bénévole, sans contrat, et franchement assez magique.
 </div>
+
+<a href="../choraoke-app/" class="btn-outline-full">Découvrir le répertoire →</a>
+
+<hr class="sep">
 
 <div class="cta-grid">
-  <a href="../formulaires/musicien.html" class="cta-btn primary">
-    <div><div class="cta-label">🎹 Musicien·ne solo</div><div class="cta-sub">Piano, guitare, autre instrument</div></div>
-    <span class="cta-arrow">→</span>
+  <a href="../formulaires/musicien.html" class="cta-btn braise">
+    <span class="cta-label">🎹 Je veux jouer avec vous →</span>
   </a>
   <a href="../formulaires/collab.html" class="cta-btn outline">
-    <div><div class="cta-label">🎶 Chorale ou groupe</div><div class="cta-sub">Autre chorale, groupe de musique, collectif artistique</div></div>
-    <span class="cta-arrow">→</span>
+    <span class="cta-label">🎶 Proposer une collaboration</span>
+    <span class="cta-sub">Autre chorale, groupe de musique, collectif</span>
   </a>
 </div>
 
