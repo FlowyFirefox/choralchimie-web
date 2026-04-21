@@ -167,14 +167,27 @@ CHANTEURS     MUSICIENS
 choralchimie-web/
 ├── CLAUDE.md                        ← CE FICHIER
 ├── .claude/hooks/
-├── accueil/index.html               ← Sas orientation [À FAIRE 🔴]
-├── hub-chanteurs/index.html         ← Hub participants [À FAIRE 🔴]
-├── hub-musiciens/index.html         ← Hub musiciens [À FAIRE 🔴]
-├── planning/index.html              ← Dates saison [À FAIRE 🔴]
-├── quisommesnous/index.html         ← Histoire+charte [À FAIRE 🟡]
+├── accueil/index.html               ← Sas orientation ✓
+├── hub-chanteurs/index.html         ← Hub participants ✓
+├── hub-musiciens/index.html         ← Hub musiciens ✓
+├── planning/index.html              ← Dates saison ✓
+├── quisommesnous/index.html         ← Histoire+charte ✓
 ├── formulaires/
-│   ├── musicien.html                ← Candidature [À FAIRE 🔴]
-│   └── collab.html                  ← Collaboration [À FAIRE 🟡]
+│   ├── musicien.html                ← Formulaire musicien ✓
+│   └── collab.html                  ← Collaboration ✓
+├── sessions/
+│   ├── 29-avril.html                ← Session 29 avr ✓
+│   ├── 12-mai.html                  ← Session 12 mai ✓
+│   ├── 27-mai.html                  ← Session 27 mai ✓
+│   ├── 10-juin.html                 ← Session 10 jun ✓
+│   ├── 24-juin.html                 ← Session 24 jun ✓
+│   ├── 11-juillet.html              ← Session 11 jul ✓
+│   ├── 22-juillet.html              ← Session 22 jul ✓
+│   ├── 19-aout.html                 ← Session 19 aoû ✓
+│   ├── 02-sept.html                 ← Session 2 sep ✓
+│   ├── 19-sept.html                 ← Session 19 sep ✓
+│   ├── 30-sept.html                 ← Session 30 sep ✓
+│   └── 14-oct.html                  ← Session 14 oct ✓
 ├── choraoke-app/index.html          ← LIVE ✓ GitHub Pages
 ├── assets/
 │   ├── ChorAlchimie_Horizontal_Fond_Foncé_New.png
@@ -327,12 +340,14 @@ App Choraoké live         : [à remplir]
 Netlify (ancien)          : https://creative-lolly-8e5933.netlify.app/
 Linktree provisoire       : https://linktr.ee/choralchimie
 Instagram                 : https://www.instagram.com/lachoralchimie/
-WhatsApp communauté       : [à remplir]
+WhatsApp communauté       : https://chat.whatsapp.com/DWzssCj3cDS9Gng6vbXJpm
 HelloAsso                 : [à remplir]
 Apps Script adhésion      : [à remplir]
-Apps Script suggestions   : [à créer]
-Apps Script musiciens     : [à créer]
-Apps Script collabs       : [à créer]
+Apps Script suggestions   : [à déployer] (code dans scripts/apps_script_propositions.js)
+Apps Script musiciens     : [à déployer] (code dans scripts/apps_script_musiciens.js)
+Apps Script collabs       : [à déployer] (code dans scripts/apps_script_propositions.js)
+Apps Script sessions      : [à déployer] (code dans scripts/apps_script_sessions_universal.js)
+APPS_SCRIPT_SESSIONS_URL  : [à remplir après déploiement]
 Google Sheet master       : [à remplir]
 ```
 
@@ -375,8 +390,8 @@ Google Sheet master       : [à remplir]
 8. `formulaires/musicien.html`
 
 ### 🟡 Priorité 2 — Suite
-- `quisommesnous/index.html`
-- `formulaires/collab.html`
+- `quisommesnous/index.html` ✓
+- `formulaires/collab.html` ✓
 
 ### 🔮 Futur
 - Site complet multi-pages
@@ -416,6 +431,9 @@ Google Sheet master       : [à remplir]
 - [21/04/2026] — Mode jour/nuit ajouté : bouton 🌙/🌑 flottant en bas à droite. Préférence sauvegardée en localStorage
 - [21/04/2026] — Colonne optionnelle `genius_url` ajoutée au Sheet. Si remplie → lien direct paroles (1 clic). Si vide → fallback recherche Genius
 - [21/04/2026] — Sur GitHub Pages : popup Claude.ai disparaît → 2 clics pour les paroles (vs 5 en test Claude.ai)
+- [21/04/2026] — Pages sessions × 12 créées · quisommesnous · collab · Apps Script universel sessions
+- [21/04/2026] — WhatsApp communauté URL ajoutée partout : https://chat.whatsapp.com/DWzssCj3cDS9Gng6vbXJpm
+- [21/04/2026] — Planning : chaque session = lien cliquable vers sa page dédiée
 
 ---
 

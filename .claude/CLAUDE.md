@@ -314,7 +314,7 @@ App Choraoké live         : [à remplir]
 Netlify (ancien)          : https://creative-lolly-8e5933.netlify.app/
 Linktree provisoire       : https://linktr.ee/choralchimie
 Instagram                 : https://www.instagram.com/lachoralchimie/
-WhatsApp communauté       : [à remplir]
+WhatsApp communauté       : https://chat.whatsapp.com/DWzssCj3cDS9Gng6vbXJpm
 HelloAsso                 : [à remplir]
 Apps Script adhésion      : [à remplir]
 Apps Script suggestions   : [à créer]

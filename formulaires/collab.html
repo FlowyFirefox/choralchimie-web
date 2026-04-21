@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<meta name="theme-color" content="#F5EFE3">
+<title>Collaboration — La ChorAlchimie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#F5EFE3;--cream2:#EDE6D6;--cream3:#E3D9C6;--white:#FDFAF5;
+  --ink:#2C2416;--ink2:#4A3E2E;--muted:#8A7B6A;--sub:#6B5E4E;
+  --braise:#C25918;--braise-bg:rgba(194,89,24,0.08);--braise-bd:rgba(194,89,24,0.22);
+  --euca:#4E7A65;--euca-bg:rgba(78,122,101,0.08);--euca-bd:rgba(78,122,101,0.22);
+  --gold:#B08640;--gold-bg:rgba(176,134,64,0.08);
+  --border:rgba(44,36,22,0.1);--border2:rgba(44,36,22,0.06);
+}
+html,body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;min-height:100vh;min-height:100dvh}
+body{padding-bottom:env(safe-area-inset-bottom)}
+
+.header{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.back{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--white);border:1px solid var(--border2);color:var(--ink);text-decoration:none;font-size:18px;flex-shrink:0}
+.back:active{background:var(--cream2)}
+.header-title{font-size:16px;font-weight:600}
+
+.form-intro{padding:24px 20px 16px}
+.form-intro h1{font-size:22px;font-weight:700;margin-bottom:6px}
+.form-intro p{font-size:13px;color:var(--sub);line-height:1.5}
+
+.form-wrap{padding:0 20px 32px}
+
+.field{margin-bottom:20px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:6px;letter-spacing:.02em}
+.field label .req{color:var(--braise)}
+.field input,.field textarea{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'Outfit',sans-serif;font-size:16px;color:var(--ink);outline:none;-webkit-appearance:none;transition:border-color .15s}
+.field input:focus,.field textarea:focus{border-color:var(--braise)}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted)}
+.field textarea{min-height:100px;resize:vertical}
+
+.chips-label{display:block;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:8px;letter-spacing:.02em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{padding:8px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--ink2);cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none;min-height:36px;display:flex;align-items:center}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip:active{transform:scale(.96)}
+
+.submit-btn{width:100%;padding:16px;border:none;border-radius:14px;background:var(--braise);color:#fff;font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all .18s;min-height:52px}
+.submit-btn:active{transform:scale(.98)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed}
+
+.toast{position:fixed;bottom:24px;left:20px;right:20px;padding:16px 20px;border-radius:14px;font-size:14px;font-weight:600;text-align:center;transform:translateY(120%);transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:500}
+.toast.success{background:var(--euca);color:#fff}
+.toast.error{background:var(--braise);color:#fff}
+.toast.show{transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="../hub-musiciens/" class="back">←</a>
+  <span class="header-title">Collaboration</span>
+</header>
+
+<div class="form-intro">
+  <h1>🎶 Une collaboration ?</h1>
+  <p>Autre chorale, groupe de musique, collectif artistique — parlons-en.</p>
+</div>
+
+<form class="form-wrap" id="formCollab" novalidate>
+
+  <div style="background:var(--cream2);border-radius:10px;padding:12px;font-size:13px;color:var(--sub);line-height:1.6;margin-bottom:20px">On est ouverts à tout projet qui fait chanter et vibrer. Dis-nous qui tu es et ce que tu imagines.</div>
+
+  <div class="field">
+    <label>Nom de la structure <span class="req">*</span></label>
+    <input type="text" id="structure" placeholder="Nom de votre chorale, groupe, collectif..." required>
+  </div>
+
+  <div class="chips-label">Type</div>
+  <div class="chips" id="chipsType">
+    <div class="chip" data-val="Chorale">Chorale</div>
+    <div class="chip" data-val="Groupe de musique">Groupe de musique</div>
+    <div class="chip" data-val="Collectif">Collectif</div>
+    <div class="chip" data-val="Structure culturelle">Structure culturelle</div>
+    <div class="chip" data-val="Autre">Autre</div>
+  </div>
+
+  <div class="field">
+    <label>Votre projet</label>
+    <textarea id="projet" placeholder="Décris ton idée en quelques lignes — concert commun, résidence, jam session..."></textarea>
+  </div>
+
+  <div class="field">
+    <label>Contact <span class="req">*</span></label>
+    <input type="text" id="contact" placeholder="Email ou téléphone" required>
+  </div>
+
+  <button type="submit" class="submit-btn" id="submitBtn">Envoyer notre proposition →</button>
+  <div style="text-align:center;font-size:13px;color:var(--muted);margin-top:12px">On vous répond dans les 48h 🎶</div>
+</form>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var APPS_SCRIPT_COLLAB_URL = 'APPS_SCRIPT_COLLAB_URL';
+
+// Chips single-select
+document.getElementById('chipsType').addEventListener('click', function(e) {
+  var c = e.target.closest('.chip');
+  if (!c) return;
+  var was = c.classList.contains('on');
+  this.querySelectorAll('.chip').forEach(function(x) { x.classList.remove('on'); });
+  if (!was) c.classList.add('on');
+});
+
+function getChipVal(id) {
+  var c = document.querySelector('#' + id + ' .chip.on');
+  return c ? c.dataset.val : '';
+}
+
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(function() { t.classList.remove('show'); }, 4000);
+}
+
+document.getElementById('formCollab').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var structure = document.getElementById('structure').value.trim();
+  var contact = document.getElementById('contact').value.trim();
+  if (!structure || !contact) { showToast('Remplis les champs obligatoires (*)', 'error'); return; }
+
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Envoi en cours...';
+
+  fetch(APPS_SCRIPT_COLLAB_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify({
+      structure: structure,
+      type: getChipVal('chipsType'),
+      projet: document.getElementById('projet').value.trim(),
+      contact: contact
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.status === 'ok') {
+      showToast('✓ Proposition envoyée !', 'success');
+      document.getElementById('formCollab').reset();
+      document.querySelectorAll('.chip.on').forEach(function(c) { c.classList.remove('on'); });
+    } else { showToast('Erreur : ' + (data.message || 'réessaie'), 'error'); }
+    btn.disabled = false;
+    btn.textContent = 'Envoyer notre proposition →';
+  })
+  .catch(function() {
+    showToast('Erreur réseau — vérifie ta connexion', 'error');
+    btn.disabled = false;
+    btn.textContent = 'Envoyer notre proposition →';
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<meta name="theme-color" content="#F5EFE3">
+<title>Qui sommes-nous — La ChorAlchimie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#F5EFE3;--cream2:#EDE6D6;--cream3:#E3D9C6;--white:#FDFAF5;
+  --ink:#2C2416;--ink2:#4A3E2E;--muted:#8A7B6A;--sub:#6B5E4E;
+  --braise:#C25918;--braise-bg:rgba(194,89,24,0.08);--braise-bd:rgba(194,89,24,0.22);
+  --euca:#4E7A65;--euca-bg:rgba(78,122,101,0.08);--euca-bd:rgba(78,122,101,0.22);
+  --gold:#B08640;--gold-bg:rgba(176,134,64,0.08);
+  --border:rgba(44,36,22,0.1);--border2:rgba(44,36,22,0.06);
+}
+html,body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;min-height:100vh;min-height:100dvh}
+body{padding-bottom:env(safe-area-inset-bottom)}
+
+.header{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.back{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--white);border:1px solid var(--border2);color:var(--ink);text-decoration:none;font-size:18px;flex-shrink:0}
+.back:active{background:var(--cream2)}
+.header-logo{height:32px;width:auto}
+
+.hero-placeholder{margin:16px 20px;padding:40px 20px;background:var(--cream2);border-radius:14px;text-align:center;min-height:200px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px}
+
+.content{padding:0 20px;max-width:500px;margin:0 auto}
+
+.section-title{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:24px 0 12px}
+
+.story{font-size:14px;color:var(--ink2);line-height:1.7;margin-bottom:16px}
+
+blockquote{margin:16px 0 20px;padding:14px 18px;border-left:3px solid var(--braise);font-size:14px;font-style:italic;color:var(--ink);line-height:1.6;background:var(--braise-bg);border-radius:0 10px 10px 0}
+
+.sep{margin:20px 0;border:none;border-top:1px solid var(--border)}
+
+.charte-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.charte-list li{display:flex;gap:10px;font-size:14px;color:var(--ink2);line-height:1.5}
+.charte-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--braise);flex-shrink:0;margin-top:7px}
+
+.team-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.team-card{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--white);border:1px solid var(--border2);border-radius:12px}
+.team-emoji{font-size:22px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--cream2);border-radius:10px;flex-shrink:0}
+.team-name{font-size:14px;font-weight:600;color:var(--ink)}
+.team-role{font-size:12px;color:var(--muted);margin-top:1px}
+
+.btn-back{display:block;margin:8px 20px 32px;padding:16px;border-radius:14px;background:var(--ink);color:#fff;text-decoration:none;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;text-align:center;min-height:48px;transition:all .15s}
+.btn-back:active{transform:scale(.98)}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="../accueil/" class="back">←</a>
+  <img src="../assets/ChorAlchimie_Horizontal_Texte_Day.png" alt="La ChorAlchimie" class="header-logo">
+</header>
+
+<div class="hero-placeholder">📸 Photo de session à venir</div>
+
+<div class="content">
+
+  <div class="section-title">Notre histoire</div>
+
+  <p class="story">En 2021, une idée simple : et si on faisait ça à Lyon ? Inspiré de Choir! Choir! Choir! au Canada, Pierrick lance les premières sessions au Parc de la Tête d'Or.</p>
+
+  <blockquote>Un mercredi soir, des inconnus qui deviennent une voix. C'est ça, la ChorAlchimie.</blockquote>
+
+  <p class="story">Depuis, on se retrouve un mercredi sur 2, en plein air, au bord du Rhône ou au Parc de la Tête d'Or. 250 membres plus tard, l'alchimie opère toujours.</p>
+
+  <hr class="sep">
+
+  <div class="section-title">La charte</div>
+
+  <ul class="charte-list">
+    <li>Un espace safe et ouvert — ta voix a sa place ici</li>
+    <li>Répertoire varié, multilingue, contemporain</li>
+    <li>Sessions autogérées — ton respect et ton énergie comptent</li>
+    <li>Tes idées construisent la ChorAlchimie</li>
+  </ul>
+
+  <hr class="sep">
+
+  <div class="section-title">L'équipe</div>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-emoji">🎯</div>
+      <div><div class="team-name">Pierrick</div><div class="team-role">Président · Organisation</div></div>
+    </div>
+    <div class="team-card">
+      <div class="team-emoji">🎵</div>
+      <div><div class="team-name">Laëtitia</div><div class="team-role">Cheffe de chœur · ChorAlchimie</div></div>
+    </div>
+    <div class="team-card">
+      <div class="team-emoji">🎸</div>
+      <div><div class="team-name">Axel</div><div class="team-role">Animateur · Choraoké</div></div>
+    </div>
+    <div class="team-card">
+      <div class="team-emoji">📋</div>
+      <div><div class="team-name">Benoît</div><div class="team-role">Secrétaire général</div></div>
+    </div>
+    <div class="team-card">
+      <div class="team-emoji">💛</div>
+      <div><div class="team-name">Véronica</div><div class="team-role">Trésorière</div></div>
+    </div>
+  </div>
+
+</div>
+
+<a href="../accueil/" class="btn-back">← Retour à l'accueil</a>
+
+</body>
+</html>
