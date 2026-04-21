@@ -103,21 +103,31 @@ body{padding-bottom:env(safe-area-inset-bottom)}
     <input type="tel" id="telephone" placeholder="06 XX XX XX XX">
   </div>
 
-  <!-- Disponibilités (chips multi-select) -->
-  <div class="chips-label">Disponibilités</div>
+  <!-- Sessions (chips multi-select) -->
+  <div class="chips-label">Sur quelles sessions ?</div>
+  <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Tu peux en cocher plusieurs</div>
   <div class="chips" id="chipsDispo">
-    <div class="chip" data-val="Mercredi soir">Mercredi soir</div>
-    <div class="chip" data-val="Week-end">Week-end</div>
-    <div class="chip" data-val="Ponctuel">Ponctuel</div>
-    <div class="chip" data-val="Régulier">Régulier</div>
+    <div class="chip" data-val="29 avr · Choraoké · Berges du Rhône">Mer 29 avr · Choraoké · Berges du Rhône</div>
+    <div class="chip" data-val="12 mai · ChorAlchimie · Parc de la Tête d'Or">Mar 12 mai · ChorAlchimie · Parc de la Tête d'Or</div>
+    <div class="chip" data-val="27 mai · Choraoké · Berges du Rhône">Mer 27 mai · Choraoké · Berges du Rhône</div>
+    <div class="chip" data-val="10 juin · ChorAlchimie · Rhône">Mer 10 juin · ChorAlchimie · Rhône</div>
+    <div class="chip" data-val="24 juin · Choraoké · Rhône">Mer 24 juin · Choraoké · Rhône</div>
+    <div class="chip" data-val="11 juil · COMBO 🍾 · TBD">Sam 11 juil · COMBO 🍾 · TBD</div>
+    <div class="chip" data-val="22 juil · Choraoké · Berges du Rhône">Mer 22 juil · Choraoké · Berges du Rhône</div>
+    <div class="chip" data-val="19 août · ChorAlchimie · Parc de la Tête d'Or">Mer 19 août · ChorAlchimie · Parc de la Tête d'Or</div>
+    <div class="chip" data-val="2 sept · Choraoké · Berges du Rhône">Mer 2 sept · Choraoké · Berges du Rhône</div>
+    <div class="chip" data-val="19 sept · COMBO 🍾 · TBD">Sam 19 sept · COMBO 🍾 · TBD</div>
+    <div class="chip" data-val="30 sept · Choraoké · TBD">Mer 30 sept · Choraoké · TBD</div>
+    <div class="chip" data-val="14 oct · ChorAlchimie · TBD">Mer 14 oct · ChorAlchimie · TBD</div>
   </div>
 
-  <!-- Format -->
-  <div class="chips-label">Format préféré</div>
+  <!-- Durée (chips single-select) -->
+  <div class="chips-label">Je souhaite jouer...</div>
   <div class="chips" id="chipsFormat">
-    <div class="chip" data-val="ChorAlchimie">🎵 ChorAlchimie</div>
-    <div class="chip" data-val="Choraoké">🎤 Choraoké</div>
-    <div class="chip" data-val="Les deux">Les deux</div>
+    <div class="chip" data-val="1 morceau">🎵 1 morceau</div>
+    <div class="chip" data-val="~15 minutes">⏱️ ~15 minutes</div>
+    <div class="chip" data-val="~1 heure">🕐 ~1 heure</div>
+    <div class="chip" data-val="La session entière">🎶 La session entière</div>
   </div>
 
   <div class="field">
@@ -129,6 +139,8 @@ body{padding-bottom:env(safe-area-inset-bottom)}
     <label>Lien audio / vidéo</label>
     <input type="url" id="lienAudio" placeholder="https://youtube.com/... ou soundcloud.com/...">
   </div>
+
+  <div style="background:var(--cream2);border-radius:10px;padding:14px;border:1px solid var(--border);margin-bottom:20px;font-size:13px;color:var(--sub);line-height:1.6">On fait tourner les musiciens au fil de la saison pour que chacun puisse vivre l'expérience. Tu ne joueras peut-être pas à chaque session — mais tu joueras. 🎶</div>
 
   <button type="submit" class="submit-btn" id="submitBtn">Je veux jouer avec vous →</button>
   <div style="text-align:center;font-size:13px;color:var(--muted);margin-top:12px">On te répond dans les 48h 🎶</div>
