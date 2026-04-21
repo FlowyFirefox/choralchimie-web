@@ -13,6 +13,19 @@ html,body{background:var(--bg)!important;color:#F0EBE3;font-family:'Cormorant Ga
 :root{--braise:#C25918;--braise-dark:#B04D10;--amethyste:#5A2090;--border:rgba(255,255,255,0.08);--text:#F0EBE3;--sub:rgba(240,235,227,0.65);--muted:rgba(240,235,227,0.45);--bg:#0A0A0A;--s1:#111;--s2:#181818;--s3:#222}
 body.light{--bg:#F5EFE3;--s1:#FDFAF5;--s2:#EDE6D6;--s3:#E3D9C6;--text:#2C2416;--sub:rgba(44,36,22,.65);--muted:rgba(44,36,22,.4);--border:rgba(44,36,22,.1);--bsp-bg:rgba(44,36,22,.1);--bsp-bd:rgba(44,36,22,.15)}
 .theme-toggle{position:fixed;bottom:76px;right:16px;width:40px;height:40px;border-radius:50%;border:none;background:var(--s2);color:var(--text);font-size:18px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.25);transition:transform .15s}.theme-toggle:active{transform:scale(.92)}
+.fab{position:fixed;bottom:24px;right:16px;width:52px;height:52px;border-radius:50%;border:none;background:var(--braise);color:#fff;font-size:24px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(194,89,24,.35);transition:transform .15s}.fab:active{transform:scale(.92)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}.modal-overlay.open{display:block}
+.modal-sheet{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-radius:24px 24px 0 0;padding:20px 20px env(safe-area-inset-bottom);z-index:301;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch}.modal-sheet.open{transform:translateY(0)}
+.modal-handle{width:36px;height:4px;border-radius:2px;background:var(--muted);margin:0 auto 16px;opacity:.4}
+.modal-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);margin-bottom:16px}
+.modal-field{margin-bottom:14px}
+.modal-field label{display:block;font-size:12px;color:var(--sub);margin-bottom:4px;letter-spacing:.04em}
+.modal-field input{width:100%;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--text);outline:none;-webkit-appearance:none}.modal-field input:focus{border-color:var(--braise)}
+.modal-field input::placeholder{color:var(--muted)}
+.modal-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.modal-chips .mchip{padding:6px 12px;border-radius:16px;border:1px solid var(--border);background:var(--s1);font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--sub);cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none}.modal-chips .mchip.on{background:var(--braise);border-color:var(--braise);color:#fff}
+.modal-submit{width:100%;padding:14px;border:none;border-radius:12px;background:var(--braise);color:#fff;font-family:'DM Serif Display',serif;font-size:15px;cursor:pointer;transition:transform .15s;min-height:48px;margin-top:4px}.modal-submit:active{transform:scale(.97)}.modal-submit:disabled{opacity:.5}
+.modal-toast{position:fixed;bottom:80px;left:16px;right:16px;padding:14px;border-radius:12px;font-family:'Cormorant Garamond',serif;font-size:14px;text-align:center;color:#fff;transform:translateY(40px);opacity:0;transition:all .3s;z-index:400;pointer-events:none}.modal-toast.ok{background:#4E7A65}.modal-toast.err{background:var(--braise)}.modal-toast.show{transform:translateY(0);opacity:1}
 .header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border)}
 .logo-banner{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 8px;border-bottom:1px solid var(--border);cursor:pointer}
 .header-logo{height:64px;width:auto;object-fit:contain}
@@ -231,5 +244,115 @@ filt.addEventListener('click',function(e){
 render();
 </script>
 <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" title="Mode jour / nuit">🌙</button>
+
+<!-- FAB Proposer un titre -->
+<button class="fab" id="fabSuggest" title="Proposer un titre">＋</button>
+
+<!-- Modal suggestion -->
+<div class="modal-overlay" id="suggestOverlay"></div>
+<div class="modal-sheet" id="suggestSheet">
+  <div class="modal-handle"></div>
+  <div class="modal-title">Proposer un titre</div>
+  <form id="suggestForm">
+    <div class="modal-field">
+      <label>Titre *</label>
+      <input type="text" id="sgTitle" placeholder="Nom du morceau" required>
+    </div>
+    <div class="modal-field">
+      <label>Artiste *</label>
+      <input type="text" id="sgArtist" placeholder="Nom de l'artiste">
+    </div>
+    <div class="modal-field">
+      <label>Langue</label>
+    </div>
+    <div class="modal-chips" id="sgLangChips">
+      <div class="mchip" data-val="Anglais">🇬🇧 Anglais</div>
+      <div class="mchip" data-val="Français">🇫🇷 Français</div>
+      <div class="mchip" data-val="Autre">🌍 Autre</div>
+    </div>
+    <div class="modal-field">
+      <label>Instrument (optionnel)</label>
+      <input type="text" id="sgInstrument" placeholder="Piano, guitare...">
+    </div>
+    <button type="submit" class="modal-submit" id="sgSubmit">Envoyer la suggestion</button>
+  </form>
+</div>
+<div class="modal-toast" id="sgToast"></div>
+
+<script>
+(function(){
+  var APPS_SCRIPT_SUGGESTIONS_URL = 'APPS_SCRIPT_SUGGESTIONS_URL';
+
+  var fab = document.getElementById('fabSuggest');
+  var overlay = document.getElementById('suggestOverlay');
+  var sheet = document.getElementById('suggestSheet');
+  var form = document.getElementById('suggestForm');
+  var toast = document.getElementById('sgToast');
+
+  function openModal() { overlay.classList.add('open'); sheet.classList.add('open'); }
+  function closeModal() { overlay.classList.remove('open'); sheet.classList.remove('open'); }
+
+  fab.addEventListener('click', openModal);
+  overlay.addEventListener('click', closeModal);
+
+  // Chips single-select
+  document.getElementById('sgLangChips').addEventListener('click', function(e) {
+    var c = e.target.closest('.mchip');
+    if (!c) return;
+    var was = c.classList.contains('on');
+    this.querySelectorAll('.mchip').forEach(function(x) { x.classList.remove('on'); });
+    if (!was) c.classList.add('on');
+  });
+
+  function showToast(msg, type) {
+    toast.textContent = msg;
+    toast.className = 'modal-toast ' + type + ' show';
+    setTimeout(function() { toast.classList.remove('show'); }, 3500);
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var titre = document.getElementById('sgTitle').value.trim();
+    var artiste = document.getElementById('sgArtist').value.trim();
+    if (!titre) { showToast('Ajoute au moins un titre', 'err'); return; }
+
+    var langChip = document.querySelector('#sgLangChips .mchip.on');
+    var langue = langChip ? langChip.dataset.val : '';
+
+    var btn = document.getElementById('sgSubmit');
+    btn.disabled = true;
+    btn.textContent = 'Envoi...';
+
+    fetch(APPS_SCRIPT_SUGGESTIONS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        titre: titre,
+        artiste: artiste,
+        langue: langue,
+        instrument: document.getElementById('sgInstrument').value.trim(),
+        source: 'App Choraoké'
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.status === 'ok') {
+        showToast('✓ Suggestion envoyée !', 'ok');
+        form.reset();
+        document.querySelectorAll('#sgLangChips .mchip.on').forEach(function(c) { c.classList.remove('on'); });
+        closeModal();
+      } else {
+        showToast('Erreur — réessaie', 'err');
+      }
+      btn.disabled = false; btn.textContent = 'Envoyer la suggestion';
+    })
+    .catch(function() {
+      showToast('Erreur réseau', 'err');
+      btn.disabled = false; btn.textContent = 'Envoyer la suggestion';
+    });
+  });
+})();
+</script>
+
 </body>
 </html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<meta name="theme-color" content="#F5EFE3">
+<title>La ChorAlchimie — Lyon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#F5EFE3;--cream2:#EDE6D6;--cream3:#E3D9C6;--white:#FDFAF5;
+  --ink:#2C2416;--ink2:#4A3E2E;--muted:#8A7B6A;--sub:#6B5E4E;
+  --braise:#C25918;--braise-bg:rgba(194,89,24,0.08);--braise-bd:rgba(194,89,24,0.22);
+  --euca:#4E7A65;--euca-bg:rgba(78,122,101,0.08);--euca-bd:rgba(78,122,101,0.22);
+  --gold:#B08640;--gold-bg:rgba(176,134,64,0.08);
+  --border:rgba(44,36,22,0.1);--border2:rgba(44,36,22,0.06);
+}
+html,body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;min-height:100vh;min-height:100dvh}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;padding:24px 20px env(safe-area-inset-bottom) 20px;text-align:center}
+body.night{--cream:#0A0A0A;--cream2:#111;--cream3:#181818;--white:#151515;--ink:#F0EBE3;--ink2:#D0C9BE;--muted:rgba(240,235,227,0.45);--sub:rgba(240,235,227,0.65);--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.06)}
+
+.logo{height:52px;width:auto;margin-bottom:28px}
+.theme-toggle{position:fixed;top:16px;right:16px;width:40px;height:40px;border-radius:50%;border:none;background:var(--cream2);color:var(--ink);font-size:18px;cursor:pointer;z-index:200;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.12);transition:transform .15s}.theme-toggle:active{transform:scale(.92)}
+
+.stats{display:flex;gap:20px;justify-content:center;margin-bottom:24px;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column;align-items:center}
+.stat-num{font-size:24px;font-weight:700;color:var(--ink)}
+.stat-label{font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+
+.hero-title{font-size:26px;font-weight:800;color:var(--ink);line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:14px;color:var(--sub);line-height:1.5;margin-bottom:24px;max-width:340px}
+
+.next-session{display:block;margin:0 auto 28px;padding:12px 18px;background:var(--white);border:1px solid var(--border2);border-radius:10px;font-size:13px;font-weight:500;color:var(--ink);text-decoration:none;max-width:360px;width:100%;text-align:left;transition:all .15s}
+.next-session:active{background:var(--cream2)}
+.next-session .ns-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--braise);margin-bottom:4px}
+.next-session .ns-info{display:flex;align-items:center;justify-content:space-between}
+.next-session .ns-text{font-size:13px;color:var(--ink)}
+.next-session .ns-arrow{color:var(--muted);font-size:14px}
+
+.cta-grid{display:flex;flex-direction:column;gap:12px;width:100%;max-width:360px}
+.cta-btn{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-radius:14px;border:1.5px solid transparent;cursor:pointer;transition:all .18s;text-align:left;text-decoration:none;min-height:48px}
+.cta-btn:active{transform:scale(.98)}
+.cta-btn.primary{background:var(--ink);color:#fff}
+.cta-btn.outline{background:transparent;border-color:var(--border);color:var(--ink)}
+.cta-label{font-size:15px;font-weight:600}
+.cta-sub{font-size:11px;opacity:.6;margin-top:2px}
+.cta-arrow{font-size:18px;opacity:.4}
+
+.link-qs{margin-top:28px;font-size:13px;color:var(--sub)}
+.link-qs a{color:var(--sub);text-decoration:none;border-bottom:1px solid var(--border)}
+.link-qs a:active{color:var(--braise)}
+
+@media(min-width:600px){
+  .hero-title{font-size:34px}
+  .hero-sub{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeBtn" title="Mode jour / nuit">🌙</button>
+
+<img src="../assets/ChorAlchimie_Horizontal_Texte_Day.png" alt="La ChorAlchimie" class="logo" id="logoImg">
+
+<div class="stats">
+  <div class="stat"><span class="stat-num">4 ans</span><span class="stat-label">d'existence</span></div>
+  <div class="stat"><span class="stat-num">250+</span><span class="stat-label">membres</span></div>
+  <div class="stat"><span class="stat-num">2x/mois</span><span class="stat-label">on se retrouve</span></div>
+</div>
+
+<h1 class="hero-title">Ta voix t'attend.</h1>
+<p class="hero-sub">Groupe de chant choral ouvert à toustes, sans audition. On chante un mercredi sur 2 à Lyon.</p>
+
+<a href="../planning/" class="next-session">
+  <div class="ns-label">Prochaine session</div>
+  <div class="ns-info"><span class="ns-text">29 avr · Choraoké · Berges du Rhône</span><span class="ns-arrow">→</span></div>
+</a>
+
+<div class="cta-grid">
+  <a href="../hub-chanteurs/" class="cta-btn primary">
+    <div><div class="cta-label">🎤 Je veux chanter</div><div class="cta-sub">Rejoins les sessions</div></div>
+    <span class="cta-arrow">→</span>
+  </a>
+  <a href="../hub-musiciens/" class="cta-btn outline">
+    <div><div class="cta-label">🎸 Je suis musicien·ne</div><div class="cta-sub">Accompagne-nous en live</div></div>
+    <span class="cta-arrow">→</span>
+  </a>
+</div>
+
+<div class="link-qs"><a href="../quisommesnous/">Qui sommes-nous ?</a></div>
+
+<script>
+(function(){
+  var btn=document.getElementById('themeBtn');
+  var logo=document.getElementById('logoImg');
+  var meta=document.querySelector('meta[name="theme-color"]');
+  function apply(night){
+    document.body.classList.toggle('night',night);
+    btn.textContent=night?'☀️':'🌙';
+    logo.src=night?'../assets/ChorAlchimie_Horizontal_Texte_Night.png':'../assets/ChorAlchimie_Horizontal_Texte_Day.png';
+    if(meta)meta.content=night?'#0A0A0A':'#F5EFE3';
+    try{localStorage.setItem('theme',night?'night':'day')}catch(e){}
+  }
+  var saved;try{saved=localStorage.getItem('theme')}catch(e){}
+  apply(saved==='night');
+  btn.addEventListener('click',function(){
+    var isNight=document.body.classList.contains('night');
+    apply(!isNight);
+  });
+})();
+</script>
+
+</body>
+</html>

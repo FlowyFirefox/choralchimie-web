@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<meta name="theme-color" content="#F5EFE3">
+<title>Planning — La ChorAlchimie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#F5EFE3;--cream2:#EDE6D6;--cream3:#E3D9C6;--white:#FDFAF5;
+  --ink:#2C2416;--ink2:#4A3E2E;--muted:#8A7B6A;--sub:#6B5E4E;
+  --braise:#C25918;--braise-bg:rgba(194,89,24,0.08);--braise-bd:rgba(194,89,24,0.22);
+  --euca:#4E7A65;--euca-bg:rgba(78,122,101,0.08);--euca-bd:rgba(78,122,101,0.22);
+  --gold:#B08640;--gold-bg:rgba(176,134,64,0.08);
+  --border:rgba(44,36,22,0.1);--border2:rgba(44,36,22,0.06);
+}
+html,body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;min-height:100vh;min-height:100dvh}
+body{padding-bottom:env(safe-area-inset-bottom)}
+
+.header{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.back{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--white);border:1px solid var(--border2);color:var(--ink);text-decoration:none;font-size:18px;flex-shrink:0}
+.back:active{background:var(--cream2)}
+.header-logo{height:32px;width:auto}
+
+.banner{margin:16px 20px;padding:20px;background:var(--ink);border-radius:14px;color:#fff}
+.banner-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--braise);margin-bottom:8px}
+.banner-title{font-size:18px;font-weight:700;margin-bottom:4px}
+.banner-meta{font-size:13px;opacity:.7}
+
+.month-section{padding:20px 20px 0}
+.month-title{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+
+.session-list{display:flex;flex-direction:column;gap:10px;padding:0 20px 24px}
+.session{display:flex;gap:14px;align-items:flex-start;padding:14px;background:var(--white);border:1px solid var(--border2);border-radius:12px}
+.session:active{background:var(--cream)}
+
+.session-date{width:48px;height:48px;border-radius:10px;background:var(--cream2);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
+.session-day{font-size:18px;font-weight:700;color:var(--ink);line-height:1}
+.session-month{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+
+.session-info{flex:1;min-width:0}
+.session-badge{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;margin-bottom:4px}
+.session-badge.choral{background:var(--braise-bg);color:var(--braise);border:1px solid var(--braise-bd)}
+.session-badge.choraoke{background:var(--euca-bg);color:var(--euca);border:1px solid var(--euca-bd)}
+.session-badge.combo{background:var(--ink);color:#fff;border:1px solid var(--ink)}
+.session-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.session-meta{font-size:11px;color:var(--sub);margin-bottom:2px}
+.session-lieu{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="../hub-chanteurs/" class="back">←</a>
+  <img src="../assets/ChorAlchimie_Horizontal_Texte_Day.png" alt="La ChorAlchimie" class="header-logo">
+</header>
+
+<!-- Prochaine session -->
+<div class="banner">
+  <div class="banner-label">Prochaine session</div>
+  <div class="banner-title">Choraoké — Berges du Rhône</div>
+  <div class="banner-meta">📅 Mercredi 29 avril · 19h00 · Animé par Axel</div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     SESSIONS — Mettre à jour manuellement
+     ═══════════════════════════════════════ -->
+
+<!-- Avril 2026 -->
+<div class="month-section"><div class="month-title">Avril 2026</div></div>
+<div class="session-list">
+  <div class="session">
+    <div class="session-date"><span class="session-day">29</span><span class="session-month">Avr</span></div>
+    <div class="session-info">
+      <span class="session-badge choraoke">Choraoké</span>
+      <div class="session-title">Choraoké</div>
+      <div class="session-meta">Mer · 19h — 22h30</div>
+      <div class="session-lieu">📍 Berges du Rhône</div>
+    </div>
+  </div>
+</div>
+
+<!-- Mai 2026 -->
+<div class="month-section"><div class="month-title">Mai 2026</div></div>
+<div class="session-list">
+  <div class="session">
+    <div class="session-date"><span class="session-day">12</span><span class="session-month">Mai</span></div>
+    <div class="session-info">
+      <span class="session-badge choral">ChorAlchimie</span>
+      <div class="session-title">ChorAlchimie</div>
+      <div class="session-meta">Mar · 19h — 22h30</div>
+      <div class="session-lieu">📍 Parc de la Tête d'Or</div>
+    </div>
+  </div>
+  <div class="session">
+    <div class="session-date"><span class="session-day">27</span><span class="session-month">Mai</span></div>
+    <div class="session-info">
+      <span class="session-badge choraoke">Choraoké</span>
+      <div class="session-title">Choraoké</div>
+      <div class="session-meta">Mer · 19h — 22h30</div>
+      <div class="session-lieu">📍 Berges du Rhône</div>
+    </div>
+  </div>
+</div>
+
+<!-- Juin 2026 -->
+<div class="month-section"><div class="month-title">Juin 2026</div></div>
+<div class="session-list">
+  <div class="session">
+    <div class="session-date"><span class="session-day">10</span><span class="session-month">Jun</span></div>
+    <div class="session-info">
+      <span class="session-badge choral">ChorAlchimie</span>
+      <div class="session-title">ChorAlchimie</div>
+      <div class="session-meta">Mer · 19h — 22h30</div>
+      <div class="session-lieu">📍 Rhône</div>
+    </div>
+  </div>
+  <div class="session">
+    <div class="session-date"><span class="session-day">24</span><span class="session-month">Jun</span></div>
+    <div class="session-info">
+      <span class="session-badge choraoke">Choraoké</span>
+      <div class="session-title">Choraoké</div>
+      <div class="session-meta">Mer · 19h — 22h30</div>
+      <div class="session-lieu">📍 Rhône</div>
+    </div>
+  </div>
+</div>
+
+<!-- Juillet 2026 -->
+<div class="month-section"><div class="month-title">Juillet 2026</div></div>
+<div class="session-list">
+  <div class="session">
+    <div class="session-date"><span class="session-day">11</span><span class="session-month">Jul</span></div>
+    <div class="session-info">
+      <span class="session-badge combo">🍾 COMBO</span>
+      <div class="session-title">ChorAlchimie + Choraoké</div>
+      <div class="session-meta">Sam · 17h30 — 22h30</div>
+    </div>
+  </div>
+  <div class="session">
+    <div class="session-date"><span class="session-day">22</span><span class="session-month">Jul</span></div>
+    <div class="session-info">
+      <span class="session-badge choraoke">Choraoké</span>
+      <div class="session-title">Choraoké</div>
+      <div class="session-meta">Mer</div>
+      <div class="session-lieu">📍 Berges du Rhône</div>
+    </div>
+  </div>
+</div>
+
+<!-- Août 2026 -->
+<div class="month-section"><div class="month-title">Août 2026</div></div>
+<div class="session-list">
+  <div class="session">
+    <div class="session-date"><span class="session-day">19</span><span class="session-month">Aoû</span></div>
+    <div class="session-info">
+      <span class="session-badge choral">ChorAlchimie</span>
+      <div class="session-title">ChorAlchimie</div>
+      <div class="session-meta">Mer · 19h — 22h30</div>
+      <div class="session-lieu">📍 Parc de la Tête d'Or</div>
+    </div>
+  </div>
+</div>
+
+<!-- Septembre 2026 -->
+<div class="month-section"><div class="month-title">Septembre 2026</div></div>
+<div class="session-list">
+  <div class="session">
+    <div class="session-date"><span class="session-day">2</span><span class="session-month">Sep</span></div>
+    <div class="session-info">
+      <span class="session-badge choraoke">Choraoké</span>
+      <div class="session-title">Choraoké</div>
+      <div class="session-meta">Mer · 19h — 22h30</div>
+      <div class="session-lieu">📍 Berges du Rhône</div>
+    </div>
+  </div>
+  <div class="session">
+    <div class="session-date"><span class="session-day">19</span><span class="session-month">Sep</span></div>
+    <div class="session-info">
+      <span class="session-badge combo">🍾 COMBO</span>
+      <div class="session-title">ChorAlchimie + Choraoké</div>
+      <div class="session-meta">Sam · 17h30 — 22h30</div>
+    </div>
+  </div>
+  <div class="session">
+    <div class="session-date"><span class="session-day">30</span><span class="session-month">Sep</span></div>
+    <div class="session-info">
+      <span class="session-badge choraoke">Choraoké</span>
+      <div class="session-title">Choraoké</div>
+      <div class="session-meta">Mer · 19h — 22h30</div>
+      <div class="session-lieu">📍 Lieu à confirmer</div>
+    </div>
+  </div>
+</div>
+
+<!-- Octobre 2026 -->
+<div class="month-section"><div class="month-title">Octobre 2026</div></div>
+<div class="session-list">
+  <div class="session">
+    <div class="session-date"><span class="session-day">14</span><span class="session-month">Oct</span></div>
+    <div class="session-info">
+      <span class="session-badge choral">ChorAlchimie</span>
+      <div class="session-title">ChorAlchimie</div>
+      <div class="session-meta">Mer · 17h30 — 22h30</div>
+    </div>
+  </div>
+</div>
+
+<!-- Légende -->
+<div style="padding:16px 20px 32px">
+  <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Légende</div>
+  <div style="font-size:12px;color:var(--sub);line-height:1.8">
+    <span style="display:inline-block;padding:2px 8px;border-radius:10px;background:var(--braise-bg);color:var(--braise);border:1px solid var(--braise-bd);font-size:10px;font-weight:600">ChorAlchimie</span> Apprendre un arrangement choral<br>
+    <span style="display:inline-block;padding:2px 8px;border-radius:10px;background:var(--euca-bg);color:var(--euca);border:1px solid var(--euca-bd);font-size:10px;font-weight:600;margin-top:4px">Choraoké</span> Chanter ensemble en live<br>
+    <span style="display:inline-block;padding:2px 8px;border-radius:10px;background:var(--ink);color:#fff;border:1px solid var(--ink);font-size:10px;font-weight:600;margin-top:4px">🍾 COMBO</span> Les deux dans la même soirée
+  </div>
+</div>
+
+</body>
+</html>

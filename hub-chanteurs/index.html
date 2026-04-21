@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<meta name="theme-color" content="#F5EFE3">
+<title>Chanteurs — La ChorAlchimie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#F5EFE3;--cream2:#EDE6D6;--cream3:#E3D9C6;--white:#FDFAF5;
+  --ink:#2C2416;--ink2:#4A3E2E;--muted:#8A7B6A;--sub:#6B5E4E;
+  --braise:#C25918;--braise-bg:rgba(194,89,24,0.08);--braise-bd:rgba(194,89,24,0.22);
+  --euca:#4E7A65;--euca-bg:rgba(78,122,101,0.08);--euca-bd:rgba(78,122,101,0.22);
+  --gold:#B08640;--gold-bg:rgba(176,134,64,0.08);
+  --border:rgba(44,36,22,0.1);--border2:rgba(44,36,22,0.06);
+}
+html,body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;min-height:100vh;min-height:100dvh}
+body{padding-bottom:env(safe-area-inset-bottom)}
+
+.header{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.back{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--white);border:1px solid var(--border2);color:var(--ink);text-decoration:none;font-size:18px;flex-shrink:0}
+.back:active{background:var(--cream2)}
+.header-logo{height:32px;width:auto}
+
+.banner{margin:16px 20px;padding:20px;background:var(--ink);border-radius:14px;color:#fff}
+.banner-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--braise);margin-bottom:8px}
+.banner-title{font-size:18px;font-weight:700;margin-bottom:4px}
+.banner-meta{font-size:13px;opacity:.7}
+
+.section{padding:20px 20px 0}
+.section-title{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+
+.link-list{display:flex;flex-direction:column;gap:8px;padding:0 20px 20px}
+.link-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--white);border:1px solid var(--border2);border-radius:8px;cursor:pointer;transition:all .15s;text-decoration:none;color:var(--ink);min-height:48px}
+.link-item:active{background:var(--cream)}
+.li-left{display:flex;align-items:center;gap:12px}
+.li-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.li-ico.braise{background:var(--braise-bg)}
+.li-ico.euca{background:var(--euca-bg)}
+.li-ico.gold{background:var(--gold-bg)}
+.li-ico.ink{background:rgba(44,36,22,.06)}
+.li-title{font-size:14px;font-weight:600;color:var(--ink)}
+.li-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.li-right{display:flex;align-items:center;gap:8px}
+.li-arrow{color:var(--muted);font-size:14px}
+.li-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--euca-bg);color:var(--euca);border:1px solid var(--euca-bd)}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="../accueil/" class="back">←</a>
+  <img src="../assets/ChorAlchimie_Horizontal_Texte_Day.png" alt="La ChorAlchimie" class="header-logo">
+</header>
+
+<!-- Prochaine session -->
+<div class="banner">
+  <div class="banner-label">Prochaine session</div>
+  <div class="banner-title">Choraoké — Berges du Rhône</div>
+  <div class="banner-meta">📅 Mercredi 29 avril · 19h00 · Animé par Axel</div>
+</div>
+
+<!-- Nous rejoindre -->
+<div class="section"><div class="section-title">Nous rejoindre</div></div>
+<div class="link-list">
+  <a href="#" class="link-item" id="whatsappLink">
+    <div class="li-left">
+      <div class="li-ico euca">💬</div>
+      <div><div class="li-title">WhatsApp</div><div class="li-sub">250+ membres</div></div>
+    </div>
+    <span class="li-arrow">→</span>
+  </a>
+  <a href="https://www.instagram.com/lachoralchimie/" target="_blank" rel="noopener" class="link-item">
+    <div class="li-left">
+      <div class="li-ico braise">📸</div>
+      <div><div class="li-title">Instagram</div><div class="li-sub">@lachoralchimie</div></div>
+    </div>
+    <span class="li-arrow">→</span>
+  </a>
+</div>
+
+<!-- Ressources -->
+<div class="section"><div class="section-title">Ressources</div></div>
+<div class="link-list">
+  <a href="../choraoke-app/" class="link-item">
+    <div class="li-left">
+      <div class="li-ico braise">🎤</div>
+      <div><div class="li-title">App Choraoké</div><div class="li-sub">Retrouve les paroles et accords pendant les sessions</div></div>
+    </div>
+    <div class="li-right"><span class="li-badge">Live ✓</span><span class="li-arrow">→</span></div>
+  </a>
+  <a href="../planning/" class="link-item">
+    <div class="li-left">
+      <div class="li-ico gold">📅</div>
+      <div><div class="li-title">Planning</div><div class="li-sub">Dates de la saison</div></div>
+    </div>
+    <span class="li-arrow">→</span>
+  </a>
+  <a href="../outils/adhesion.html" class="link-item">
+    <div class="li-left">
+      <div class="li-ico euca">✅</div>
+      <div><div class="li-title">Adhérer</div><div class="li-sub">Soutenir le projet · 20€/an</div></div>
+    </div>
+    <div class="li-right"><span class="li-badge">Live ✓</span><span class="li-arrow">→</span></div>
+  </a>
+  <a href="../quisommesnous/" class="link-item">
+    <div class="li-left">
+      <div class="li-ico ink">💡</div>
+      <div><div class="li-title">Qui sommes-nous</div><div class="li-sub">Histoire · Charte · Équipe</div></div>
+    </div>
+    <span class="li-arrow">→</span>
+  </a>
+</div>
+
+</body>
+</html>
