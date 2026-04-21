@@ -107,22 +107,38 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   </div>
 
   <!-- Sessions (chips multi-select) -->
-  <div style="background:var(--cream2);border-radius:10px;padding:12px;font-size:12px;color:var(--sub);line-height:1.7;margin-bottom:16px">🎤 <strong>ChorAlchimie</strong> — on apprend et répète un arrangement toute la soirée. Tu joues en accompagnement.<br>🎸 <strong>Choraoké</strong> — format libre, répertoire varié. Tu joues parmi nos 587 titres.</div>
   <div class="chips-label">Sur quelles sessions ?</div>
   <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Tu peux en cocher plusieurs</div>
-  <div class="chips" id="chipsDispo">
-    <div class="chip chip-choraoke" data-val="29 avr · Choraoké · Berges du Rhône">Mer 29 avr · Choraoké · Berges du Rhône</div>
-    <div class="chip chip-choralchimie" data-val="12 mai · ChorAlchimie · Parc de la Tête d'Or">Mar 12 mai · ChorAlchimie · Parc de la Tête d'Or</div>
-    <div class="chip chip-choraoke" data-val="27 mai · Choraoké · Berges du Rhône">Mer 27 mai · Choraoké · Berges du Rhône</div>
-    <div class="chip chip-choralchimie" data-val="10 juin · ChorAlchimie · Rhône">Mer 10 juin · ChorAlchimie · Rhône</div>
-    <div class="chip chip-choraoke" data-val="24 juin · Choraoké · Rhône">Mer 24 juin · Choraoké · Rhône</div>
-    <div class="chip chip-combo" data-val="11 juil · COMBO 🍾 · TBD">Sam 11 juil · COMBO 🍾 · TBD</div>
-    <div class="chip chip-choraoke" data-val="22 juil · Choraoké · Berges du Rhône">Mer 22 juil · Choraoké · Berges du Rhône</div>
-    <div class="chip chip-choralchimie" data-val="19 août · ChorAlchimie · Parc de la Tête d'Or">Mer 19 août · ChorAlchimie · Parc de la Tête d'Or</div>
-    <div class="chip chip-choraoke" data-val="2 sept · Choraoké · Berges du Rhône">Mer 2 sept · Choraoké · Berges du Rhône</div>
-    <div class="chip chip-combo" data-val="19 sept · COMBO 🍾 · TBD">Sam 19 sept · COMBO 🍾 · TBD</div>
-    <div class="chip chip-choraoke" data-val="30 sept · Choraoké · TBD">Mer 30 sept · Choraoké · TBD</div>
-    <div class="chip chip-choralchimie" data-val="14 oct · ChorAlchimie · TBD">Mer 14 oct · ChorAlchimie · TBD</div>
+  <div id="chipsDispo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--braise);margin-bottom:8px;text-align:center">🎤 ChorAlchimie</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div class="chip chip-choralchimie" data-val="12 mai · ChorAlchimie · Parc de la Tête d'Or">Mar 12 mai</div>
+          <div class="chip chip-choralchimie" data-val="10 juin · ChorAlchimie · Rhône">Mer 10 juin</div>
+          <div class="chip chip-choralchimie" data-val="19 août · ChorAlchimie · Parc de la Tête d'Or">Mer 19 août</div>
+          <div class="chip chip-choralchimie" data-val="14 oct · ChorAlchimie · TBD">Mer 14 oct</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--euca);margin-bottom:8px;text-align:center">🎸 Choraoké</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div class="chip chip-choraoke" data-val="29 avr · Choraoké · Berges du Rhône">Mer 29 avr</div>
+          <div class="chip chip-choraoke" data-val="27 mai · Choraoké · Berges du Rhône">Mer 27 mai</div>
+          <div class="chip chip-choraoke" data-val="24 juin · Choraoké · Rhône">Mer 24 juin</div>
+          <div class="chip chip-choraoke" data-val="22 juil · Choraoké · Berges du Rhône">Mer 22 juil</div>
+          <div class="chip chip-choraoke" data-val="2 sept · Choraoké · Berges du Rhône">Mer 2 sept</div>
+          <div class="chip chip-choraoke" data-val="30 sept · Choraoké · TBD">Mer 30 sept</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:8px;text-align:center">🍾 Sessions COMBO</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <div class="chip chip-combo" data-val="11 juil · COMBO 🍾">Sam 11 juil — ChorAlchimie + Choraoké</div>
+        <div class="chip chip-combo" data-val="19 sept · COMBO 🍾">Sam 19 sept — ChorAlchimie + Choraoké</div>
+      </div>
+    </div>
   </div>
 
   <!-- Durée (chips single-select) -->
@@ -156,7 +172,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 var APPS_SCRIPT_MUSICIENS_URL = 'APPS_SCRIPT_MUSICIENS_URL';
 
 // Chips multi-select
-document.querySelectorAll('.chips').forEach(function(wrap) {
+document.querySelectorAll('.chips, #chipsDispo').forEach(function(wrap) {
   wrap.addEventListener('click', function(e) {
     var chip = e.target.closest('.chip');
     if (chip) chip.classList.toggle('on');
