@@ -28,19 +28,19 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 .poster{display:block;width:100%;max-width:400px;margin:16px auto;padding:0 20px}
 .poster img{width:100%;height:auto;border-radius:14px}
 
-.session-details{padding:0 20px 20px;max-width:400px;margin:0 auto}
-.detail-row{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:14px;color:var(--ink2)}
-.detail-row span:first-child{font-size:18px;width:28px;text-align:center;flex-shrink:0}
-
 .form-section{padding:0 20px 24px;max-width:400px;margin:0 auto}
 .form-title{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:12px}
 .field{margin-bottom:16px}
 .field label{display:block;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:6px;letter-spacing:.02em}
 .field label .req{color:var(--braise)}
-.field input,.field select{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'Outfit',sans-serif;font-size:16px;color:var(--ink);outline:none;-webkit-appearance:none;transition:border-color .15s}
-.field input:focus,.field select:focus{border-color:var(--braise)}
+.field input{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'Outfit',sans-serif;font-size:16px;color:var(--ink);outline:none;-webkit-appearance:none;transition:border-color .15s}
+.field input:focus{border-color:var(--braise)}
 .field input::placeholder{color:var(--muted)}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A7B6A' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--white);font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;color:var(--ink2);cursor:pointer;transition:all .15s;-webkit-user-select:none;user-select:none;min-height:36px;display:flex;align-items:center}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip:active{transform:scale(.96)}
 
 .submit-btn{width:100%;padding:16px;border:none;border-radius:14px;background:var(--braise);color:#fff;font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all .18s;min-height:52px}
 .submit-btn:active{transform:scale(.98)}
@@ -60,38 +60,34 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 
 <header class="header">
   <a href="../accueil/" class="back">←</a>
-  <span class="header-title">Choraoké — 29 avril</span>
+  <span class="header-title">La ChorAlchimie</span>
 </header>
 
 <div class="poster">
   <img src="../assets/2026_04_29-Choraoké_Affiche_App.png" alt="Affiche Choraoké 29 avril 2026">
 </div>
 
-<div class="session-details">
-  <div class="detail-row"><span>📅</span><span>Mercredi 29 avril 2026</span></div>
-  <div class="detail-row"><span>🕖</span><span>19h — 22h30</span></div>
-  <div class="detail-row"><span>📍</span><span>Berges du Rhône, Lyon</span></div>
-  <div class="detail-row"><span>🎤</span><span>Animé par Axel</span></div>
-</div>
+<div style="text-align:center;font-size:13px;color:var(--muted);padding:0 20px 20px">Prix libre et conscient · Ouvert à tous</div>
 
 <div class="form-section">
+  <div style="background:var(--cream2);border-radius:10px;padding:12px;font-size:13px;color:var(--sub);line-height:1.6;margin-bottom:16px">Pas besoin de s'inscrire pour venir — c'est gratuit et ouvert à tous. Ce formulaire nous aide juste à estimer le nombre de participants 😊</div>
   <div class="form-title">Je serai là 👋</div>
   <form id="presenceForm" novalidate>
     <div class="field">
       <label>Prénom <span class="req">*</span></label>
       <input type="text" id="prenom" placeholder="Ton prénom" required>
     </div>
-    <div class="field">
-      <label>Comment tu as connu la session ?</label>
-      <select id="source">
-        <option value="">—</option>
-        <option value="WhatsApp">WhatsApp</option>
-        <option value="Instagram">Instagram</option>
-        <option value="Un ami">Un ami</option>
-        <option value="Autre">Autre</option>
-      </select>
+    <div style="margin-bottom:16px">
+      <label style="display:block;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:8px;letter-spacing:.02em">Comment tu as connu la session ?</label>
+      <div class="chips" id="sourceChips">
+        <div class="chip" data-val="WhatsApp">WhatsApp</div>
+        <div class="chip" data-val="Instagram">Instagram</div>
+        <div class="chip" data-val="Un ami">Un ami</div>
+        <div class="chip" data-val="Par hasard">Par hasard</div>
+        <div class="chip" data-val="Autre">Autre</div>
+      </div>
     </div>
-    <button type="submit" class="submit-btn" id="submitBtn">Je confirme ma présence →</button>
+    <button type="submit" class="submit-btn" id="submitBtn">J'y serai ! 🎤</button>
   </form>
 </div>
 
@@ -100,10 +96,27 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   <a href="https://www.instagram.com/lachoralchimie/" target="_blank" rel="noopener" class="social-link">📸 Voir Instagram</a>
 </div>
 
+<div style="padding:0 20px 32px;max-width:400px;margin:0 auto">
+  <div style="font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">Et après ?</div>
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <a href="../planning/" style="font-size:13px;color:var(--sub);text-decoration:none">Voir toutes les sessions →</a>
+    <a href="../choraoke-app/" style="font-size:13px;color:var(--sub);text-decoration:none">Découvrir le répertoire →</a>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 var APPS_SCRIPT_SESSION_URL = 'APPS_SCRIPT_SESSION_29AVRIL_URL';
+
+// Chips single-select
+document.getElementById('sourceChips').addEventListener('click', function(e) {
+  var c = e.target.closest('.chip');
+  if (!c) return;
+  var was = c.classList.contains('on');
+  this.querySelectorAll('.chip').forEach(function(x) { x.classList.remove('on'); });
+  if (!was) c.classList.add('on');
+});
 
 function showToast(msg, type) {
   var t = document.getElementById('toast');
@@ -126,7 +139,7 @@ document.getElementById('presenceForm').addEventListener('submit', function(e) {
     headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify({
       prenom: prenom,
-      source: document.getElementById('source').value
+      source: (function(){ var c=document.querySelector('#sourceChips .chip.on'); return c?c.dataset.val:''; })()
     })
   })
   .then(function(r) { return r.json(); })
@@ -138,12 +151,12 @@ document.getElementById('presenceForm').addEventListener('submit', function(e) {
       showToast('Erreur — réessaie', 'error');
     }
     btn.disabled = false;
-    btn.textContent = 'Je confirme ma présence →';
+    btn.textContent = 'J'y serai ! 🎤';
   })
   .catch(function() {
     showToast('Erreur réseau', 'error');
     btn.disabled = false;
-    btn.textContent = 'Je confirme ma présence →';
+    btn.textContent = 'J'y serai ! 🎤';
   });
 });
 </script>
