@@ -29,7 +29,7 @@ from pathlib import Path
 # ============================================================================
 
 # ID du Google Sheet (visible dans l'URL entre /d/ et /edit)
-SHEET_ID = "1idt--gTrO4PUTl3UMk4YOxyTFfv0XE4O"
+SHEET_ID = "1tkQ1J7bzU_4reaTiF4LMvWeRwE0auRheOWofjVnJyFw"
 
 # Nom de l'onglet dans le Sheet (encodé pour l'URL)
 SHEET_TAB = "🎵 Base de données"
