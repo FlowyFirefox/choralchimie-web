@@ -1,1288 +1,258 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="theme-color" content="#080808">
-  <title>Adhésion — La ChorAlchimie Lyon</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-
-  <style>
-    /* ─── Variables ──────────────────────────────────── */
-    :root {
-      --braise:       #C25918;
-      --braise-dark:  #B04D10;
-      --amethyste:    #5A2090;
-      --amethyste-mid:#4A1878;
-      --amethyste-dark:#3E1470;
-      --noir:         #080808;
-      --surface:      #111111;
-      --surface2:     #1a1a1a;
-      --border:       #2a2a2a;
-      --blanc:        #F5F2EE;
-      --blanc-soft:   rgba(245,242,238,0.7);
-      --transition:   0.3s cubic-bezier(0.4,0,0.2,1);
-    }
-
-    /* ─── Reset & Base ───────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background-color: var(--noir);
-      color: var(--blanc);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 18px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      padding-bottom: 60px;
-    }
-
-    /* ─── Grain overlay ──────────────────────────────── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.6;
-    }
-
-    /* ─── Layout ─────────────────────────────────────── */
-    .page {
-      position: relative;
-      z-index: 1;
-      max-width: 560px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* ─── Top nav ────────────────────────────────────── */
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      background: rgba(8,8,8,0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(194,89,24,0.12);
-      margin: 0 -20px;
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .nav-logo img {
-      width: 38px;
-      height: 38px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 10px rgba(194,89,24,0.4));
-      transition: filter var(--transition);
-    }
-
-    .nav-logo:hover img {
-      filter: drop-shadow(0 0 16px rgba(194,89,24,0.65));
-    }
-
-    .nav-logo-text {
-      font-family: 'DM Serif Display', serif;
-      font-size: 15px;
-      font-style: italic;
-      color: var(--blanc);
-      line-height: 1;
-    }
-
-    .nav-logo-text span { color: var(--braise); font-style: normal; }
-
-    .btn-linktree {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 13px;
-      border: 1px solid rgba(245,242,238,0.15);
-      border-radius: 20px;
-      background: transparent;
-      color: rgba(245,242,238,0.55);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      text-decoration: none;
-      transition: border-color var(--transition), color var(--transition), background var(--transition);
-      white-space: nowrap;
-    }
-
-    .btn-linktree:hover {
-      border-color: rgba(194,89,24,0.5);
-      color: var(--blanc);
-      background: rgba(194,89,24,0.08);
-    }
-
-    .btn-linktree svg {
-      width: 11px;
-      height: 11px;
-      opacity: 0.6;
-    }
-
-    /* ─── Header ─────────────────────────────────────── */
-    .header {
-      text-align: center;
-      padding: 40px 0 32px;
-      animation: fadeUp 0.7s ease both;
-    }
-
-    .header-tag {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--braise);
-      margin-bottom: 8px;
-    }
-
-    .header h1 {
-      font-family: 'DM Serif Display', Georgia, serif;
-      font-size: clamp(28px, 7vw, 38px);
-      font-weight: 400;
-      font-style: italic;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      color: var(--blanc);
-    }
-
-    .header h1 em {
-      font-style: normal;
-      color: var(--braise);
-    }
-
-    .header-subtitle {
-      margin-top: 10px;
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--blanc-soft);
-      letter-spacing: 0.05em;
-    }
-
-    /* ─── Divider ────────────────────────────────────── */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 4px 0 28px;
-    }
-    .divider::before, .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--braise-dark), transparent);
-      opacity: 0.4;
-    }
-    .divider-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--braise);
-      opacity: 0.6;
-    }
-
-    /* ─── Section titles ─────────────────────────────── */
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--braise);
-      margin-bottom: 20px;
-    }
-
-    /* ─── Form card ──────────────────────────────────── */
-    .form-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      padding: 28px 24px;
-      margin-bottom: 16px;
-      animation: fadeUp 0.7s ease both;
-    }
-
-    .form-card:nth-child(2) { animation-delay: 0.1s; }
-    .form-card:nth-child(3) { animation-delay: 0.2s; }
-    .form-card:nth-child(4) { animation-delay: 0.3s; }
-
-    /* ─── Inputs ─────────────────────────────────────── */
-    .field {
-      position: relative;
-      margin-bottom: 20px;
-    }
-
-    .field label {
-      display: block;
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--blanc-soft);
-      margin-bottom: 7px;
-      transition: color var(--transition);
-    }
-
-    .field:focus-within label {
-      color: var(--braise);
-    }
-
-    .field input[type="text"],
-    .field input[type="email"],
-    .field input[type="tel"],
-    .field input[type="number"] {
-      width: 100%;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-bottom: 1px solid rgba(194,89,24,0.3);
-      border-radius: 1px;
-      padding: 12px 14px;
-      color: var(--blanc);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 17px;
-      font-weight: 400;
-      outline: none;
-      transition: border-color var(--transition), background var(--transition);
-      -webkit-appearance: none;
-    }
-
-    .field input:focus {
-      border-color: var(--braise);
-      background: rgba(194,89,24,0.04);
-    }
-
-    .field input::placeholder { color: rgba(245,242,238,0.25); }
-
-    .field-optional {
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      color: rgba(245,242,238,0.35);
-      margin-left: 6px;
-      text-transform: none;
-    }
-
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    /* ─── Checkboxes ─────────────────────────────────── */
-    .check-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-    }
-
-    .check-item:last-child { border-bottom: none; }
-
-    .check-item input[type="checkbox"] {
-      display: none;
-    }
-
-    .check-box {
-      flex-shrink: 0;
-      width: 22px;
-      height: 22px;
-      border: 1.5px solid var(--border);
-      border-radius: 1px;
-      margin-top: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color var(--transition), background var(--transition);
-      background: var(--surface2);
-    }
-
-    .check-item input:checked + .check-box {
-      border-color: var(--braise);
-      background: var(--braise);
-    }
-
-    .check-item input:checked + .check-box::after {
-      content: '';
-      display: block;
-      width: 12px;
-      height: 6px;
-      border-left: 2px solid #fff;
-      border-bottom: 2px solid #fff;
-      transform: rotate(-45deg) translateY(-2px);
-    }
-
-    .check-label {
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 1.5;
-      color: var(--blanc);
-      cursor: pointer;
-    }
-
-    .check-label strong {
-      font-weight: 600;
-      color: var(--blanc);
-    }
-
-    .check-label small {
-      display: block;
-      font-size: 13px;
-      color: var(--blanc-soft);
-      margin-top: 3px;
-    }
-
-    /* Don amount input */
-    .don-wrapper {
-      display: none;
-      margin-top: 12px;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .don-wrapper.visible { display: flex; }
-
-    .don-wrapper input {
-      width: 100px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-bottom: 1px solid rgba(194,89,24,0.3);
-      border-radius: 1px;
-      padding: 8px 12px;
-      color: var(--blanc);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 17px;
-      outline: none;
-      transition: border-color var(--transition);
-    }
-    .don-wrapper input:focus { border-color: var(--braise); }
-    .don-wrapper span {
-      font-size: 14px;
-      color: var(--blanc-soft);
-    }
-
-    /* ─── Charte ─────────────────────────────────────── */
-    .charte-container {
-      background: linear-gradient(135deg, var(--amethyste-dark) 0%, #1a0a30 100%);
-      border: 1px solid var(--amethyste-mid);
-      border-radius: 2px;
-      padding: 22px 20px;
-      margin-bottom: 16px;
-      animation: fadeUp 0.7s ease 0.25s both;
-    }
-
-    .charte-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .charte-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 20px;
-      font-weight: 400;
-      font-style: italic;
-      color: var(--blanc);
-    }
-
-    .charte-toggle {
-      width: 28px;
-      height: 28px;
-      border: 1px solid rgba(90,32,144,0.5);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform var(--transition), border-color var(--transition);
-      color: var(--blanc-soft);
-      font-size: 16px;
-    }
-
-    .charte-container.open .charte-toggle {
-      transform: rotate(180deg);
-      border-color: var(--amethyste);
-    }
-
-    .charte-body {
-      display: none;
-      margin-top: 18px;
-    }
-
-    .charte-container.open .charte-body {
-      display: block;
-      animation: fadeDown 0.3s ease both;
-    }
-
-    .charte-intro {
-      font-size: 14px;
-      font-style: italic;
-      color: rgba(245,242,238,0.65);
-      margin-bottom: 18px;
-      line-height: 1.5;
-    }
-
-    .charte-section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 16px;
-      font-weight: 400;
-      color: var(--blanc);
-      margin: 16px 0 10px;
-    }
-
-    .charte-text {
-      font-size: 15px;
-      font-weight: 300;
-      color: rgba(245,242,238,0.8);
-      line-height: 1.6;
-      margin-bottom: 8px;
-    }
-
-    .charte-piliers {
-      list-style: none;
-      padding: 0;
-      margin: 8px 0 0;
-    }
-
-    .charte-piliers li {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(90,32,144,0.2);
-      font-size: 15px;
-      font-weight: 300;
-      color: rgba(245,242,238,0.85);
-      line-height: 1.45;
-    }
-
-    .charte-piliers li:last-child { border-bottom: none; }
-
-    .pilier-num {
-      flex-shrink: 0;
-      width: 22px;
-      height: 22px;
-      background: var(--amethyste);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 600;
-      color: #fff;
-      margin-top: 1px;
-    }
-
-    /* Purple dot variant for new charte */
-    .pilier-dot {
-      flex-shrink: 0;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--amethyste);
-      margin-top: 0.55em;
-      opacity: 0.9;
-      filter: brightness(1.5);
-    }
-
-    .charte-engagement {
-      font-size: 15px;
-      color: rgba(245,242,238,0.7);
-      font-style: italic;
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(90,32,144,0.3);
-      line-height: 1.5;
-    }
-
-    /* Charte checkbox */
-    .charte-check-wrapper {
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(90,32,144,0.25);
-    }
-
-    /* ── Charte · Feature list (orange trait) ────── */
-    .charte-feature-list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .charte-feature-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      font-size: 15px;
-      font-weight: 300;
-      color: rgba(245,242,238,0.85);
-      line-height: 1.6;
-    }
-
-    .charte-feature-list li::before {
-      content: '';
-      flex-shrink: 0;
-      width: 20px;
-      height: 1px;
-      background: var(--braise);
-      margin-top: 0.7em;
-    }
-
-    /* ── Charte · Valeurs card (purple) ──────────── */
-    .charte-values-card {
-      margin: 18px 0 4px;
-      padding: 18px 18px;
-      background: rgba(62,20,112,0.25);
-      border: 1px solid rgba(90,32,144,0.4);
-      border-radius: 2px;
-    }
-
-    .charte-values-label {
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: #b480f0;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-
-    /* ── Charte · Promise card (braise) ──────────── */
-    .charte-promise-card {
-      background: rgba(194,89,24,0.08);
-      border: 1px solid rgba(194,89,24,0.22);
-      border-radius: 2px;
-      padding: 18px 18px;
-      margin: 4px 0;
-    }
-
-    .charte-promise-label {
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--braise);
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-
-    .charte-promise-text {
-      font-family: 'DM Serif Display', serif;
-      font-size: 16px;
-      font-weight: 400;
-      font-style: italic;
-      color: var(--blanc);
-      line-height: 1.6;
-    }
-
-    /* ── Charte · Bienvenu items ─────────────────── */
-    .charte-bienvenu-item {
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(245,242,238,0.08);
-      font-size: 15px;
-      font-weight: 300;
-      color: rgba(245,242,238,0.85);
-      line-height: 1.6;
-    }
-
-    .charte-bienvenu-item:first-of-type {
-      border-top: 1px solid rgba(245,242,238,0.08);
-    }
-
-    .charte-check-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      cursor: pointer;
-    }
-
-    .charte-check-item input[type="checkbox"] { display: none; }
-
-    .charte-check-box {
-      flex-shrink: 0;
-      width: 22px;
-      height: 22px;
-      border: 1.5px solid rgba(90,32,144,0.6);
-      border-radius: 1px;
-      margin-top: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color var(--transition), background var(--transition);
-      background: rgba(0,0,0,0.3);
-    }
-
-    .charte-check-item input:checked + .charte-check-box {
-      border-color: var(--amethyste);
-      background: var(--amethyste);
-    }
-
-    .charte-check-item input:checked + .charte-check-box::after {
-      content: '';
-      display: block;
-      width: 12px;
-      height: 6px;
-      border-left: 2px solid #fff;
-      border-bottom: 2px solid #fff;
-      transform: rotate(-45deg) translateY(-2px);
-    }
-
-    .charte-check-label {
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1.5;
-      color: rgba(245,242,238,0.9);
-      cursor: pointer;
-    }
-
-    /* ─── Required notice ────────────────────────────── */
-    .required-notice {
-      color: var(--braise);
-      font-size: 13px;
-      letter-spacing: 0.03em;
-      margin-top: 14px;
-      opacity: 0.8;
-    }
-
-    /* ─── Error messages ─────────────────────────────── */
-    .error-msg {
-      font-size: 12px;
-      color: #e05050;
-      margin-top: 5px;
-      display: none;
-    }
-
-    .field.error input { border-color: #e05050; }
-    .field.error .error-msg { display: block; }
-
-    /* ─── Submit button ──────────────────────────────── */
-    .submit-section {
-      margin-top: 24px;
-      animation: fadeUp 0.7s ease 0.35s both;
-    }
-
-    .btn-submit {
-      display: block;
-      width: 100%;
-      padding: 18px 24px;
-      background: var(--braise);
-      color: #fff;
-      border: none;
-      border-radius: 1px;
-      font-family: 'DM Serif Display', serif;
-      font-size: 20px;
-      font-weight: 400;
-      font-style: italic;
-      letter-spacing: 0.02em;
-      cursor: pointer;
-      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
-      position: relative;
-      overflow: hidden;
-      -webkit-appearance: none;
-    }
-
-    .btn-submit::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 100%);
-      pointer-events: none;
-    }
-
-    .btn-submit:hover {
-      background: var(--braise-dark);
-      box-shadow: 0 8px 30px rgba(194,89,24,0.35);
-    }
-
-    .btn-submit:active { transform: scale(0.99); }
-
-    .btn-submit:disabled {
-      background: #3a3a3a;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    .btn-spinner {
-      display: none;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      margin: 0 auto;
-    }
-
-    .btn-submit.loading .btn-text { display: none; }
-    .btn-submit.loading .btn-spinner { display: block; }
-
-    /* Mentions */
-    .form-mentions {
-      margin-top: 16px;
-      font-size: 12px;
-      color: rgba(245,242,238,0.35);
-      line-height: 1.5;
-      text-align: center;
-    }
-
-    /* ─── Success screen ─────────────────────────────── */
-    .success-screen {
-      display: none;
-      text-align: center;
-      padding: 60px 20px;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .success-screen.visible { display: block; }
-
-    .success-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--braise);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
-      box-shadow: 0 0 40px rgba(194,89,24,0.4);
-    }
-
-    .success-icon::after {
-      content: '';
-      display: block;
-      width: 28px;
-      height: 14px;
-      border-left: 3px solid #fff;
-      border-bottom: 3px solid #fff;
-      transform: rotate(-45deg) translateY(-4px);
-    }
-
-    .success-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 32px;
-      font-style: italic;
-      margin-bottom: 12px;
-      color: var(--blanc);
-    }
-
-    .success-subtitle {
-      font-size: 17px;
-      font-weight: 300;
-      color: var(--blanc-soft);
-      margin-bottom: 32px;
-      line-height: 1.6;
-    }
-
-    .payment-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      padding: 24px 20px;
-      text-align: left;
-      margin-top: 8px;
-    }
-
-    .payment-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 18px;
-      margin-bottom: 16px;
-    }
-
-    .payment-option {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .payment-option:last-child { border-bottom: none; }
-
-    .payment-badge {
-      flex-shrink: 0;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .badge-recommended {
-      background: rgba(194,89,24,0.2);
-      border: 1px solid rgba(194,89,24,0.4);
-      color: var(--braise);
-    }
-
-    .badge-instant {
-      background: rgba(90,32,144,0.2);
-      border: 1px solid rgba(90,32,144,0.4);
-      color: #b480f0;
-    }
-
-    .payment-info strong {
-      display: block;
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 3px;
-    }
-
-    .payment-info span {
-      font-size: 14px;
-      color: var(--blanc-soft);
-    }
-
-    .btn-helloasso {
-      display: block;
-      margin-top: 20px;
-      padding: 14px 24px;
-      background: transparent;
-      border: 1.5px solid var(--braise);
-      border-radius: 1px;
-      color: var(--braise);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      text-align: center;
-      transition: background var(--transition), color var(--transition);
-    }
-
-    .btn-helloasso:hover {
-      background: var(--braise);
-      color: #fff;
-    }
-
-    /* ─── Footer ─────────────────────────────────────── */
-    .footer {
-      text-align: center;
-      padding: 36px 20px 32px;
-      font-size: 12px;
-      color: rgba(245,242,238,0.25);
-      line-height: 1.8;
-      animation: fadeUp 0.7s ease 0.4s both;
-    }
-
-    .footer a { color: rgba(194,89,24,0.6); text-decoration: none; }
-
-    .footer-linktree {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 20px;
-      padding: 8px 18px;
-      border: 1px solid rgba(245,242,238,0.1);
-      border-radius: 20px;
-      color: rgba(245,242,238,0.35);
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      text-decoration: none;
-      transition: border-color var(--transition), color var(--transition);
-    }
-
-    .footer-linktree:hover {
-      border-color: rgba(194,89,24,0.4);
-      color: rgba(194,89,24,0.8);
-    }
-
-    /* ─── Animations ─────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* ─── Mobile polish ──────────────────────────────── */
-    @media (max-width: 400px) {
-      .form-card { padding: 22px 16px; }
-      .field-row { grid-template-columns: 1fr; }
-    }
-
-    /* Autofill override */
-    input:-webkit-autofill,
-    input:-webkit-autofill:focus {
-      -webkit-box-shadow: 0 0 0 1000px var(--surface2) inset;
-      -webkit-text-fill-color: var(--blanc);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<meta name="theme-color" content="#F5EFE3">
+<title>Adhésion — La ChorAlchimie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#F5EFE3;--cream2:#EDE6D6;--cream3:#E3D9C6;--white:#FDFAF5;
+  --ink:#2C2416;--ink2:#4A3E2E;--muted:#8A7B6A;--sub:#6B5E4E;
+  --braise:#C25918;--braise-bg:rgba(194,89,24,0.08);--braise-bd:rgba(194,89,24,0.22);
+  --euca:#4E7A65;--euca-bg:rgba(78,122,101,0.08);--euca-bd:rgba(78,122,101,0.22);
+  --gold:#B08640;--gold-bg:rgba(176,134,64,0.08);
+  --border:rgba(44,36,22,0.1);--border2:rgba(44,36,22,0.06);
+}
+html,body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;min-height:100vh;min-height:100dvh}
+body{padding-bottom:env(safe-area-inset-bottom)}
+
+.header{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.back{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--white);border:1px solid var(--border2);color:var(--ink);text-decoration:none;font-size:18px;flex-shrink:0}
+.back:active{background:var(--cream2)}
+.header-logo{height:32px;width:auto}
+
+.hero{padding:24px 20px 16px;text-align:center}
+.hero h1{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.hero p{font-size:14px;color:var(--sub)}
+
+.card{margin:0 20px 16px;padding:18px;background:var(--white);border:1px solid var(--border2);border-radius:14px}
+.card-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px}
+
+.accordion-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:0;border:none;background:none;width:100%;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;color:var(--ink);text-align:left}
+.accordion-toggle .arrow{transition:transform .2s;font-size:14px;color:var(--muted)}
+.accordion-toggle.open .arrow{transform:rotate(180deg)}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.accordion-body.open{max-height:600px}
+.charte-list{list-style:none;padding:12px 0 0;display:flex;flex-direction:column;gap:10px}
+.charte-list li{display:flex;gap:8px;font-size:13px;color:var(--ink2);line-height:1.5}
+.charte-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--braise);flex-shrink:0;margin-top:6px}
+
+.check-row{display:flex;align-items:flex-start;gap:10px;margin-top:12px;cursor:pointer}
+.check-row input[type="checkbox"]{width:20px;height:20px;accent-color:var(--braise);flex-shrink:0;margin-top:1px}
+.check-row label{font-size:13px;color:var(--ink2);line-height:1.5;cursor:pointer}
+
+.don-field{display:none;margin-top:10px;padding-left:30px}
+.don-field.show{display:block}
+.don-field input{width:120px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-family:'Outfit',sans-serif;font-size:16px;color:var(--ink);outline:none;-webkit-appearance:none}
+.don-field input:focus{border-color:var(--braise)}
+
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:6px;letter-spacing:.02em}
+.field label .req{color:var(--braise)}
+.field input{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'Outfit',sans-serif;font-size:16px;color:var(--ink);outline:none;-webkit-appearance:none;transition:border-color .15s}
+.field input:focus{border-color:var(--braise)}
+.field input::placeholder{color:var(--muted)}
+
+.submit-btn{display:block;width:calc(100% - 40px);margin:0 20px 16px;padding:16px;border:none;border-radius:14px;background:var(--braise);color:#fff;font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all .18s;min-height:52px;text-align:center}
+.submit-btn:active{transform:scale(.98)}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed}
+
+.success-screen{display:none;padding:32px 20px;text-align:center}
+.success-screen.show{display:block}
+.success-screen h2{font-size:28px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.success-screen .sub{font-size:14px;color:var(--sub);margin-bottom:24px}
+.pay-card{margin:0 auto 12px;max-width:400px;padding:16px;background:var(--white);border:1px solid var(--border2);border-radius:12px;text-align:left}
+.pay-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.pay-detail{font-size:13px;color:var(--sub);line-height:1.5}
+.pay-detail a{color:var(--braise);text-decoration:none;font-weight:600}
+
+.footer{padding:20px;text-align:center;font-size:11px;color:var(--muted);line-height:1.6}
+
+.toast{position:fixed;bottom:24px;left:20px;right:20px;padding:16px 20px;border-radius:14px;font-size:14px;font-weight:600;text-align:center;transform:translateY(120%);transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:500}
+.toast.ok{background:var(--euca);color:#fff}
+.toast.err{background:var(--braise);color:#fff}
+.toast.show{transform:translateY(0)}
+</style>
 </head>
-
 <body>
-  <div class="page">
 
-    <!-- ── Top nav ───────────────────────────────────── -->
-    <nav class="top-nav">
-      <a href="https://linktr.ee/choralchimie" class="nav-logo" target="_blank" rel="noopener" aria-label="La ChorAlchimie">
-        <img 
-          src="./ChorAlchimie_Carré_Logo_New.png" 
-          alt="La ChorAlchimie"
-          onerror="this.style.display='none'"
-        >
-        <div class="nav-logo-text">La <span>Chor</span>Alchimie</div>
-      </a>
-      <a href="https://linktr.ee/choralchimie" class="btn-linktree" target="_blank" rel="noopener">
-        ← Menu principal
-      </a>
-    </nav>
+<header class="header">
+  <a href="../hub-chanteurs/" class="back">←</a>
+  <img src="../assets/ChorAlchimie_Horizontal_Texte_Day.png" alt="La ChorAlchimie" class="header-logo">
+</header>
 
-    <!-- ── Header ────────────────────────────────────── -->
-    <div class="header">
-      <div class="header-tag">Association loi 1901 · RNA W691110282</div>
-      <h1>Formulaire d'<em>adhésion</em></h1>
-      <p class="header-subtitle">La ChorAlchimie Lyon · Saison 2026–2027</p>
-    </div>
+<div id="formView">
 
-    <!-- ── Form (masqué après soumission) ────────────── -->
-    <div id="form-section">
+<div class="hero">
+  <h1>Adhérer à La ChorAlchimie</h1>
+  <p>Saison 2026–2027 · 20€</p>
+</div>
 
-      <!-- Identité -->
-      <div class="form-card">
-        <div class="section-title">Tes informations</div>
+<!-- Charte -->
+<div class="card">
+  <button class="accordion-toggle" id="charteToggle" type="button">
+    <span>📜 La Charte</span>
+    <span class="arrow">▼</span>
+  </button>
+  <div class="accordion-body" id="charteBody">
+    <ul class="charte-list">
+      <li>Respecter les autres participants — écoute, bienveillance, inclusivité</li>
+      <li>Respecter le travail de Laëtitia et des musiciens — on suit les consignes, on s'amuse ensemble</li>
+      <li>Laisser les lieux en état — on ramasse, on range, on laisse propre</li>
+      <li>Garder en tête que c'est bénévole — patience, gratitude, bonne humeur</li>
+    </ul>
+  </div>
+  <div class="check-row" style="margin-top:14px">
+    <input type="checkbox" id="charteCheck">
+    <label for="charteCheck">J'ai lu et m'engage à respecter la Charte</label>
+  </div>
+</div>
 
-        <div class="field-row">
-          <div class="field" id="field-nom">
-            <label for="nom">Nom <span style="color:var(--braise)">*</span></label>
-            <input type="text" id="nom" name="nom" placeholder="Dupont" autocomplete="family-name">
-            <div class="error-msg">Requis</div>
-          </div>
-          <div class="field" id="field-prenom">
-            <label for="prenom">Prénom <span style="color:var(--braise)">*</span></label>
-            <input type="text" id="prenom" name="prenom" placeholder="Marie" autocomplete="given-name">
-            <div class="error-msg">Requis</div>
-          </div>
-        </div>
+<!-- Adhésion -->
+<div class="card">
+  <div class="card-title">Adhésion</div>
+  <div class="check-row">
+    <input type="checkbox" id="adhesionCheck" checked>
+    <label for="adhesionCheck">J'adhère pour la saison 2026–2027 · 20€ · 6 sessions ChorAlchimie</label>
+  </div>
+  <div class="check-row">
+    <input type="checkbox" id="donCheck">
+    <label for="donCheck">Je souhaite faire un don supplémentaire</label>
+  </div>
+  <div class="don-field" id="donField">
+    <input type="number" id="donMontant" placeholder="Montant €" min="1" step="1">
+  </div>
+</div>
 
-        <div class="field" id="field-email">
-          <label for="email">E-mail <span class="field-optional">· optionnel</span></label>
-          <input type="email" id="email" name="email" placeholder="marie@exemple.fr" autocomplete="email" inputmode="email">
-        </div>
+<!-- Infos -->
+<div class="card">
+  <div class="card-title">Tes coordonnées</div>
+  <div class="field">
+    <label>Nom <span class="req">*</span></label>
+    <input type="text" id="nom" placeholder="Ton nom" required>
+  </div>
+  <div class="field">
+    <label>Prénom <span class="req">*</span></label>
+    <input type="text" id="prenom" placeholder="Ton prénom" required>
+  </div>
+  <div class="field">
+    <label>Téléphone <span class="req">*</span></label>
+    <input type="tel" id="telephone" placeholder="06 XX XX XX XX" required>
+  </div>
+  <div class="field" style="margin-bottom:0">
+    <label>Email <span style="color:var(--muted);font-weight:400">(optionnel)</span></label>
+    <input type="email" id="email" placeholder="ton@email.com">
+  </div>
+</div>
 
-        <div class="field" id="field-telephone">
-          <label for="telephone">Téléphone / WhatsApp <span style="color:var(--braise)">*</span></label>
-          <input type="tel" id="telephone" name="telephone" placeholder="06 00 00 00 00" autocomplete="tel" inputmode="tel">
-          <div class="error-msg">Requis</div>
-        </div>
-      </div>
+<button class="submit-btn" id="submitBtn" type="button">J'adhère à La ChorAlchimie ✦</button>
 
-      <!-- Charte — en premier -->
-      <div class="charte-container" id="charte-container">
-        <div class="charte-header" id="charte-toggle" role="button" aria-expanded="false" tabindex="0">
-          <span class="charte-title">Notre Charte</span>
-          <div class="charte-toggle">▾</div>
-        </div>
+</div><!-- /formView -->
 
-        <div class="charte-body" id="charte-body">
+<!-- Écran succès -->
+<div class="success-screen" id="successView">
+  <h2>Bienvenue ! 🎶</h2>
+  <p class="sub">Ton adhésion est enregistrée. Il ne reste plus qu'à régler les 20€.</p>
 
-          <p class="charte-intro">
-            Ce n'est pas un règlement. C'est le contrat tacite entre nous — ce qui fait que cet espace existe, se respecte, et donne envie de revenir.
-          </p>
+  <div class="pay-card">
+    <div class="pay-title">💳 HelloAsso</div>
+    <div class="pay-detail"><a href="LIEN_HELLOASSO" target="_blank" rel="noopener">Payer en ligne via HelloAsso →</a></div>
+  </div>
 
-          <!-- 01 · Ce que c'est -->
-          <div class="charte-section-title">01 · Ce que c'est</div>
-          <ul class="charte-feature-list">
-            <li>Un rendez-vous au grand air, dans la nature — sauf contre-indication météo, communiquée en amont sur le WhatsApp. Où l'on pose le téléphone, la tension, la semaine. Où l'on chante, pas pour être bon, mais pour être là.</li>
-            <li>Un mercredi sur deux, on s'harmonise sur une chanson qu'on apprend à plusieurs voix et on repart avec quelque chose qu'on n'aurait jamais cru pouvoir chanter <em>(ChorAlchimie)</em>. Les autres soirs, on enchaîne les morceaux à l'unisson jusqu'à ne plus penser à rien d'autre <em>(Choraoké)</em>.</li>
-            <li>Un espace délibérément coloré, chaleureux et lumineux — conçu pour que chacun·e s'y sente à sa place dès la première minute.</li>
-          </ul>
+  <div class="pay-card">
+    <div class="pay-title">📱 Lydia / Wero</div>
+    <div class="pay-detail">Envoie 20€ au 06 45 45 00 89</div>
+  </div>
 
-          <!-- Valeurs non-négociables -->
-          <div class="charte-values-card">
-            <div class="charte-values-label">Ce qui ne se négocie pas</div>
-            <p class="charte-text" style="margin-bottom:0">La ChorAlchimie est une chorale laïque et résolument inclusive. Nous croyons que la musique collective ne peut exister que dans un espace où chacun·e — quelle que soit son origine, son genre, son orientation — se sent pleinement en sécurité.<br><br>Le racisme, la misogynie, l'homophobie et toute forme de discrimination n'ont pas leur place ici. Pas en tant que "règle" — mais parce que c'est simplement qui nous sommes.</p>
-          </div>
+  <div class="pay-card">
+    <div class="pay-title">🏦 Virement</div>
+    <div class="pay-detail">RIB sur demande à <a href="mailto:choralchimielyon2@gmail.com">choralchimielyon2@gmail.com</a></div>
+  </div>
+</div>
 
-          <!-- 02 · Ce qu'on se promet -->
-          <div class="charte-section-title" style="margin-top:20px">02 · Ce qu'on se promet</div>
+<div class="footer">
+  Association loi 1901 · RNA W691110282<br>
+  112 rue de Sèze, 69006 Lyon
+</div>
 
-          <div class="charte-promise-card">
-            <div class="charte-promise-label">Notre engagement</div>
-            <p class="charte-promise-text">Un cadre où ta voix a sa place — sans audition, sans jugement, sans prérequis. Une cheffe de chœur qui construit avec toi, pas devant toi. Et une communauté qui veille à ce que cet espace reste ce qu'il promet d'être.</p>
-          </div>
+<div class="toast" id="toast"></div>
 
-          <div class="charte-section-title" style="margin-top:20px">Ce qu'on te demande en retour</div>
-          <ul class="charte-piliers">
-            <li>
-              <div class="pilier-dot"></div>
-              <span>Être présent·e — vraiment. Écouter autant que chanter.</span>
-            </li>
-            <li>
-              <div class="pilier-dot"></div>
-              <span>Ajuster ton volume à l'ensemble : une voix qui domine casse la magie pour tout le monde.</span>
-            </li>
-            <li>
-              <div class="pilier-dot"></div>
-              <span>Respecter le travail de Laëtitia et des musiciens — leur bénévolat est un cadeau, pas une évidence.</span>
-            </li>
-            <li>
-              <div class="pilier-dot"></div>
-              <span>Laisser les lieux comme tu les as trouvés. On est accueilli·e·s — on prend soin de l'endroit qui nous reçoit.</span>
-            </li>
-            <li>
-              <div class="pilier-dot"></div>
-              <span>Défendre l'espace que tu intègres : si quelque chose ne va pas, on en parle — entre nous, directement.</span>
-            </li>
-          </ul>
+<script>
+var APPS_SCRIPT_MEMBRES_URL = 'APPS_SCRIPT_MEMBRES_URL';
 
-          <!-- 03 · Ce qui est le bienvenu -->
-          <div class="charte-section-title" style="margin-top:20px">03 · Ce qui est le bienvenu</div>
-          <div class="charte-bienvenu-item">Tes idées, tes suggestions, tes chansons — cette communauté se construit avec ceux qui la vivent, pas pour eux.</div>
-          <div class="charte-bienvenu-item">Amener quelqu'un. Parler de nous. Le rêve, c'est 1 000 voix en plein air d'ici 2030 — et ce rêve, il est aussi le tien maintenant 😉</div>
+// Accordion
+var toggle = document.getElementById('charteToggle');
+var body = document.getElementById('charteBody');
+toggle.addEventListener('click', function() {
+  toggle.classList.toggle('open');
+  body.classList.toggle('open');
+});
 
-          <p class="charte-engagement">
-            En adhérant, je reconnais avoir lu et m'engage à incarner l'esprit de cette charte.
-          </p>
-        </div>
+// Don conditionnel
+document.getElementById('donCheck').addEventListener('change', function() {
+  document.getElementById('donField').classList.toggle('show', this.checked);
+});
 
-        <!-- Checkbox charte — toujours visible -->
-        <div class="charte-check-wrapper">
-          <label class="charte-check-item" for="check-charte" id="field-charte">
-            <input type="checkbox" id="check-charte" name="charte">
-            <div class="charte-check-box"></div>
-            <span class="charte-check-label">
-              J'ai lu la Charte de La ChorAlchimie. Je m'engage à en respecter l'esprit — inclusion, écoute, bienveillance — et à défendre cet espace si quelque chose n'y correspond pas.
-            </span>
-          </label>
-          <div class="error-msg" id="charte-error" style="margin-top:10px; display:none">
-            Merci d'accepter la charte pour adhérer.
-          </div>
-        </div>
-      </div>
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(function() { t.classList.remove('show'); }, 4000);
+}
 
-      <!-- Adhésion & don — après la charte -->
-      <div class="form-card">
-        <div class="section-title">Adhésion</div>
+// Submit
+document.getElementById('submitBtn').addEventListener('click', function() {
+  var nom = document.getElementById('nom').value.trim();
+  var prenom = document.getElementById('prenom').value.trim();
+  var telephone = document.getElementById('telephone').value.trim();
+  var charteOk = document.getElementById('charteCheck').checked;
 
-        <label class="check-item" for="check-adhesion">
-          <input type="checkbox" id="check-adhesion" name="adhesion" checked>
-          <div class="check-box"></div>
-          <div class="check-label">
-            <strong>J'adhère pour la saison 2026–2027</strong>
-            <small>20 € · donne accès à 6 sessions ChorAlchimie</small>
-            <small style="color:var(--braise); margin-top:4px;">🎟 Suivi des participations avec carte de fidélité et tampon à encre — n'oublie pas de la demander à chaque session !</small>
-          </div>
-        </label>
+  if (!charteOk) { showToast('Lis et accepte la Charte pour continuer', 'err'); return; }
+  if (!nom || !prenom || !telephone) { showToast('Remplis les champs obligatoires (*)', 'err'); return; }
 
-        <label class="check-item" for="check-don" id="check-don-label">
-          <input type="checkbox" id="check-don" name="don_toggle">
-          <div class="check-box"></div>
-          <div class="check-label">
-            Je souhaite faire un don supplémentaire
-            <small>pour soutenir le développement de La ChorAlchimie</small>
-          </div>
-        </label>
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Envoi...';
 
-        <div class="don-wrapper" id="don-wrapper">
-          <input type="number" id="don-montant" name="don_montant" placeholder="10" min="1" max="999">
-          <span>€ de don supplémentaire</span>
-        </div>
+  var donMontant = document.getElementById('donCheck').checked
+    ? (document.getElementById('donMontant').value || '0')
+    : '0';
 
-        <p class="required-notice">* La cotisation peut être réglée en 2 fois sur demande.</p>
-      </div>
+  fetch(APPS_SCRIPT_MEMBRES_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({
+      nom: nom,
+      prenom: prenom,
+      email: document.getElementById('email').value.trim(),
+      telephone: telephone,
+      adhesion: 'Saison 2026-2027 · 20€',
+      don_montant: donMontant,
+      charte: 'Acceptée',
+      cotisation_payee: 'En attente',
+      montant: '20',
+      consentement_photo: '',
+      comment_connu: ''
+    }),
+    redirect: 'follow'
+  })
+  .then(function(r) { return r.text(); })
+  .then(function() {
+    document.getElementById('formView').style.display = 'none';
+    document.getElementById('successView').classList.add('show');
+    showToast('Bienvenue dans la ChorAlchimie ! 🎶', 'ok');
+  })
+  .catch(function() {
+    showToast('Erreur réseau — réessaie', 'err');
+    btn.disabled = false;
+    btn.textContent = 'J\'adhère à La ChorAlchimie ✦';
+  });
+});
+</script>
 
-      <!-- Submit -->
-      <div class="submit-section">
-        <button type="button" class="btn-submit" id="btn-submit">
-          <span class="btn-text">J'adhère à La ChorAlchimie ✦</span>
-          <div class="btn-spinner"></div>
-        </button>
-
-        <p class="form-mentions">
-          Tes données sont utilisées uniquement pour la gestion de l'association.<br>
-          Association loi 1901 · assurée MAIF · RNA W691110282
-        </p>
-      </div>
-    </div><!-- /form-section -->
-
-    <!-- ── Écran succès ────────────────────────────────── -->
-    <div class="success-screen" id="success-screen">
-      <div class="success-icon"></div>
-      <div class="success-title">Bienvenue !</div>
-      <p class="success-subtitle">
-        Ton adhésion est enregistrée.<br>
-        Il ne reste plus qu'à régler la cotisation — et on se retrouve mercredi. ✦
-      </p>
-
-      <div class="payment-card">
-        <div class="payment-title">Comment régler mes 20 € ?</div>
-
-        <div class="payment-option">
-          <div class="payment-badge badge-recommended">Recommandé</div>
-          <div class="payment-info">
-            <strong>HelloAsso</strong>
-            <span>Paiement sécurisé en ligne, zéro frais pour l'association</span>
-          </div>
-        </div>
-
-        <div class="payment-option">
-          <div class="payment-badge badge-instant">Instantané</div>
-          <div class="payment-info">
-            <strong>Lydia / Wero</strong>
-            <span>06 45 45 00 89 — en quelques secondes</span>
-          </div>
-        </div>
-
-        <div class="payment-option">
-          <div class="payment-info">
-            <strong>Virement bancaire</strong>
-            <span>RIB disponible sur demande à<br>choralchimielyon2@gmail.com</span>
-          </div>
-        </div>
-
-        <!-- Remplace LIEN_HELLOASSO par ton vrai lien une fois créé -->
-        <a href="LIEN_HELLOASSO" class="btn-helloasso" id="btn-helloasso" target="_blank" rel="noopener">
-          Payer en ligne via HelloAsso →
-        </a>
-      </div>
-    </div><!-- /success-screen -->
-
-    <div class="footer">
-      <a href="https://linktr.ee/choralchimie" class="footer-linktree" target="_blank" rel="noopener">
-        ← Retour au menu principal
-      </a><br>
-      La ChorAlchimie Lyon · RNA W691110282<br>
-      112 rue de Sèze, 69006 Lyon<br>
-      <a href="https://instagram.com/lachoralchimie">@lachoralchimie</a> ·
-      <a href="mailto:choralchimielyon2@gmail.com">choralchimielyon2@gmail.com</a>
-    </div>
-
-  </div><!-- /page -->
-
-  <script>
-    // ─── Configuration ──────────────────────────────────────────────────────
-    // ⚠️ Remplace cette URL par l'URL de ton Google Apps Script déployé
-    // (voir le guide étape par étape fourni séparément)
-    const APPS_SCRIPT_URL = 'COLLE_TON_URL_APPS_SCRIPT_ICI';
-
-    // ─── Charte toggle ──────────────────────────────────────────────────────
-    const charteContainer = document.getElementById('charte-container');
-    const charteToggle    = document.getElementById('charte-toggle');
-
-    charteToggle.addEventListener('click', () => {
-      const isOpen = charteContainer.classList.toggle('open');
-      charteToggle.setAttribute('aria-expanded', isOpen);
-    });
-
-    charteToggle.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        charteToggle.click();
-      }
-    });
-
-    // ─── Don toggle ─────────────────────────────────────────────────────────
-    const checkDon   = document.getElementById('check-don');
-    const donWrapper = document.getElementById('don-wrapper');
-
-    checkDon.addEventListener('change', () => {
-      donWrapper.classList.toggle('visible', checkDon.checked);
-      if (!checkDon.checked) {
-        document.getElementById('don-montant').value = '';
-      }
-    });
-
-    // ─── Validation ─────────────────────────────────────────────────────────
-    function setError(fieldId, show) {
-      const el = document.getElementById('field-' + fieldId);
-      if (el) el.classList.toggle('error', show);
-    }
-
-    function validateForm() {
-      let valid = true;
-
-      const nom = document.getElementById('nom').value.trim();
-      setError('nom', !nom);
-      if (!nom) valid = false;
-
-      const prenom = document.getElementById('prenom').value.trim();
-      setError('prenom', !prenom);
-      if (!prenom) valid = false;
-
-      const tel = document.getElementById('telephone').value.trim();
-      setError('telephone', !tel);
-      if (!tel) valid = false;
-
-      const charte = document.getElementById('check-charte').checked;
-      const charteError = document.getElementById('charte-error');
-      charteError.style.display = charte ? 'none' : 'block';
-      if (!charte) valid = false;
-
-      return valid;
-    }
-
-    // ─── Submit ─────────────────────────────────────────────────────────────
-    document.getElementById('btn-submit').addEventListener('click', async () => {
-      if (!validateForm()) {
-        // Scroll vers première erreur
-        const firstError = document.querySelector('.field.error, #charte-error[style*="block"]');
-        if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      }
-
-      const btn = document.getElementById('btn-submit');
-      btn.disabled = true;
-      btn.classList.add('loading');
-
-      const payload = {
-        date:         new Date().toLocaleDateString('fr-FR'),
-        nom:          document.getElementById('nom').value.trim(),
-        prenom:       document.getElementById('prenom').value.trim(),
-        email:        document.getElementById('email').value.trim(),
-        telephone:    document.getElementById('telephone').value.trim(),
-        adhesion:     document.getElementById('check-adhesion').checked ? 'Oui' : 'Non',
-        don_montant:  document.getElementById('check-don').checked
-                        ? (document.getElementById('don-montant').value || '0')
-                        : '0',
-        charte:       document.getElementById('check-charte').checked ? 'Oui' : 'Non',
-      };
-
-      try {
-        // no-cors car Apps Script ne renvoie pas les bons headers CORS
-        await fetch(APPS_SCRIPT_URL, {
-          method:  'POST',
-          mode:    'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify(payload),
-        });
-      } catch (err) {
-        // no-cors provoque une opaque response — pas une vraie erreur
-        console.log('Envoi effectué (réponse opaque attendue).');
-      }
-
-      // Afficher l'écran de succès dans tous les cas
-      document.getElementById('form-section').style.display = 'none';
-      const successScreen = document.getElementById('success-screen');
-      successScreen.classList.add('visible');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
 </body>
 </html>
