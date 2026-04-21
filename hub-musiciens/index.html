@@ -20,35 +20,47 @@
 html,body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;min-height:100vh;min-height:100dvh}
 body{padding-bottom:env(safe-area-inset-bottom)}
 
-.header{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.header{position:sticky;top:0;z-index:100;background:var(--cream);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:10px}
 .back{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--white);border:1px solid var(--border2);color:var(--ink);text-decoration:none;font-size:18px;flex-shrink:0}
 .back:active{background:var(--cream2)}
-.header-logo{height:32px;width:auto}
+.header-logo{height:40px;width:auto;flex-shrink:0}
+.header-name{font-size:15px;font-weight:600;color:var(--ink)}
 
-.hero{padding:32px 20px 8px;text-align:center}
+.hero{padding:32px 20px 24px;text-align:center}
 .hero-title{font-size:26px;font-weight:800;color:var(--ink);line-height:1.2;margin-bottom:12px}
 .hero-sub{font-size:14px;color:var(--sub);line-height:1.6;max-width:340px;margin:0 auto}
 
-.narrative{margin:20px 20px 24px;padding:18px;background:var(--white);border:1px solid var(--border2);border-radius:14px;font-size:14px;color:var(--ink2);line-height:1.7}
+.poster{display:block;width:100%;max-width:400px;margin:0 auto;padding:0 20px}
+.poster img{width:100%;height:auto;border-radius:14px}
+.poster-caption{text-align:center;font-size:12px;color:var(--muted);padding:8px 20px 24px}
 
-.btn-outline-full{display:block;margin:0 20px 24px;padding:14px 20px;border-radius:14px;border:1.5px solid var(--border);background:transparent;color:var(--ink);text-decoration:none;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;text-align:center;transition:all .15s;min-height:48px}
-.btn-outline-full:active{background:var(--cream2)}
+.lines{padding:0 20px 24px;max-width:400px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.line{font-size:14px;color:var(--ink2);line-height:1.5}
 
-.sep{margin:0 20px 24px;border:none;border-top:1px solid var(--border)}
+.step-card{margin:0 20px 14px;padding:20px;background:var(--white);border-radius:14px}
+.step-card.braise-border{border:1.5px solid var(--braise-bd)}
+.step-card.ink-border{border:1.5px solid var(--border)}
+.step-num{font-size:13px;font-weight:700;margin-bottom:6px}
+.step-num.braise{color:var(--braise)}
+.step-num.ink{color:var(--ink)}
+.step-title{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.step-sub{font-size:12px;color:var(--muted);margin-bottom:14px}
+.step-btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:#fff;text-align:center;text-decoration:none;cursor:pointer;transition:all .15s;min-height:48px}
+.step-btn:active{transform:scale(.97)}
+.step-btn.bg-braise{background:var(--braise)}
+.step-btn.bg-ink{background:var(--ink)}
 
-.cta-grid{display:flex;flex-direction:column;gap:12px;padding:0 20px 32px}
-.cta-btn{display:flex;align-items:center;justify-content:center;padding:18px 20px;border-radius:14px;border:1.5px solid transparent;cursor:pointer;transition:all .18s;text-decoration:none;min-height:52px;text-align:center}
-.cta-btn:active{transform:scale(.98)}
-.cta-btn.braise{background:var(--braise);color:#fff}
-.cta-btn.outline{background:transparent;border-color:var(--border);color:var(--ink);flex-direction:column;gap:2px}
-.cta-label{font-size:15px;font-weight:600}
-.cta-sub{font-size:11px;opacity:.6}
+.sep{margin:10px 20px 20px;border:none;border-top:1px solid var(--border)}
+
+.collab-footer{text-align:center;padding:0 20px 32px}
+.collab-footer p{font-size:13px;color:var(--muted);margin-bottom:6px}
+.collab-footer a{font-size:13px;font-weight:600;color:var(--braise);text-decoration:none}
 
 @media(min-width:600px){
   .hero-title{font-size:34px}
-  .narrative{max-width:440px;margin-left:auto;margin-right:auto}
-  .btn-outline-full{max-width:440px;margin-left:auto;margin-right:auto}
-  .cta-grid{max-width:440px;margin-left:auto;margin-right:auto}
+  .step-card{max-width:400px;margin-left:auto;margin-right:auto;margin-bottom:14px}
+  .lines{max-width:400px}
+  .collab-footer{max-width:400px;margin-left:auto;margin-right:auto}
 }
 </style>
 </head>
@@ -56,30 +68,45 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 
 <header class="header">
   <a href="../accueil/" class="back">←</a>
-  <img src="../assets/ChorAlchimie_Horizontal_Texte_Day.png" alt="La ChorAlchimie" class="header-logo">
+  <img src="../assets/ChorAlchimie_Carré_Logo_New.png" alt="La ChorAlchimie" class="header-logo">
+  <span class="header-name">La ChorAlchimie</span>
 </header>
 
 <div class="hero">
   <h1 class="hero-title">Tes notes. Nos voix.</h1>
-  <p class="hero-sub">Tu poses ton instrument. 30 à 40 personnes chantent avec toi, en plein air au bord du Rhône. Un mercredi sur 2.</p>
+  <p class="hero-sub">Tu arrives, tu joues. Le public ? Une chorale de 20 à 40 personnes.</p>
 </div>
 
-<div class="narrative">
-  Pop, rock, soul, chanson française — le répertoire est large et varié. Tu peux jouer un morceau ou toute la soirée, c'est toi qui choisis. Bénévole, sans contrat, et franchement assez magique.
+<div class="poster">
+  <img src="../assets/2026_04_29-Choraoké_Affiche_App.png" alt="Choraoké du 29 avril">
+</div>
+<div class="poster-caption">Choraoké du 29 avril — Berges du Rhône</div>
+
+<div class="lines">
+  <div class="line">Tous styles — du moment qu'on peut chanter dessus.</div>
+  <div class="line">Pas de répétition. Pas de partition imposée.</div>
+  <div class="line">6 sessions Choraoké cette saison.</div>
 </div>
 
-<a href="../choraoke-app/" class="btn-outline-full">Découvrir le répertoire →</a>
+<div class="step-card braise-border">
+  <div class="step-num braise">1</div>
+  <div class="step-title">Je regarde les dates</div>
+  <div class="step-sub">Choisis la session qui te convient</div>
+  <a href="../planning/" class="step-btn bg-braise">Voir le planning →</a>
+</div>
+
+<div class="step-card ink-border">
+  <div class="step-num ink">2</div>
+  <div class="step-title">Je me lance</div>
+  <div class="step-sub">On t'intègre à la prochaine tracklist</div>
+  <a href="../formulaires/musicien.html" class="step-btn bg-ink">Remplir le formulaire →</a>
+</div>
 
 <hr class="sep">
 
-<div class="cta-grid">
-  <a href="../formulaires/musicien.html" class="cta-btn braise">
-    <span class="cta-label">🎹 Je veux jouer avec vous →</span>
-  </a>
-  <a href="../formulaires/collab.html" class="cta-btn outline">
-    <span class="cta-label">🎶 Proposer une collaboration</span>
-    <span class="cta-sub">Autre chorale, groupe de musique, collectif</span>
-  </a>
+<div class="collab-footer">
+  <p>Tu représentes une chorale ou un groupe ?</p>
+  <a href="../formulaires/collab.html">Proposer une collaboration →</a>
 </div>
 
 </body>
