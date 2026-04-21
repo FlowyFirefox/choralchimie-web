@@ -224,18 +224,15 @@ document.getElementById('formMusician').addEventListener('submit', function(e) {
 
   fetch(APPS_SCRIPT_MUSICIENS_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(formData)
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(formData),
+    redirect: 'follow'
   })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (data.status === 'ok') {
-      showToast('✓ Formulaire envoyée ! On te recontacte vite.', 'success');
-      document.getElementById('formMusician').reset();
-      document.querySelectorAll('.chip.on').forEach(function(c) { c.classList.remove('on'); });
-    } else {
-      showToast('Erreur : ' + (data.message || 'réessaie'), 'error');
-    }
+  .then(function(r) { return r.text(); })
+  .then(function() {
+    showToast('✓ Formulaire envoyé ! On te recontacte vite.', 'success');
+    document.getElementById('formMusician').reset();
+    document.querySelectorAll('.chip.on').forEach(function(c) { c.classList.remove('on'); });
     btn.disabled = false;
     btn.textContent = 'Je veux jouer avec vous →';
   })
