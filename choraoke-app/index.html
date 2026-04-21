@@ -337,7 +337,7 @@ render();
     })
     .then(function(r) { return r.text(); })
     .then(function() {
-      showToast('✓ Suggestion envoyée !', 'ok');
+      showToast('Merci pour ta suggestion 🎶', 'ok');
       form.reset();
       document.querySelectorAll('#sgLangChips .mchip.on').forEach(function(c) { c.classList.remove('on'); });
       closeModal();
