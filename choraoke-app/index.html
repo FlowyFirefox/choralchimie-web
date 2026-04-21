@@ -325,25 +325,22 @@ render();
 
     fetch(APPS_SCRIPT_SUGGESTIONS_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'text/plain' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
         titre: titre,
         artiste: artiste,
         langue: langue,
         instrument: document.getElementById('sgInstrument').value.trim(),
         source: 'App Choraoké'
-      })
+      }),
+      redirect: 'follow'
     })
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (data.status === 'ok') {
-        showToast('✓ Suggestion envoyée !', 'ok');
-        form.reset();
-        document.querySelectorAll('#sgLangChips .mchip.on').forEach(function(c) { c.classList.remove('on'); });
-        closeModal();
-      } else {
-        showToast('Erreur — réessaie', 'err');
-      }
+    .then(function(r) { return r.text(); })
+    .then(function() {
+      showToast('✓ Suggestion envoyée !', 'ok');
+      form.reset();
+      document.querySelectorAll('#sgLangChips .mchip.on').forEach(function(c) { c.classList.remove('on'); });
+      closeModal();
       btn.disabled = false; btn.textContent = 'Envoyer la suggestion';
     })
     .catch(function() {
