@@ -60,7 +60,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 
 <header class="header">
   <a href="../accueil/" class="back">←</a>
-  <span class="header-title">La ChorAlchimie</span>
+  <span class="header-title">Choraoké · 29 avril</span>
 </header>
 
 <div class="poster">
@@ -115,13 +115,19 @@ var APPS_SCRIPT_SESSION_URL = 'https://script.google.com/macros/s/AKfycbynLReyKm
 var SESSION_NAME = '29 Avril 2026';
 
 // Chips single-select
-document.getElementById('sourceChips').addEventListener('click', function(e) {
-  var c = e.target.closest('.chip');
-  if (!c) return;
-  var was = c.classList.contains('on');
-  this.querySelectorAll('.chip').forEach(function(x) { x.classList.remove('on'); });
-  if (!was) c.classList.add('on');
-});
+(function(){
+  var wrap = document.getElementById('sourceChips');
+  if (!wrap) return;
+  var chips = wrap.querySelectorAll('.chip');
+  chips.forEach(function(chip) {
+    chip.addEventListener('click', function(e) {
+      e.preventDefault();
+      var was = this.classList.contains('on');
+      chips.forEach(function(c) { c.classList.remove('on'); });
+      if (!was) this.classList.add('on');
+    });
+  });
+})();
 
 function showToast(msg, type) {
   var t = document.getElementById('toast');
