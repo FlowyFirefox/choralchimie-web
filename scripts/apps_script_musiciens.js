@@ -33,8 +33,11 @@ function doPost(e) {
       ]);
     }
 
+    // Forcer les en-têtes en ligne 3 (ligne 1 = titre, ligne 2 = sous-titre)
+    sheet.getRange(3,1,1,12).setValues([["N°","Nom","Prénom","Instrument(s)","Téléphone","Email","Sessions souhaitées","Durée souhaitée","En plus","Lien audio","Rémunération","Dernière intervention"]]);
+
     var lastRow = sheet.getLastRow();
-    var nextNum = lastRow; // row 1 = header
+    var nextNum = lastRow - 2; // lignes 1-2 = titres, ligne 3 = en-têtes
 
     sheet.appendRow([
       nextNum,
