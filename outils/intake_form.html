@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brief Créatif — Oblink Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0F0F0F;
+    --paper: #F7F4EF;
+    --paper2: #EDEAE3;
+    --accent: #C25918;
+    --accent2: #3E1470;
+    --muted: #888;
+    --border: rgba(15,15,15,0.12);
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── PROGRESS BAR */
+  .progress-wrap {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--paper2);
+    z-index: 200;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  /* ── HEADER */
+  .site-header {
+    padding: 32px 40px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .site-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .site-logo span { color: var(--accent); }
+
+  .step-indicator {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── MAIN */
+  .main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 40px 120px;
+  }
+
+  /* ── SECTION */
+  .section {
+    display: none;
+    animation: fadeUp 0.35s ease both;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+  }
+
+  .section-sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 40px;
+    max-width: 540px;
+  }
+
+  /* ── QUESTION BLOCK */
+  .qblock {
+    margin-bottom: 36px;
+  }
+
+  .qlabel {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .qhint {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+
+  /* ── INPUTS */
+  input[type="text"],
+  input[type="url"],
+  textarea,
+  select {
+    width: 100%;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(194,89,24,0.12);
+  }
+
+  textarea { resize: vertical; min-height: 96px; }
+
+  /* ── URL INPUTS GROUP */
+  .url-group { display: flex; flex-direction: column; gap: 8px; }
+  .url-row { display: flex; gap: 8px; align-items: center; }
+  .url-row input { flex: 1; }
+  .url-label { font-size: 12px; color: var(--muted); min-width: 54px; }
+
+  /* ── CHIP SELECT */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .chip-opt {
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 40px;
+    border: 1.5px solid var(--border);
+    font-size: 14px;
+    transition: all 0.15s;
+    background: white;
+    user-select: none;
+  }
+
+  .chip-opt:hover { border-color: var(--accent); color: var(--accent); }
+
+  .chip-opt.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    font-weight: 500;
+  }
+
+  .chip-opt.selected.am {
+    background: var(--accent2);
+    border-color: var(--accent2);
+  }
+
+  /* ── SCALE */
+  .scale-wrap { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .scale-btn {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .scale-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .scale-btn.selected { background: var(--accent); border-color: var(--accent); color: white; }
+
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── COLOR PALETTE PICKER */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+  }
+
+  .palette-card {
+    border-radius: var(--radius);
+    border: 2px solid transparent;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .palette-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .palette-card.selected { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(194,89,24,0.2); }
+
+  .palette-swatch {
+    height: 56px;
+    display: flex;
+  }
+  .palette-swatch span { flex: 1; }
+  .palette-name {
+    padding: 6px 8px;
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    background: white;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── INFO BOX */
+  .info-box {
+    background: linear-gradient(135deg, rgba(194,89,24,0.06), rgba(62,20,112,0.04));
+    border: 1px solid rgba(194,89,24,0.2);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--ink);
+    margin-bottom: 28px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .info-box .ico { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── NAVIGATION */
+  .nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(247,244,239,0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+  }
+
+  .btn {
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn-primary:hover { background: var(--accent); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+  }
+  .btn-secondary:hover { color: var(--ink); border-color: var(--ink); }
+
+  .btn-export {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    padding: 14px 36px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-export:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* ── SUMMARY */
+  .summary-section {
+    background: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+  }
+
+  .summary-section h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    margin-bottom: 14px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+  }
+
+  .summary-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  .summary-key { color: var(--muted); min-width: 160px; flex-shrink: 0; }
+  .summary-val { color: var(--ink); font-weight: 500; }
+
+  /* ── EXPORT BLOCK */
+  .export-block {
+    background: #0F0F0F;
+    color: #E8E3DA;
+    border-radius: var(--radius);
+    padding: 24px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 400px;
+    overflow-y: auto;
+    display: none;
+  }
+
+  .export-block.visible { display: block; }
+
+  .copy-success {
+    display: none;
+    font-size: 13px;
+    color: #3DAA6A;
+    margin-top: 8px;
+    font-weight: 500;
+  }
+  .copy-success.show { display: block; }
+
+  @media (max-width: 600px) {
+    .main { padding: 40px 20px 120px; }
+    .site-header { padding: 20px; }
+    .nav { padding: 14px 20px; }
+    .section-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+<header class="site-header">
+  <div class="site-logo">Oblink<span>.</span>Studio</div>
+  <div class="step-indicator" id="stepIndicator">Étape 1 / 7</div>
+</header>
+
+<main class="main" id="mainContent">
+
+  <!-- ══ SECTION 1 — LE PROJET ══ -->
+  <div class="section active" id="s1">
+    <div class="section-label">01 — Le projet</div>
+    <h1 class="section-title">C'est quoi, ce truc<br>qu'on va créer ?</h1>
+    <p class="section-sub">Pas besoin d'être technique. Décris-le comme tu l'expliquerais à un ami autour d'un verre.</p>
+
+    <div class="info-box">
+      <span class="ico">💡</span>
+      <span>Plus tu es précis ici, moins on aura besoin d'allers-retours. Une phrase bien construite vaut mieux qu'un roman vague.</span>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Nom du projet</div>
+      <div class="qhint">Le nom officiel, ou juste un nom de travail si c'est pas encore fixé.</div>
+      <input type="text" id="q_name" placeholder="Ex : La ChorAlchimie Lyon, Oblink Studio, Mon portfolio…">
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">En une phrase, c'est quoi ?</div>
+      <div class="qhint">Comme si tu devais l'expliquer à quelqu'un en 10 secondes dans un ascenseur.</div>
+      <input type="text" id="q_pitch" placeholder="Ex : Le site vitrine de mon studio de design à Lyon…">
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Quel est l'objectif principal du site ?</div>
+      <div class="qhint">Qu'est-ce que tu veux que les visiteurs fassent ou ressentent en partant ?</div>
+      <div class="chips" data-key="q_goal" data-multi="false">
+        <div class="chip-opt" data-val="Présenter / informer">📖 Présenter / informer</div>
+        <div class="chip-opt" data-val="Générer des contacts">📩 Générer des contacts</div>
+        <div class="chip-opt" data-val="Vendre / convertir">💳 Vendre / convertir</div>
+        <div class="chip-opt" data-val="Construire une communauté">🤝 Construire une communauté</div>
+        <div class="chip-opt" data-val="Outil interactif / app">⚙️ Outil interactif / app</div>
+        <div class="chip-opt" data-val="Portfolio / vitrine">✨ Portfolio / vitrine</div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Type de livrable</div>
+      <div class="qhint">Qu'est-ce qu'on construit concrètement ?</div>
+      <div class="chips" data-key="q_type" data-multi="false">
+        <div class="chip-opt" data-val="Site vitrine (1 page)">📄 Landing page</div>
+        <div class="chip-opt" data-val="Site multi-pages">📑 Site multi-pages</div>
+        <div class="chip-opt" data-val="Web app / outil interactif">🛠️ Web app / outil</div>
+        <div class="chip-opt" data-val="Page événement">🎉 Page événement</div>
+        <div class="chip-opt" data-val="Portfolio">🎨 Portfolio</div>
+        <div class="chip-opt" data-val="Autre">🔮 Autre</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2 — LE PUBLIC ══ -->
+  <div class="section" id="s2">
+    <div class="section-label">02 — Le public</div>
+    <h1 class="section-title">Qui va voir ça ?</h1>
+    <p class="section-sub">Connaître ton audience change tout — le ton, le niveau de détail, l'esthétique.</p>
+
+    <div class="qblock">
+      <div class="qlabel">Décris ton visiteur type</div>
+      <div class="qhint">Âge, contexte, ce qu'il cherche. Invente une personne si ça aide.</div>
+      <textarea id="q_audience" placeholder="Ex : Des lyonnais curieux, 25-45 ans, qui cherchent une activité collective décontractée. Ils découvrent le projet via Instagram ou bouche-à-oreille…"></textarea>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Sur quel appareil ils arrivent principalement ?</div>
+      <div class="chips" data-key="q_device" data-multi="false">
+        <div class="chip-opt" data-val="Mobile surtout">📱 Mobile surtout</div>
+        <div class="chip-opt" data-val="Desktop surtout">🖥️ Desktop surtout</div>
+        <div class="chip-opt" data-val="Les deux également">📱🖥️ Les deux</div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Le visiteur te connaît déjà ou te découvre ?</div>
+      <div class="chips" data-key="q_awareness" data-multi="false">
+        <div class="chip-opt" data-val="Il me découvre complètement">🆕 Il me découvre</div>
+        <div class="chip-opt" data-val="Il me connaît un peu (réseaux, bouche-à-oreille)">🤔 Il m'a déjà croisé</div>
+        <div class="chip-opt" data-val="C'est un membre / client existant">✅ Déjà client / membre</div>
+        <div class="chip-opt" data-val="Mix des trois">🔀 Mix des trois</div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Qu'est-ce que tu veux que le visiteur fasse sur le site ?</div>
+      <div class="qhint">L'action principale que tu attends de lui.</div>
+      <div class="chips" data-key="q_cta" data-multi="true">
+        <div class="chip-opt" data-val="Rejoindre / s'inscrire">Rejoindre / s'inscrire</div>
+        <div class="chip-opt" data-val="Te contacter">Te contacter</div>
+        <div class="chip-opt" data-val="Voir le portfolio / galerie">Voir le portfolio</div>
+        <div class="chip-opt" data-val="Acheter / réserver">Acheter / réserver</div>
+        <div class="chip-opt" data-val="Télécharger quelque chose">Télécharger</div>
+        <div class="chip-opt" data-val="Partager / inviter">Partager</div>
+        <div class="chip-opt" data-val="Juste lire et repartir convaincu">Lire et repartir convaincu</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3 — L'IDENTITÉ ══ -->
+  <div class="section" id="s3">
+    <div class="section-label">03 — Identité visuelle</div>
+    <h1 class="section-title">Comment ça doit<br>se ressentir ?</h1>
+    <p class="section-sub">L'esthétique n'est pas qu'une question de goût — c'est un message. Un site qui "fait luxe" ne parle pas comme un site qui "fait festif".</p>
+
+    <div class="qblock">
+      <div class="qlabel">Tu as déjà une identité visuelle existante ?</div>
+      <div class="chips" data-key="q_brand_exists" data-multi="false">
+        <div class="chip-opt" data-val="Oui, logo + charte complète">✅ Oui, logo + charte</div>
+        <div class="chip-opt" data-val="Oui, logo seulement">🖼️ Logo seulement</div>
+        <div class="chip-opt" data-val="Non, à créer">🆕 À créer</div>
+        <div class="chip-opt" data-val="En cours de création">🔨 En cours</div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Si tu as un logo / des couleurs, décris-les</div>
+      <div class="qhint">Nom des couleurs, codes hex si tu les as, ou juste "orange chaud et violet profond sur fond noir".</div>
+      <textarea id="q_brand_desc" placeholder="Ex : Logo flamme braise (#C25918) et améthyste (#5A2090) sur fond noir. Typographie DM Serif Display…"></textarea>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Quelle ambiance générale pour le site ?</div>
+      <div class="qhint">Tu peux en choisir plusieurs — ça donne une direction, pas une case.</div>
+      <div class="chips" data-key="q_vibe" data-multi="true">
+        <div class="chip-opt am" data-val="Sombre et mystérieux">🌑 Sombre & mystérieux</div>
+        <div class="chip-opt" data-val="Lumineux et épuré">☀️ Lumineux & épuré</div>
+        <div class="chip-opt" data-val="Chaleureux et organique">🍂 Chaleureux & organique</div>
+        <div class="chip-opt am" data-val="Luxueux et raffiné">💎 Luxueux & raffiné</div>
+        <div class="chip-opt" data-val="Festif et énergique">🎉 Festif & énergique</div>
+        <div class="chip-opt" data-val="Minimaliste et éditorial">📰 Minimaliste & éditorial</div>
+        <div class="chip-opt am" data-val="Audacieux et graphique">⚡ Audacieux & graphique</div>
+        <div class="chip-opt" data-val="Doux et bienveillant">🌿 Doux & bienveillant</div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Thème principal</div>
+      <div class="chips" data-key="q_theme" data-multi="false">
+        <div class="chip-opt" data-val="Fond clair (blanc, crème)">⬜ Fond clair</div>
+        <div class="chip-opt am" data-val="Fond sombre (noir, charbon)">⬛ Fond sombre</div>
+        <div class="chip-opt" data-val="Les deux selon les sections">◑ Mix clair / sombre</div>
+        <div class="chip-opt" data-val="Je fais confiance à ta créativité">🎲 Surprends-moi</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4 — LES RÉFÉRENCES ══ -->
+  <div class="section" id="s4">
+    <div class="section-label">04 — Références</div>
+    <h1 class="section-title">Montre-moi ce que<br>tu aimes.</h1>
+    <p class="section-sub">Pas forcément dans ton secteur. Juste des sites ou projets dont l'esthétique te touche — et pourquoi.</p>
+
+    <div class="info-box">
+      <span class="ico">🔗</span>
+      <span>Ces URLs sont ce qui va le plus influencer le rendu. Prends le temps de chercher 2-3 vrais exemples. Awwwards.com, Dribbble, Behance sont de bonnes sources.</span>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Sites de référence (jusqu'à 4)</div>
+      <div class="qhint">Ce que tu trouves beau, inspirant, dans le bon ton.</div>
+      <div class="url-group">
+        <div class="url-row">
+          <span class="url-label">Réf. 1</span>
+          <input type="url" id="q_ref1" placeholder="https://…">
+        </div>
+        <div class="url-row">
+          <span class="url-label">Réf. 2</span>
+          <input type="url" id="q_ref2" placeholder="https://…">
+        </div>
+        <div class="url-row">
+          <span class="url-label">Réf. 3</span>
+          <input type="url" id="q_ref3" placeholder="https://…">
+        </div>
+        <div class="url-row">
+          <span class="url-label">Réf. 4</span>
+          <input type="url" id="q_ref4" placeholder="https://…">
+        </div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Ce que tu veux absolument éviter</div>
+      <div class="qhint">Esthétiques, tendances ou éléments visuels que tu ne veux pas voir.</div>
+      <div class="chips" data-key="q_avoid" data-multi="true">
+        <div class="chip-opt" data-val="Trop chargé / surchargé">❌ Trop chargé</div>
+        <div class="chip-opt" data-val="Trop générique / corporate">❌ Trop corporate</div>
+        <div class="chip-opt" data-val="Stock photos / images génériques">❌ Stock photos</div>
+        <div class="chip-opt" data-val="Animations trop agressives">❌ Animations agressives</div>
+        <div class="chip-opt" data-val="Couleurs criardes">❌ Couleurs criardes</div>
+        <div class="chip-opt" data-val="Aspect vieillot / daté">❌ Aspect daté</div>
+        <div class="chip-opt" data-val="Trop froid / impersonnel">❌ Trop froid</div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Quelque chose à préciser sur les références ?</div>
+      <div class="qhint">Ce que tu aimes dans ces sites, ou ce que tu veux adapter.</div>
+      <textarea id="q_ref_notes" placeholder="Ex : J'aime la façon dont ce site utilise l'espace blanc, mais je veux quelque chose de plus chaleureux…"></textarea>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5 — LE CONTENU ══ -->
+  <div class="section" id="s5">
+    <div class="section-label">05 — Contenu</div>
+    <h1 class="section-title">Qu'est-ce qu'on<br>met dedans ?</h1>
+    <p class="section-sub">Pas besoin d'avoir tout prêt. Dis-moi ce que tu as, ce qu'on va créer, et ce qui manque encore.</p>
+
+    <div class="qblock">
+      <div class="qlabel">Sections / pages à inclure</div>
+      <div class="qhint">Coche tout ce qui doit apparaître. Tu peux en ajouter en dessous.</div>
+      <div class="chips" data-key="q_sections" data-multi="true">
+        <div class="chip-opt" data-val="Hero / Accroche principale">🎯 Hero / Accroche</div>
+        <div class="chip-opt" data-val="À propos / Histoire">📖 À propos</div>
+        <div class="chip-opt" data-val="Services / Offres">💼 Services / Offres</div>
+        <div class="chip-opt" data-val="Portfolio / Galerie">🎨 Portfolio / Galerie</div>
+        <div class="chip-opt" data-val="Témoignages">⭐ Témoignages</div>
+        <div class="chip-opt" data-val="Agenda / Événements">📅 Agenda</div>
+        <div class="chip-opt" data-val="FAQ">❓ FAQ</div>
+        <div class="chip-opt" data-val="Contact / Formulaire">✉️ Contact</div>
+        <div class="chip-opt" data-val="Rejoindre / Adhésion">🤝 Rejoindre</div>
+        <div class="chip-opt" data-val="Liens / Hub Linktree-like">🔗 Hub de liens</div>
+        <div class="chip-opt" data-val="Blog / Articles">📝 Blog</div>
+        <div class="chip-opt" data-val="Outil interactif embarqué">⚙️ Outil interactif</div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Qu'est-ce que tu as déjà de prêt ?</div>
+      <div class="chips" data-key="q_assets" data-multi="true">
+        <div class="chip-opt" data-val="Logo vectoriel (SVG/AI/PDF)">✅ Logo vectoriel</div>
+        <div class="chip-opt" data-val="Charte graphique complète">✅ Charte graphique</div>
+        <div class="chip-opt" data-val="Photos / visuels">✅ Photos / visuels</div>
+        <div class="chip-opt" data-val="Textes rédigés">✅ Textes rédigés</div>
+        <div class="chip-opt" data-val="Vidéos">✅ Vidéos</div>
+        <div class="chip-opt" data-val="Rien de prêt pour l'instant">⏳ Rien encore</div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Infos clés à absolument faire passer</div>
+      <div class="qhint">Ce que le visiteur doit retenir. Les 3 choses les plus importantes.</div>
+      <textarea id="q_keyinfo" placeholder="Ex : Sessions tous les mercredis soirs au Parc de la Tête d'Or. Ouvert à tous, aucun prérequis. 250 membres dans la communauté…"></textarea>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6 — TECHNIQUE ══ -->
+  <div class="section" id="s6">
+    <div class="section-label">06 — Technique & contraintes</div>
+    <h1 class="section-title">Les règles<br>du jeu.</h1>
+    <p class="section-sub">Quelques questions rapides pour cadrer ce qu'on peut faire et comment on le déploie.</p>
+
+    <div class="qblock">
+      <div class="qlabel">Où tu veux héberger ?</div>
+      <div class="chips" data-key="q_host" data-multi="false">
+        <div class="chip-opt" data-val="GitHub Pages">GitHub Pages</div>
+        <div class="chip-opt" data-val="Netlify">Netlify</div>
+        <div class="chip-opt" data-val="Vercel">Vercel</div>
+        <div class="chip-opt" data-val="Cloudflare Pages">Cloudflare Pages</div>
+        <div class="chip-opt" data-val="Pas encore décidé">Pas encore décidé</div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Tu as un nom de domaine ?</div>
+      <div class="chips" data-key="q_domain" data-multi="false">
+        <div class="chip-opt" data-val="Oui, domaine custom déjà acheté">✅ Oui</div>
+        <div class="chip-opt" data-val="Non, URL gratuite de l'hébergeur ça suffit">Pas besoin pour l'instant</div>
+        <div class="chip-opt" data-val="Non, mais je vais en acheter un">À acheter</div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Fonctionnalités spéciales nécessaires ?</div>
+      <div class="chips" data-key="q_features" data-multi="true">
+        <div class="chip-opt" data-val="Formulaire de contact">✉️ Formulaire contact</div>
+        <div class="chip-opt" data-val="Multilingue">🌍 Multilingue</div>
+        <div class="chip-opt" data-val="Mode sombre / clair">🌓 Mode sombre/clair</div>
+        <div class="chip-opt" data-val="Animations avancées">✨ Animations avancées</div>
+        <div class="chip-opt" data-val="Intégration Spotify / musique">🎵 Musique intégrée</div>
+        <div class="chip-opt" data-val="Carte / géolocalisation">📍 Carte</div>
+        <div class="chip-opt" data-val="Outil de recherche / filtre">🔍 Recherche / filtre</div>
+        <div class="chip-opt" data-val="Rien de spécial">✌️ Rien de spécial</div>
+      </div>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Quelle est l'urgence ?</div>
+      <div class="chips" data-key="q_urgency" data-multi="false">
+        <div class="chip-opt" data-val="Urgent (cette semaine)">🔥 Cette semaine</div>
+        <div class="chip-opt" data-val="Bientôt (ce mois)">📅 Ce mois</div>
+        <div class="chip-opt" data-val="Pas pressé (on prend le temps)">🧘 On prend le temps</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 7 — LIBRE ══ -->
+  <div class="section" id="s7">
+    <div class="section-label">07 — Ce qu'on n'a pas couvert</div>
+    <h1 class="section-title">Tout ce qui me<br>manque encore.</h1>
+    <p class="section-sub">La partie la plus importante. Dis-moi ce que les cases du formulaire n'ont pas capturé.</p>
+
+    <div class="qblock">
+      <div class="qlabel">Ce que tu veux absolument que je sache</div>
+      <div class="qhint">Histoire du projet, contexte particulier, contrainte inattendue, vision à long terme…</div>
+      <textarea id="q_extra" rows="5" placeholder="Ex : Ce projet existe depuis 2021, il a une communauté déjà forte de 250 personnes. Le ton doit être chaleureux mais pas naïf. Dans 3 ans on veut organiser un grand événement outdoor…"></textarea>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Ce que tu ne veux surtout PAS</div>
+      <div class="qhint">Erreurs à éviter, comparaisons à fuir, choses qui t'agacent dans les sites que tu as vus.</div>
+      <textarea id="q_nope" placeholder="Ex : Surtout pas un site qui ressemble à une asso de quartier. Pas de fond blanc basique. Pas de police Comic Sans évidemment…"></textarea>
+    </div>
+
+    <div class="qblock">
+      <div class="qlabel">Sur une échelle de 1 à 5, quelle liberté créative tu me donnes ?</div>
+      <div class="qhint">1 = Suis exactement mes instructions · 5 = Fais-moi une surprise totale</div>
+      <div class="scale-wrap" id="scale_creative">
+        <button class="scale-btn" data-val="1">1</button>
+        <button class="scale-btn" data-val="2">2</button>
+        <button class="scale-btn" data-val="3">3</button>
+        <button class="scale-btn" data-val="4">4</button>
+        <button class="scale-btn" data-val="5">5</button>
+      </div>
+      <div class="scale-labels">
+        <span>Strict</span>
+        <span>Total liberté</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 8 — RÉCAP & EXPORT ══ -->
+  <div class="section" id="s8">
+    <div class="section-label">✓ Récapitulatif</div>
+    <h1 class="section-title">Voilà ce qu'on<br>a collecté.</h1>
+    <p class="section-sub">Vérifie que tout est juste, puis exporte le brief à coller directement dans Claude.</p>
+
+    <div id="summaryContent"></div>
+
+    <div style="margin-top: 32px;">
+      <button class="btn btn-export" onclick="toggleExport()">
+        <span>📋</span> Générer le brief pour Claude
+      </button>
+      <div class="copy-success" id="copySuccess">✓ Copié dans le presse-papiers !</div>
+    </div>
+
+    <div class="export-block" id="exportBlock"></div>
+  </div>
+
+</main>
+
+<nav class="nav">
+  <button class="btn btn-secondary" id="btnPrev" onclick="navigate(-1)" style="visibility:hidden">← Précédent</button>
+  <div style="font-size:13px;color:var(--muted)" id="navHint"></div>
+  <button class="btn btn-primary" id="btnNext" onclick="navigate(1)">Suivant →</button>
+</nav>
+
+<script>
+// ── STATE
+const state = {};
+let currentSection = 1;
+const totalSections = 8;
+
+// ── CHIP SELECTION
+document.querySelectorAll('.chips').forEach(group => {
+  const multi = group.dataset.multi === 'true';
+  const key = group.dataset.key;
+  group.querySelectorAll('.chip-opt').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (!multi) {
+        group.querySelectorAll('.chip-opt').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        state[key] = chip.dataset.val;
+      } else {
+        chip.classList.toggle('selected');
+        const selected = [...group.querySelectorAll('.chip-opt.selected')].map(c => c.dataset.val);
+        state[key] = selected;
+      }
+    });
+  });
+});
+
+// ── SCALE BUTTONS
+document.querySelectorAll('.scale-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#scale_creative .scale-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    state['q_creative'] = btn.dataset.val;
+  });
+});
+
+// ── TEXT INPUTS — save on change
+['q_name','q_pitch','q_audience','q_brand_desc','q_ref1','q_ref2','q_ref3','q_ref4',
+ 'q_ref_notes','q_keyinfo','q_extra','q_nope'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => { state[id] = el.value; });
+});
+
+// ── NAVIGATION
+function navigate(dir) {
+  const next = currentSection + dir;
+  if (next < 1 || next > totalSections) return;
+
+  document.getElementById('s' + currentSection).classList.remove('active');
+  currentSection = next;
+  document.getElementById('s' + currentSection).classList.add('active');
+
+  updateUI();
+  if (currentSection === totalSections) buildSummary();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateUI() {
+  const pct = ((currentSection - 1) / (totalSections - 1)) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('stepIndicator').textContent = `Étape ${currentSection} / ${totalSections}`;
+
+  const prev = document.getElementById('btnPrev');
+  const next = document.getElementById('btnNext');
+  const hint = document.getElementById('navHint');
+
+  prev.style.visibility = currentSection > 1 ? 'visible' : 'hidden';
+
+  if (currentSection === totalSections) {
+    next.style.display = 'none';
+    hint.textContent = 'Brief complet — exporte et colle dans Claude';
+  } else {
+    next.style.display = 'block';
+    next.textContent = currentSection === totalSections - 1 ? 'Voir le récap →' : 'Suivant →';
+    hint.textContent = '';
+  }
+}
+
+// ── SUMMARY
+function val(key, fallback = '—') {
+  const v = state[key];
+  if (!v) return fallback;
+  if (Array.isArray(v)) return v.length > 0 ? v.join(', ') : fallback;
+  return v || fallback;
+}
+
+function buildSummary() {
+  const sections = [
+    { title: '🎯 Le projet', rows: [
+      ['Nom', val('q_name')],
+      ['Pitch', val('q_pitch')],
+      ['Objectif', val('q_goal')],
+      ['Type de livrable', val('q_type')],
+    ]},
+    { title: '👥 Le public', rows: [
+      ['Visiteur type', val('q_audience')],
+      ['Appareil principal', val('q_device')],
+      ['Niveau de connaissance', val('q_awareness')],
+      ['Action attendue', val('q_cta')],
+    ]},
+    { title: '🎨 Identité visuelle', rows: [
+      ['Identité existante', val('q_brand_exists')],
+      ['Description marque', val('q_brand_desc')],
+      ['Ambiance souhaitée', val('q_vibe')],
+      ['Thème', val('q_theme')],
+    ]},
+    { title: '🔗 Références', rows: [
+      ['Réf. 1', val('q_ref1')],
+      ['Réf. 2', val('q_ref2')],
+      ['Réf. 3', val('q_ref3')],
+      ['Réf. 4', val('q_ref4')],
+      ['Notes', val('q_ref_notes')],
+      ['À éviter', val('q_avoid')],
+    ]},
+    { title: '📝 Contenu', rows: [
+      ['Sections', val('q_sections')],
+      ['Assets disponibles', val('q_assets')],
+      ['Infos clés', val('q_keyinfo')],
+    ]},
+    { title: '⚙️ Technique', rows: [
+      ['Hébergement', val('q_host')],
+      ['Domaine', val('q_domain')],
+      ['Fonctionnalités', val('q_features')],
+      ['Urgence', val('q_urgency')],
+    ]},
+    { title: '💬 Notes finales', rows: [
+      ['Contexte additionnel', val('q_extra')],
+      ['À éviter absolument', val('q_nope')],
+      ['Liberté créative', val('q_creative') + ' / 5'],
+    ]},
+  ];
+
+  const html = sections.map(s => `
+    <div class="summary-section">
+      <h3>${s.title}</h3>
+      ${s.rows.map(r => `
+        <div class="summary-row">
+          <span class="summary-key">${r[0]}</span>
+          <span class="summary-val">${r[1]}</span>
+        </div>`).join('')}
+    </div>`).join('');
+
+  document.getElementById('summaryContent').innerHTML = html;
+}
+
+// ── EXPORT
+function toggleExport() {
+  const block = document.getElementById('exportBlock');
+  const text = generateBrief();
+  block.textContent = text;
+  block.classList.add('visible');
+  block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  navigator.clipboard.writeText(text).then(() => {
+    const s = document.getElementById('copySuccess');
+    s.classList.add('show');
+    setTimeout(() => s.classList.remove('show'), 3000);
+  });
+}
+
+function generateBrief() {
+  const lines = [
+    '═══════════════════════════════════════════════',
+    '  BRIEF CRÉATIF — GÉNÉRÉ PAR OBLINK INTAKE FORM',
+    '═══════════════════════════════════════════════',
+    '',
+    '## PROJET',
+    `Nom : ${val('q_name')}`,
+    `Pitch : ${val('q_pitch')}`,
+    `Objectif principal : ${val('q_goal')}`,
+    `Type de livrable : ${val('q_type')}`,
+    '',
+    '## PUBLIC CIBLE',
+    `Visiteur type : ${val('q_audience')}`,
+    `Appareil principal : ${val('q_device')}`,
+    `Niveau de connaissance du projet : ${val('q_awareness')}`,
+    `Action attendue : ${val('q_cta')}`,
+    '',
+    '## IDENTITÉ VISUELLE',
+    `Identité existante : ${val('q_brand_exists')}`,
+    `Description de la marque : ${val('q_brand_desc')}`,
+    `Ambiance souhaitée : ${val('q_vibe')}`,
+    `Thème (clair/sombre) : ${val('q_theme')}`,
+    '',
+    '## RÉFÉRENCES',
+    `Référence 1 : ${val('q_ref1')}`,
+    `Référence 2 : ${val('q_ref2')}`,
+    `Référence 3 : ${val('q_ref3')}`,
+    `Référence 4 : ${val('q_ref4')}`,
+    `Notes sur les références : ${val('q_ref_notes')}`,
+    `Esthétiques à éviter : ${val('q_avoid')}`,
+    '',
+    '## CONTENU',
+    `Sections à inclure : ${val('q_sections')}`,
+    `Assets disponibles : ${val('q_assets')}`,
+    `Informations clés à faire passer : ${val('q_keyinfo')}`,
+    '',
+    '## TECHNIQUE',
+    `Hébergement cible : ${val('q_host')}`,
+    `Domaine custom : ${val('q_domain')}`,
+    `Fonctionnalités requises : ${val('q_features')}`,
+    `Urgence : ${val('q_urgency')}`,
+    '',
+    '## NOTES FINALES',
+    `Contexte additionnel : ${val('q_extra')}`,
+    `À éviter absolument : ${val('q_nope')}`,
+    `Liberté créative accordée : ${val('q_creative')} / 5`,
+    '',
+    '═══════════════════════════════════════════════',
+    `Généré le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'})}`,
+    '═══════════════════════════════════════════════',
+  ];
+  return lines.join('\n');
+}
+
+// ── INIT
+updateUI();
+</script>
+</body>
+</html>

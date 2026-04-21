@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette Écosystème — La ChorAlchimie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   DESIGN SYSTEM
+══════════════════════════════════════ */
+:root {
+  --cream:     #F5EFE3;
+  --cream2:    #EDE6D6;
+  --cream3:    #E3D9C6;
+  --white:     #FDFAF5;
+  --ink:       #2C2416;
+  --ink2:      #4A3E2E;
+  --muted:     #8A7B6A;
+  --sub:       #6B5E4E;
+  --braise:    #C25918;
+  --braise-bg: rgba(194,89,24,0.08);
+  --braise-bd: rgba(194,89,24,0.22);
+  --euca:      #4E7A65;
+  --euca-bg:   rgba(78,122,101,0.08);
+  --euca-bd:   rgba(78,122,101,0.22);
+  --gold:      #B08640;
+  --gold-bg:   rgba(176,134,64,0.08);
+  --border:    rgba(44,36,22,0.1);
+  --border2:   rgba(44,36,22,0.06);
+  --shadow:    0 2px 16px rgba(44,36,22,0.08);
+  --r:         14px;
+  --r-sm:      8px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:15px; }
+body {
+  background: #2C2416;
+  font-family: 'Outfit', sans-serif;
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ══ SHELL ══ */
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ══ TOP BAR (design tool chrome) ══ */
+.topbar {
+  background: #1A140E;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 0 20px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.topbar-logo {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--braise);
+  letter-spacing: .02em;
+}
+.topbar-sep { width: 1px; height: 16px; background: rgba(255,255,255,0.1); }
+.topbar-title {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  font-weight: 400;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tb-btn {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all .15s;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.tb-btn:hover { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); }
+.tb-btn.active { background: var(--braise); border-color: var(--braise); color: white; }
+
+/* ══ MAIN LAYOUT ══ */
+.workspace {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ══ SIDEBAR (nav écrans) ══ */
+.sidebar {
+  width: 220px;
+  background: #201810;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  overflow-y: auto;
+  flex-shrink: 0;
+  padding: 16px 0;
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+
+.sidebar-section {
+  margin-bottom: 20px;
+}
+.sidebar-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  padding: 0 16px 8px;
+}
+.screen-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 16px;
+  border: none;
+  background: transparent;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.45);
+  cursor: pointer;
+  transition: all .15s;
+  text-align: left;
+  border-left: 2px solid transparent;
+}
+.screen-btn:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.75); }
+.screen-btn.active {
+  background: rgba(194,89,24,0.12);
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+  border-left-color: var(--braise);
+}
+.screen-btn .dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.dot-done { background: var(--euca); }
+.dot-todo { background: var(--braise); }
+.dot-future { background: rgba(255,255,255,0.2); }
+
+/* ══ CANVAS AREA ══ */
+.canvas {
+  flex: 1;
+  overflow: auto;
+  background: #2C2416;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 24px;
+}
+.canvas::-webkit-scrollbar { width: 6px; height: 6px; }
+.canvas::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+/* ══ PHONE FRAME ══ */
+.phone-frame {
+  width: 390px;
+  min-height: 844px;
+  background: var(--white);
+  border-radius: 48px;
+  border: 10px solid #1A140E;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.phone-notch {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 120px; height: 28px;
+  background: #1A140E;
+  border-radius: 0 0 18px 18px;
+  z-index: 10;
+}
+.phone-screen {
+  width: 100%;
+  min-height: 100%;
+  background: var(--white);
+  padding-top: 38px;
+  overflow-y: auto;
+}
+
+/* ══ SCREEN ANNOTATION PANEL ══ */
+.annot-panel {
+  width: 280px;
+  flex-shrink: 0;
+  margin-left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+}
+.annot-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.annot-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--braise);
+  margin-bottom: 8px;
+}
+.annot-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.45;
+}
+.annot-row .a-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  flex-shrink: 0; margin-top: 5px;
+}
+.annot-row.done .a-dot { background: var(--euca); }
+.annot-row.todo .a-dot { background: var(--braise); }
+.annot-link {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: color .15s;
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.annot-link:hover { color: var(--braise); }
+
+/* ══════════════════════════════════════
+   SCREEN COMPONENTS (mobile UI)
+══════════════════════════════════════ */
+
+/* Status bar */
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.status-icons { display: flex; gap: 5px; align-items: center; }
+.status-icons svg { width: 14px; height: 14px; }
+
+/* Mobile nav bar */
+.mob-header {
+  padding: 14px 20px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border2);
+}
+.mob-logo { font-size: 17px; font-weight: 700; color: var(--ink); }
+.mob-logo em { color: var(--braise); font-style: normal; }
+.mob-back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--braise);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Hero block */
+.hero {
+  padding: 32px 20px 24px;
+  text-align: center;
+}
+.hero-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--euca);
+  background: var(--euca-bg);
+  border: 1px solid var(--euca-bd);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+.hero h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 10px;
+  letter-spacing: -.02em;
+}
+.hero h1 em { color: var(--braise); font-style: normal; }
+.hero p {
+  font-size: 14px;
+  color: var(--sub);
+  line-height: 1.55;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Big CTA buttons */
+.cta-grid {
+  padding: 0 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-radius: var(--r);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all .18s;
+  text-align: left;
+}
+.cta-btn:active { transform: scale(.98); }
+.cta-btn.primary {
+  background: var(--ink);
+  color: white;
+}
+.cta-btn.secondary {
+  background: var(--white);
+  border-color: var(--border);
+  color: var(--ink);
+}
+.cta-btn.outline {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--ink);
+}
+.cta-label { font-size: 15px; font-weight: 600; }
+.cta-sub { font-size: 11px; opacity: .6; margin-top: 2px; }
+.cta-arrow { font-size: 18px; opacity: .4; }
+
+/* Section */
+.mob-section { padding: 16px 20px 0; }
+.mob-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+/* Link list */
+.link-list { display: flex; flex-direction: column; gap: 8px; padding: 0 20px 20px; }
+.link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--white);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: all .15s;
+}
+.link-item:active { background: var(--cream); }
+.li-left { display: flex; align-items: center; gap: 12px; }
+.li-ico {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.li-ico.braise { background: var(--braise-bg); }
+.li-ico.euca { background: var(--euca-bg); }
+.li-ico.gold { background: var(--gold-bg); }
+.li-ico.ink { background: rgba(44,36,22,.06); }
+.li-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+.li-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.li-arrow { color: var(--muted); font-size: 14px; }
+.li-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--euca-bg);
+  color: var(--euca);
+  border: 1px solid var(--euca-bd);
+}
+.li-badge.new {
+  background: var(--braise-bg);
+  color: var(--braise);
+  border-color: var(--braise-bd);
+}
+
+/* Search bar */
+.search-bar {
+  margin: 12px 20px;
+  background: var(--cream);
+  border: 1.5px solid var(--border2);
+  border-radius: 12px;
+  padding: 11px 14px 11px 38px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  color: var(--muted);
+  font-style: italic;
+  position: relative;
+}
+.search-wrap { position: relative; margin: 12px 20px; }
+.search-wrap input {
+  width: 100%;
+  background: var(--cream);
+  border: 1.5px solid var(--border2);
+  border-radius: 12px;
+  padding: 11px 14px 11px 38px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+}
+.search-ico {
+  position: absolute;
+  left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Filter chips */
+.filter-chips {
+  display: flex;
+  gap: 6px;
+  padding: 0 20px 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.filter-chips::-webkit-scrollbar { display: none; }
+.fchip {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: var(--white);
+  border: 1.5px solid var(--border2);
+  color: var(--sub);
+  white-space: nowrap;
+}
+.fchip.active {
+  background: var(--braise);
+  border-color: var(--braise);
+  color: white;
+}
+
+/* Song card */
+.song-list { padding: 0 20px; display: flex; flex-direction: column; gap: 1px; }
+.song-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border2);
+}
+.song-lang {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+.sl-en { background: var(--braise-bg); color: var(--braise); }
+.sl-fr { background: rgba(90,32,144,.1); color: #5A2090; }
+.song-info { flex: 1; min-width: 0; }
+.song-name { font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.song-artist { font-size: 11px; color: var(--muted); }
+.song-tags { display: flex; gap: 4px; margin-top: 3px; }
+.stag { font-size: 9px; padding: 1px 6px; border-radius: 8px; background: var(--cream); color: var(--muted); }
+.song-chevron { color: var(--muted); font-size: 12px; flex-shrink: 0; }
+
+/* Form elements */
+.form-group { margin: 0 20px 16px; }
+.form-label { font-size: 11px; font-weight: 600; color: var(--sub); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+.form-input {
+  width: 100%;
+  background: var(--cream);
+  border: 1.5px solid var(--border2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+}
+.form-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.form-chip {
+  font-size: 12px; font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--white);
+  border: 1.5px solid var(--border2);
+  color: var(--sub);
+}
+.form-chip.sel {
+  background: var(--braise);
+  border-color: var(--braise);
+  color: white;
+}
+
+/* Submit button */
+.submit-btn {
+  margin: 0 20px 32px;
+  width: calc(100% - 40px);
+  padding: 15px;
+  background: var(--ink);
+  color: white;
+  border: none;
+  border-radius: var(--r);
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: background .15s;
+}
+.submit-btn:hover { background: var(--braise); }
+
+/* Planning */
+.plan-month { padding: 14px 20px 6px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.plan-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border2);
+}
+.plan-date {
+  width: 44px; height: 44px;
+  background: var(--cream);
+  border-radius: 10px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.plan-day { font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1; }
+.plan-month-abbr { font-size: 9px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.plan-info { flex: 1; }
+.plan-type { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+.plan-badge {
+  font-size: 9px; font-weight: 700;
+  padding: 2px 7px; border-radius: 8px;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.pb-chorale { background: var(--braise-bg); color: var(--braise); }
+.pb-choraoke { background: var(--euca-bg); color: var(--euca); }
+.plan-title { font-size: 13px; font-weight: 600; color: var(--ink); }
+.plan-loc { font-size: 11px; color: var(--muted); }
+.plan-next {
+  margin: 12px 20px;
+  background: var(--ink);
+  color: white;
+  border-radius: var(--r);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pn-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
+.pn-title { font-size: 15px; font-weight: 700; }
+.pn-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 1px; }
+.pn-arrow { font-size: 22px; color: var(--braise); }
+
+/* Divider */
+.divider { height: 1px; background: var(--border2); margin: 8px 20px; }
+.spacer { height: 16px; }
+
+/* Info block */
+.info-block {
+  margin: 0 20px 16px;
+  background: var(--cream);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--sub);
+  line-height: 1.5;
+}
+.info-block strong { color: var(--ink); }
+
+/* Stat row */
+.stat-row {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px 20px;
+}
+.stat-card {
+  flex: 1;
+  background: var(--cream);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+.stat-num { font-size: 22px; font-weight: 700; color: var(--ink); }
+.stat-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+/* Who we are */
+.wwa-block { padding: 20px 20px 0; }
+.wwa-block p { font-size: 13px; color: var(--sub); line-height: 1.65; margin-bottom: 12px; }
+.wwa-quote {
+  border-left: 3px solid var(--braise);
+  padding: 10px 14px;
+  margin: 16px 0;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink2);
+  line-height: 1.6;
+}
+
+/* Charte section */
+.charte-section { margin: 0 20px 16px; }
+.charte-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+.charte-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 12.5px;
+  color: var(--sub);
+  line-height: 1.5;
+  align-items: flex-start;
+}
+.charte-bullet {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--euca);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.charte-bullet.b { background: var(--braise); }
+
+/* Modal bottom sheet */
+.modal-sheet {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: var(--white);
+  border-radius: 24px 24px 0 0;
+  padding: 20px 20px 32px;
+  box-shadow: 0 -8px 40px rgba(44,36,22,0.12);
+}
+.modal-handle {
+  width: 36px; height: 4px;
+  background: var(--cream3);
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+.modal-title { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 16px; }
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(44,36,22,0.3);
+}
+
+/* Floating button */
+.fab {
+  position: absolute;
+  bottom: 24px; right: 20px;
+  width: 52px; height: 52px;
+  background: var(--braise);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 4px 16px rgba(194,89,24,0.35);
+  cursor: pointer;
+  color: white;
+}
+
+/* Setlist button */
+.setlist-btn {
+  margin: 10px 20px 4px;
+  background: var(--braise);
+  color: white;
+  border-radius: var(--r);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.sl-left { display:flex; align-items:center; gap:10px; }
+.sl-tag { font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.6); display:block; margin-bottom:2px; }
+.sl-title { font-size:14px; font-weight:700; }
+.sl-count { font-size:20px; color:rgba(255,255,255,.6); }
+
+/* Song action buttons — new layout */
+.song-actions { padding: 10px 0 4px; display:flex; flex-direction:column; gap:6px; }
+.sa-main { display:flex; align-items:center; justify-content:center; gap:8px; padding:13px; background:var(--euca); color:white; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; }
+.sa-secondary { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.sa-sec-btn { padding:10px; background:var(--cream); border:1px solid var(--border2); border-radius:8px; font-size:12px; font-weight:600; color:var(--sub); text-align:center; cursor:pointer; }
+.sa-jouer { display:flex; align-items:center; justify-content:center; gap:7px; padding:11px; background:rgba(90,32,144,.12); color:#5A2090; border-radius:10px; font-size:13px; font-weight:600; cursor:pointer; }
+
+/* Wip overlay */
+.wip-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(253,250,245,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  backdrop-filter: blur(2px);
+}
+.wip-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--braise);
+  background: white;
+  border: 1.5px solid var(--braise-bd);
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo">Oblink.Studio</div>
+      <div class="topbar-sep"></div>
+      <div class="topbar-title">Maquette · La ChorAlchimie · V1 · Mobile-first</div>
+    </div>
+    <div class="topbar-right">
+      <button class="tb-btn active" id="btn-phone" onclick="setView('phone')">📱 Téléphone</button>
+      <button class="tb-btn" id="btn-flow" onclick="setView('flow')">🗺 Flux</button>
+    </div>
+  </div>
+
+  <!-- WORKSPACE -->
+  <div class="workspace">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Porte d'entrée</div>
+        <button class="screen-btn active" onclick="showScreen('accueil')">
+          <span class="dot dot-todo"></span> Accueil (sas)
+        </button>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Hub Chanteurs</div>
+        <button class="screen-btn" onclick="showScreen('hub-chanteurs')">
+          <span class="dot dot-todo"></span> Hub chanteurs
+        </button>
+        <button class="screen-btn" onclick="showScreen('choraoke')">
+          <span class="dot dot-done"></span> App Choraoké ✓
+        </button>
+        <button class="screen-btn" onclick="showScreen('setlist')">
+          <span class="dot dot-todo"></span> Setlist du soir
+        </button>
+        <button class="screen-btn" onclick="showScreen('planning')">
+          <span class="dot dot-todo"></span> Planning saison
+        </button>
+        <button class="screen-btn" onclick="showScreen('adhesion')">
+          <span class="dot dot-done"></span> Adhésion ✓
+        </button>
+        <button class="screen-btn" onclick="showScreen('quisommesnous')">
+          <span class="dot dot-todo"></span> Qui sommes-nous
+        </button>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Hub Musiciens</div>
+        <button class="screen-btn" onclick="showScreen('hub-musiciens')">
+          <span class="dot dot-todo"></span> Hub musiciens
+        </button>
+        <button class="screen-btn" onclick="showScreen('form-musicien')">
+          <span class="dot dot-todo"></span> Form. musicien
+        </button>
+        <button class="screen-btn" onclick="showScreen('form-collab')">
+          <span class="dot dot-todo"></span> Form. collaboration
+        </button>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Dans l'app Choraoké</div>
+        <button class="screen-btn" onclick="showScreen('suggestion')">
+          <span class="dot dot-todo"></span> + Proposer un titre
+        </button>
+      </div>
+    </div>
+
+    <!-- CANVAS -->
+    <div class="canvas" id="canvas-phone">
+
+      <!-- PHONE FRAME -->
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen" id="phone-screen">
+          <!-- screens rendered by JS -->
+        </div>
+      </div>
+
+      <!-- ANNOTATIONS -->
+      <div class="annot-panel" id="annot-panel"></div>
+
+    </div>
+
+    <!-- FLOW VIEW (hidden by default) -->
+    <div class="canvas" id="canvas-flow" style="display:none; flex-direction:column; align-items:center; padding:40px;">
+      <div style="max-width:700px; width:100%;">
+        <div style="font-size:13px; font-weight:600; color:rgba(255,255,255,.3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:24px;">Vue flux — Navigation entre écrans</div>
+
+        <!-- Flow diagram -->
+        <svg width="100%" viewBox="0 0 660 580" style="font-family:'Outfit',sans-serif;">
+          <defs>
+            <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#C25918" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+            <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#4E7A65" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+          </defs>
+
+          <!-- Page accueil -->
+          <rect x="230" y="20" width="200" height="52" rx="10" fill="#2C2416" stroke="#C25918" stroke-width="1.5"/>
+          <text x="330" y="44" text-anchor="middle" fill="white" font-size="13" font-weight="600">🌐 Page d'accueil</text>
+          <text x="330" y="61" text-anchor="middle" fill="#C25918" font-size="10">Sas d'orientation</text>
+
+          <!-- Arrows from accueil -->
+          <path d="M290 72 L180 136" fill="none" stroke="#C25918" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr2)"/>
+          <path d="M370 72 L490 136" fill="none" stroke="#C25918" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr2)"/>
+
+          <!-- Hub chanteurs -->
+          <rect x="60" y="136" width="200" height="52" rx="10" fill="#2C2416" stroke="#C25918" stroke-width="1.5"/>
+          <text x="160" y="160" text-anchor="middle" fill="white" font-size="13" font-weight="600">🎤 Hub Chanteurs</text>
+          <text x="160" y="177" text-anchor="middle" fill="#C25918" font-size="10">Curieux · Membres</text>
+
+          <!-- Hub musiciens -->
+          <rect x="400" y="136" width="200" height="52" rx="10" fill="#2C2416" stroke="#C25918" stroke-width="1.5"/>
+          <text x="500" y="160" text-anchor="middle" fill="white" font-size="13" font-weight="600">🎸 Hub Musiciens</text>
+          <text x="500" y="177" text-anchor="middle" fill="#C25918" font-size="10">Musiciens · Partenaires</text>
+
+          <!-- Arrows from hub chanteurs -->
+          <path d="M90 188 L60 262" fill="none" stroke="rgba(194,89,24,.5)" stroke-width="1" marker-end="url(#arr2)"/>
+          <path d="M130 188 L165 262" fill="none" stroke="rgba(194,89,24,.5)" stroke-width="1" marker-end="url(#arr2)"/>
+          <path d="M170 188 L280 262" fill="none" stroke="rgba(194,89,24,.5)" stroke-width="1" marker-end="url(#arr2)"/>
+          <path d="M200 188 L400 262" fill="none" stroke="rgba(194,89,24,.5)" stroke-width="1" marker-end="url(#arr2)"/>
+          <path d="M220 188 L525 262" fill="none" stroke="rgba(194,89,24,.5)" stroke-width="1" marker-end="url(#arr2)"/>
+
+          <!-- Arrows from hub musiciens -->
+          <path d="M460 188 L460 262" fill="none" stroke="rgba(194,89,24,.5)" stroke-width="1" marker-end="url(#arr2)"/>
+          <path d="M540 188 L600 262" fill="none" stroke="rgba(194,89,24,.5)" stroke-width="1" marker-end="url(#arr2)"/>
+
+          <!-- Row 3 screens -->
+          <!-- Instagram -->
+          <rect x="20" y="262" width="90" height="44" rx="8" fill="rgba(90,32,144,.15)" stroke="rgba(90,32,144,.4)" stroke-width="1"/>
+          <text x="65" y="285" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11" font-weight="500">Instagram</text>
+          <text x="65" y="299" text-anchor="middle" fill="rgba(255,255,255,.3)" font-size="9">Externe ↗</text>
+
+          <!-- WhatsApp -->
+          <rect x="122" y="262" width="90" height="44" rx="8" fill="rgba(78,122,101,.15)" stroke="rgba(78,122,101,.4)" stroke-width="1"/>
+          <text x="167" y="285" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11" font-weight="500">WhatsApp</text>
+          <text x="167" y="299" text-anchor="middle" fill="rgba(255,255,255,.3)" font-size="9">Externe ↗</text>
+
+          <!-- App Choraoké -->
+          <rect x="224" y="262" width="110" height="44" rx="8" fill="rgba(78,122,101,.2)" stroke="#4E7A65" stroke-width="1.5"/>
+          <text x="279" y="285" text-anchor="middle" fill="white" font-size="11" font-weight="600">App Choraoké</text>
+          <text x="279" y="299" text-anchor="middle" fill="#4E7A65" font-size="9">Live ✓</text>
+
+          <!-- Planning -->
+          <rect x="346" y="262" width="90" height="44" rx="8" fill="#2C2416" stroke="rgba(194,89,24,.5)" stroke-width="1"/>
+          <text x="391" y="285" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11" font-weight="500">Planning</text>
+          <text x="391" y="299" text-anchor="middle" fill="#C25918" font-size="9">À faire</text>
+
+          <!-- Adhésion -->
+          <rect x="448" y="262" width="90" height="44" rx="8" fill="rgba(78,122,101,.2)" stroke="#4E7A65" stroke-width="1.5"/>
+          <text x="493" y="285" text-anchor="middle" fill="white" font-size="11" font-weight="600">Adhésion</text>
+          <text x="493" y="299" text-anchor="middle" fill="#4E7A65" font-size="9">Fait ✓</text>
+
+          <!-- Form musicien -->
+          <rect x="548" y="262" width="100" height="44" rx="8" fill="#2C2416" stroke="rgba(194,89,24,.5)" stroke-width="1"/>
+          <text x="598" y="281" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11" font-weight="500">Form.</text>
+          <text x="598" y="296" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11" font-weight="500">musicien</text>
+
+          <!-- Arrow Choraoké → Data -->
+          <path d="M279 306 L279 370" fill="none" stroke="#4E7A65" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr3)"/>
+
+          <!-- Google Sheet -->
+          <rect x="180" y="370" width="200" height="44" rx="8" fill="rgba(78,122,101,.15)" stroke="#4E7A65" stroke-width="1.5"/>
+          <text x="280" y="390" text-anchor="middle" fill="white" font-size="12" font-weight="600">📊 Google Sheet</text>
+          <text x="280" y="406" text-anchor="middle" fill="#4E7A65" font-size="9">Source de vérité</text>
+
+          <!-- + Suggestion -->
+          <rect x="390" y="370" width="120" height="44" rx="8" fill="#2C2416" stroke="rgba(194,89,24,.5)" stroke-width="1"/>
+          <text x="450" y="390" text-anchor="middle" fill="rgba(255,255,255,.7)" font-size="11" font-weight="500">➕ Suggestion</text>
+          <text x="450" y="406" text-anchor="middle" fill="#C25918" font-size="9">in-app · À faire</text>
+          <path d="M390 392 L382 392" fill="none" stroke="rgba(194,89,24,.5)" stroke-width="1" marker-end="url(#arr2)"/>
+
+          <!-- Sheet → Python -->
+          <path d="M280 414 L280 460" fill="none" stroke="#4A7ABF" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr3)"/>
+
+          <!-- Python Script -->
+          <rect x="180" y="460" width="200" height="44" rx="8" fill="rgba(74,122,191,.12)" stroke="#4A7ABF" stroke-width="1.5"/>
+          <text x="280" y="480" text-anchor="middle" fill="white" font-size="12" font-weight="600">🐍 Script sync</text>
+          <text x="280" y="496" text-anchor="middle" fill="#4A7ABF" font-size="9">Sheet → HTML</text>
+
+          <!-- Python → GitHub -->
+          <path d="M280 504 L280 540" fill="none" stroke="#4A7ABF" stroke-width="1.5" marker-end="url(#arr3)"/>
+
+          <!-- GitHub Pages -->
+          <rect x="180" y="540" width="200" height="44" rx="8" fill="rgba(74,122,191,.15)" stroke="#4A7ABF" stroke-width="1.5"/>
+          <text x="280" y="562" text-anchor="middle" fill="white" font-size="12" font-weight="600">🚀 GitHub Pages</text>
+          <text x="280" y="577" text-anchor="middle" fill="#4A7ABF" font-size="9">Live · Auto-deploy</text>
+        </svg>
+
+        <!-- Legend -->
+        <div style="display:flex; gap:20px; margin-top:20px; font-size:12px; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:7px; color:rgba(255,255,255,.4);">
+            <div style="width:20px; height:2px; background:#C25918; border-radius:1px;"></div> À construire
+          </div>
+          <div style="display:flex; align-items:center; gap:7px; color:rgba(255,255,255,.4);">
+            <div style="width:20px; height:2px; background:#4E7A65; border-radius:1px;"></div> Déjà fait / flux données
+          </div>
+          <div style="display:flex; align-items:center; gap:7px; color:rgba(255,255,255,.4);">
+            <div style="width:20px; height:2px; background:#4A7ABF; border-radius:1px; border-top:1px dashed;"></div> Pipeline technique
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCREENS DATA
+══════════════════════════════════════ -->
+<script>
+const SCREENS = {
+
+  'accueil': {
+    status: 'todo',
+    title: 'Page d\'accueil',
+    desc: 'Le sas d\'orientation. Une seule URL. Deux chemins.',
+    annots: [
+      { type: 'todo', text: 'Logo centré + baseline en une ligne' },
+      { type: 'todo', text: 'Deux gros boutons plein écran — pas plus' },
+      { type: 'todo', text: 'Compteur de la communauté (250 membres)' },
+      { type: 'todo', text: 'Lien discret en bas pour musiciens/partenaires' },
+    ],
+    links: [
+      { label: 'Hub Chanteurs', screen: 'hub-chanteurs' },
+      { label: 'Hub Musiciens', screen: 'hub-musiciens' },
+    ],
+    html: `
+      <div class="status-bar"><span>9:41</span><div class="status-icons"><span>●●●●</span><span>■</span></div></div>
+      <div class="hero">
+        <div class="hero-tag">Lyon · Depuis 2021</div>
+        <h1>La Chor<em>Alchimie</em></h1>
+        <p>Un mercredi soir, des voix qui se mêlent. Pas de prérequis. Juste chanter.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-num">250</div><div class="stat-label">membres</div></div>
+        <div class="stat-card"><div class="stat-num">20+</div><div class="stat-label">sessions</div></div>
+        <div class="stat-card"><div class="stat-num">587</div><div class="stat-label">titres</div></div>
+      </div>
+      <div class="cta-grid">
+        <button class="cta-btn primary" onclick="showScreen('hub-chanteurs')">
+          <div><div class="cta-label">🎤 Je veux chanter</div><div class="cta-sub">Rejoindre la communauté</div></div>
+          <span class="cta-arrow">→</span>
+        </button>
+        <button class="cta-btn secondary" onclick="showScreen('hub-musiciens')">
+          <div><div class="cta-label">🎸 Je suis musicien·ne</div><div class="cta-sub">Jouer avec nous</div></div>
+          <span class="cta-arrow">→</span>
+        </button>
+        <button class="cta-btn outline" onclick="showScreen('quisommesnous')">
+          <div><div class="cta-label">ℹ️ Qui sommes-nous ?</div></div>
+          <span class="cta-arrow">→</span>
+        </button>
+      </div>
+    `
+  },
+
+  'hub-chanteurs': {
+    status: 'todo',
+    title: 'Hub Chanteurs',
+    desc: 'Tous les liens utiles pour les participants et curieux.',
+    annots: [
+      { type: 'todo', text: 'Prochaine session en bannière (date + lieu)' },
+      { type: 'todo', text: 'Liste de liens clairs avec icônes' },
+      { type: 'done', text: 'App Choraoké déjà disponible' },
+      { type: 'done', text: 'Adhésion déjà disponible' },
+    ],
+    html: `
+      <div class="status-bar"><span>9:41</span><div class="status-icons"><span>●●●●</span><span>■</span></div></div>
+      <div class="mob-header">
+        <button class="mob-back" onclick="showScreen('accueil')">← Accueil</button>
+        <div class="mob-logo">La Chor<em>Alchimie</em></div>
+      </div>
+      <div class="plan-next">
+        <div>
+          <div class="pn-label">Prochaine session</div>
+          <div class="pn-title">Choraoké — Berges du Rhône</div>
+          <div class="pn-sub">Mardi 29 avril · 19h00</div>
+        </div>
+        <span class="pn-arrow">→</span>
+      </div>
+      <div class="mob-section"><div class="mob-section-title">Nous rejoindre</div></div>
+      <div class="link-list">
+        <div class="link-item">
+          <div class="li-left">
+            <div class="li-ico braise">📷</div>
+            <div><div class="li-title">Instagram</div><div class="li-sub">@lachoralchimie</div></div>
+          </div>
+          <span class="li-badge new">Nouvelles vidéos</span>
+        </div>
+        <div class="link-item">
+          <div class="li-left">
+            <div class="li-ico euca">💬</div>
+            <div><div class="li-title">WhatsApp</div><div class="li-sub">Rejoindre la communauté</div></div>
+          </div>
+          <span class="li-arrow">→</span>
+        </div>
+      </div>
+      <div class="mob-section"><div class="mob-section-title">Ressources</div></div>
+      <div class="link-list">
+        <div class="link-item" onclick="showScreen('choraoke')">
+          <div class="li-left">
+            <div class="li-ico euca">🎵</div>
+            <div><div class="li-title">App Choraoké</div><div class="li-sub">587 morceaux avec paroles & tabs</div></div>
+          </div>
+          <span class="li-badge">Live ✓</span>
+        </div>
+        <div class="link-item" onclick="showScreen('planning')">
+          <div class="li-left">
+            <div class="li-ico gold">📅</div>
+            <div><div class="li-title">Planning de la saison</div><div class="li-sub">Avril → Octobre 2026</div></div>
+          </div>
+          <span class="li-arrow">→</span>
+        </div>
+        <div class="link-item" onclick="showScreen('adhesion')">
+          <div class="li-left">
+            <div class="li-ico ink">🤝</div>
+            <div><div class="li-title">Adhérer à l'asso</div><div class="li-sub">20€/saison · Accès prioritaire</div></div>
+          </div>
+          <span class="li-badge">Live ✓</span>
+        </div>
+        <div class="link-item" onclick="showScreen('quisommesnous')">
+          <div class="li-left">
+            <div class="li-ico ink">📖</div>
+            <div><div class="li-title">Qui sommes-nous ?</div><div class="li-sub">Histoire · Charte · Équipe</div></div>
+          </div>
+          <span class="li-arrow">→</span>
+        </div>
+      </div>
+    `
+  },
+
+  'choraoke': {
+    status: 'done',
+    title: 'App Choraoké',
+    desc: 'Déjà live. 587 titres. Genius en principal, Spotify/Deezer en secondaire.',
+    annots: [
+      { type: 'done', text: 'Recherche temps réel EN + FR + IT/ES' },
+      { type: 'todo', text: '🎯 Bouton Setlist du soir — généré depuis Sheet' },
+      { type: 'done', text: '📖 Genius — paroles (bouton principal, vert)' },
+      { type: 'done', text: '🎤 Spotify + 🎵 Deezer — secondaires' },
+      { type: 'done', text: 'Ultimate Guitar — pour les musiciens' },
+      { type: 'todo', text: 'Bouton ➕ Proposer un titre' },
+    ],
+    html: `
+      <div class="status-bar"><span>9:41</span><div class="status-icons"><span>●●●●</span><span>■</span></div></div>
+      <div class="mob-header">
+        <button class="mob-back" onclick="showScreen('hub-chanteurs')">← Hub</button>
+        <div class="mob-logo">🎵 Choraoké</div>
+      </div>
+      <div class="setlist-btn" onclick="showScreen('setlist')">
+        <div class="sl-left">
+          <span style="font-size:22px;">🎯</span>
+          <div>
+            <span class="sl-tag">Prochaine session · 29 avril</span>
+            <div class="sl-title">Setlist du soir — 30 titres</div>
+          </div>
+        </div>
+        <span class="sl-count">›</span>
+      </div>
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <input type="text" placeholder="Titre, artiste…" readonly>
+      </div>
+      <div class="filter-chips">
+        <div class="fchip active">Tous</div>
+        <div class="fchip">🇬🇧 English</div>
+        <div class="fchip">🇫🇷 Français</div>
+        <div class="fchip">⭐ Facile</div>
+        <div class="fchip">🎹 Piano</div>
+        <div class="fchip">🎸 Guitare</div>
+      </div>
+      <div class="song-list">
+        <div class="song-item" style="flex-direction:column;align-items:stretch;gap:0;">
+          <div style="display:flex;align-items:center;gap:0;width:100%;">
+            <div class="song-lang sl-en">EN</div>
+            <div class="song-info">
+              <div class="song-name">Bohemian Rhapsody</div>
+              <div class="song-artist">Queen</div>
+              <div class="song-tags"><span class="stag">⭐ Facile</span><span class="stag">🎸 Guitare</span><span class="stag">♩71</span></div>
+            </div>
+            <span class="song-chevron" style="transform:rotate(90deg);">›</span>
+          </div>
+          <div class="song-actions">
+            <div class="sa-main">📖 Paroles — Genius</div>
+            <div class="sa-secondary">
+              <div class="sa-sec-btn">🎤 Spotify</div>
+              <div class="sa-sec-btn">🎵 Deezer</div>
+            </div>
+            <div class="sa-jouer">🎸 Pour jouer — Ultimate Guitar</div>
+          </div>
+        </div>
+        <div class="song-item">
+          <div class="song-lang sl-fr">FR</div>
+          <div class="song-info">
+            <div class="song-name">La Vie en rose</div>
+            <div class="song-artist">Édith Piaf</div>
+            <div class="song-tags"><span class="stag">⭐ Facile</span><span class="stag">🎹 Piano</span><span class="stag">♩82</span></div>
+          </div>
+          <span class="song-chevron">›</span>
+        </div>
+        <div class="song-item">
+          <div class="song-lang sl-en">EN</div>
+          <div class="song-info">
+            <div class="song-name">Someone Like You</div>
+            <div class="song-artist">Adele</div>
+            <div class="song-tags"><span class="stag">⭐⭐ Moyen</span><span class="stag">🎹 Piano</span></div>
+          </div>
+          <span class="song-chevron">›</span>
+        </div>
+        <div class="song-item">
+          <div class="song-lang sl-fr">FR</div>
+          <div class="song-info">
+            <div class="song-name">Les Champs-Elysées</div>
+            <div class="song-artist">Joe Dassin</div>
+            <div class="song-tags"><span class="stag">⭐ Facile</span><span class="stag">🎹 Piano</span></div>
+          </div>
+          <span class="song-chevron">›</span>
+        </div>
+        <div class="song-item">
+          <div class="song-lang sl-en">EN</div>
+          <div class="song-info">
+            <div class="song-name">Africa</div>
+            <div class="song-artist">TOTO</div>
+            <div class="song-tags"><span class="stag">⭐ Facile</span><span class="stag">🎸 Guitare</span></div>
+          </div>
+          <span class="song-chevron">›</span>
+        </div>
+      </div>
+      <div class="fab" onclick="showScreen('suggestion')" title="Proposer un titre">＋</div>
+    `
+  },
+
+  'suggestion': {
+    status: 'todo',
+    title: '+ Proposer un titre',
+    desc: 'Modal dans l\'app — 30 secondes max. Alimente le Google Sheet.',
+    annots: [
+      { type: 'todo', text: 'Sheet bottom modal — surgit par le bas' },
+      { type: 'todo', text: 'Titre + Artiste obligatoires seulement' },
+      { type: 'todo', text: 'Apps Script → onglet Suggestions du Sheet' },
+      { type: 'todo', text: 'Confirmation en 1 seconde' },
+    ],
+    html: `
+      <div class="status-bar"><span>9:41</span><div class="status-icons"><span>●●●●</span><span>■</span></div></div>
+      <div class="mob-header">
+        <button class="mob-back" onclick="showScreen('choraoke')">← Choraoké</button>
+        <div class="mob-logo">🎵 Choraoké</div>
+      </div>
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <input type="text" placeholder="Titre, artiste…" readonly>
+      </div>
+      <div class="song-list" style="opacity:.4;">
+        <div class="song-item"><div class="song-lang sl-en">EN</div><div class="song-info"><div class="song-name">Bohemian Rhapsody</div><div class="song-artist">Queen</div></div></div>
+        <div class="song-item"><div class="song-lang sl-fr">FR</div><div class="song-info"><div class="song-name">La Vie en rose</div><div class="song-artist">Édith Piaf</div></div></div>
+      </div>
+      <div class="modal-overlay"></div>
+      <div class="modal-sheet">
+        <div class="modal-handle"></div>
+        <div class="modal-title">🎵 Proposer un morceau</div>
+        <div class="form-group">
+          <label class="form-label">Titre *</label>
+          <input class="form-input" type="text" placeholder="Ex : Don't Stop Me Now" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Artiste *</label>
+          <input class="form-input" type="text" placeholder="Ex : Queen" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Langue</label>
+          <div class="form-chips">
+            <div class="form-chip sel">🇬🇧 EN</div>
+            <div class="form-chip">🇫🇷 FR</div>
+            <div class="form-chip">🌍 IT/ES</div>
+          </div>
+        </div>
+        <button class="submit-btn" style="margin-bottom:0">Envoyer la suggestion ✓</button>
+      </div>
+    `
+  },
+
+  'setlist': {
+    status: 'todo',
+    title: 'Setlist du soir',
+    desc: 'Vue filtrée — morceaux cochés dans le Sheet. Générée par le script sync.',
+    annots: [
+      { type: 'todo', text: 'Colonne "Setlist" cochée dans Google Sheet' },
+      { type: 'todo', text: 'Script sync génère la section setlist dans l\'app' },
+      { type: 'todo', text: 'Ordre = ordre des lignes dans le Sheet' },
+      { type: 'todo', text: 'Bouton ← retour vers tous les morceaux' },
+      { type: 'todo', text: 'Si aucun titre coché → bouton invisible' },
+    ],
+    html: `
+      <div class="status-bar"><span>9:41</span><div class="status-icons"><span>●●●●</span><span>■</span></div></div>
+      <div class="mob-header">
+        <button class="mob-back" onclick="showScreen('choraoke')">← Tous les morceaux</button>
+        <div class="mob-logo">🎯 Setlist</div>
+      </div>
+      <div style="padding:10px 20px 6px;">
+        <div style="background:var(--ink);border-radius:12px;padding:14px 16px;color:white;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px;">Prochaine session</div>
+          <div style="font-size:16px;font-weight:700;">Choraoké avec Axel</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:2px;">29 avril · Berges du Rhône · 30 titres</div>
+        </div>
+      </div>
+      <div class="song-list" style="padding-top:8px;">
+        <div class="song-item">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;margin-right:10px;">1</div>
+          <div class="song-lang sl-en">EN</div>
+          <div class="song-info"><div class="song-name">Bohemian Rhapsody</div><div class="song-artist">Queen</div></div>
+          <span class="song-chevron">›</span>
+        </div>
+        <div class="song-item">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;margin-right:10px;">2</div>
+          <div class="song-lang sl-fr">FR</div>
+          <div class="song-info"><div class="song-name">La Vie en rose</div><div class="song-artist">Édith Piaf</div></div>
+          <span class="song-chevron">›</span>
+        </div>
+        <div class="song-item">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;margin-right:10px;">3</div>
+          <div class="song-lang sl-en">EN</div>
+          <div class="song-info"><div class="song-name">Africa</div><div class="song-artist">TOTO</div></div>
+          <span class="song-chevron">›</span>
+        </div>
+        <div class="song-item">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;margin-right:10px;">4</div>
+          <div class="song-lang sl-fr">FR</div>
+          <div class="song-info"><div class="song-name">Les Champs-Elysées</div><div class="song-artist">Joe Dassin</div></div>
+          <span class="song-chevron">›</span>
+        </div>
+        <div class="song-item">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;margin-right:10px;">5</div>
+          <div class="song-lang sl-en">EN</div>
+          <div class="song-info"><div class="song-name">Someone Like You</div><div class="song-artist">Adele</div></div>
+          <span class="song-chevron">›</span>
+        </div>
+        <div style="text-align:center;padding:16px;font-size:12px;color:var(--muted);">… 25 autres titres</div>
+      </div>
+    `
+  },
+
+  'planning': {
+    status: 'todo',
+    title: 'Planning de la saison',
+    desc: 'Dates avril → octobre. Simple, lisible, mobile.',
+    annots: [
+      { type: 'todo', text: 'Prochaine session en bannière cliquable' },
+      { type: 'todo', text: 'Distinction visuelle ChorAlchimie vs Choraoké' },
+      { type: 'todo', text: 'Lieu + lien Google Maps optionnel' },
+      { type: 'todo', text: 'Mise à jour manuelle par Pierrick' },
+    ],
+    html: `
+      <div class="status-bar"><span>9:41</span><div class="status-icons"><span>●●●●</span><span>■</span></div></div>
+      <div class="mob-header">
+        <button class="mob-back" onclick="showScreen('hub-chanteurs')">← Hub</button>
+        <div class="mob-logo">📅 Saison 2026</div>
+      </div>
+      <div class="plan-next">
+        <div>
+          <div class="pn-label">Dans 8 jours</div>
+          <div class="pn-title">Choraoké avec Axel</div>
+          <div class="pn-sub">29 avr · Berges du Rhône · 19h</div>
+        </div>
+        <span class="pn-arrow">🗓</span>
+      </div>
+      <div class="plan-month">Avril 2026</div>
+      <div class="plan-item">
+        <div class="plan-date"><div class="plan-day">15</div><div class="plan-month-abbr">Avr</div></div>
+        <div class="plan-info">
+          <div class="plan-type"><span class="plan-badge pb-chorale">ChorAlchimie</span></div>
+          <div class="plan-title">Lancement de saison ❤️</div>
+          <div class="plan-loc">📍 Parc de la Tête d'Or</div>
+        </div>
+      </div>
+      <div class="plan-item">
+        <div class="plan-date"><div class="plan-day">29</div><div class="plan-month-abbr">Avr</div></div>
+        <div class="plan-info">
+          <div class="plan-type"><span class="plan-badge pb-choraoke">Choraoké</span></div>
+          <div class="plan-title">Choraoké avec Axel</div>
+          <div class="plan-loc">📍 Berges du Rhône</div>
+        </div>
+      </div>
+      <div class="plan-month">Mai 2026</div>
+      <div class="plan-item">
+        <div class="plan-date"><div class="plan-day">12</div><div class="plan-month-abbr">Mai</div></div>
+        <div class="plan-info">
+          <div class="plan-type"><span class="plan-badge pb-chorale">ChorAlchimie</span></div>
+          <div class="plan-title">Session printemps</div>
+          <div class="plan-loc">📍 Parc de la Tête d'Or</div>
+        </div>
+      </div>
+      <div class="plan-item">
+        <div class="plan-date"><div class="plan-day">27</div><div class="plan-month-abbr">Mai</div></div>
+        <div class="plan-info">
+          <div class="plan-type"><span class="plan-badge pb-choraoke">Choraoké</span></div>
+          <div class="plan-title">Choraoké</div>
+          <div class="plan-loc">📍 TBD</div>
+        </div>
+      </div>
+      <div class="plan-month">Juin 2026</div>
+      <div class="plan-item">
+        <div class="plan-date"><div class="plan-day">10</div><div class="plan-month-abbr">Juin</div></div>
+        <div class="plan-info">
+          <div class="plan-type"><span class="plan-badge pb-chorale">ChorAlchimie</span></div>
+          <div class="plan-title">Session été</div>
+          <div class="plan-loc">📍 Parc de la Tête d'Or</div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+    `
+  },
+
+  'adhesion': {
+    status: 'done',
+    title: 'Formulaire d\'adhésion',
+    desc: 'Déjà live. Apps Script + HelloAsso + charte.',
+    annots: [
+      { type: 'done', text: 'HTML mobile responsive' },
+      { type: 'done', text: 'Apps Script → Google Sheets' },
+      { type: 'done', text: 'Charte intégrée + droit à l\'image' },
+      { type: 'done', text: 'HelloAsso pour paiement 20€' },
+    ],
+    html: `
+      <div class="status-bar"><span>9:41</span><div class="status-icons"><span>●●●●</span><span>■</span></div></div>
+      <div class="mob-header">
+        <button class="mob-back" onclick="showScreen('hub-chanteurs')">← Hub</button>
+        <div class="mob-logo">📋 Adhésion</div>
+      </div>
+      <div class="hero" style="padding-bottom:16px;">
+        <h1 style="font-size:22px;">Rejoindre <em>l'asso</em></h1>
+        <p>Saison avril 2026 → avril 2027. Tarif réduit + soutien au projet.</p>
+      </div>
+      <div class="info-block">
+        <strong>La cotisation (20€) couvre :</strong> matériel de session, assurance MAIF, frais bancaires, montage vidéo. Paiement en 2 fois sur demande.
+      </div>
+      <div class="form-group">
+        <label class="form-label">Prénom & Nom *</label>
+        <input class="form-input" type="text" placeholder="Pierrick Oblin" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="text" placeholder="ton@email.fr" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">WhatsApp / Téléphone *</label>
+        <input class="form-input" type="text" placeholder="06 XX XX XX XX" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Droit à l'image</label>
+        <div class="form-chips">
+          <div class="form-chip sel">✅ J'accepte</div>
+          <div class="form-chip">❌ Je refuse</div>
+        </div>
+      </div>
+      <div class="charte-section">
+        <div class="charte-title">Notre charte</div>
+        <div class="charte-item"><div class="charte-bullet"></div>Respecter les autres, quel que soit leur niveau</div>
+        <div class="charte-item"><div class="charte-bullet"></div>Respecter le travail de Laëtitia et des musiciens</div>
+        <div class="charte-item"><div class="charte-bullet b"></div>Laisser les lieux dans l'état où on les a trouvés</div>
+        <div class="charte-item"><div class="charte-bullet"></div>Partager l'expérience autour de soi</div>
+      </div>
+      <button class="submit-btn">Adhérer via HelloAsso →</button>
+    `
+  },
+
+  'quisommesnous': {
+    status: 'todo',
+    title: 'Qui sommes-nous ?',
+    desc: 'Histoire + Charte + Équipe. Une seule page fluide.',
+    annots: [
+      { type: 'todo', text: 'Histoire courte — l\'étincelle Choir! Choir! Choir!' },
+      { type: 'todo', text: 'Photo ou vidéo de session (header)' },
+      { type: 'todo', text: 'Charte en version lisible (pas formulaire)' },
+      { type: 'todo', text: 'Equipe : Pierrick, Laëtitia, Axel, Benoît, Véro' },
+    ],
+    html: `
+      <div class="status-bar"><span>9:41</span><div class="status-icons"><span>●●●●</span><span>■</span></div></div>
+      <div class="mob-header">
+        <button class="mob-back" onclick="showScreen('accueil')">← Accueil</button>
+        <div class="mob-logo">ℹ️ Notre histoire</div>
+      </div>
+      <div style="background:var(--cream2); height:160px; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:13px; font-style:italic;">
+        [Vidéo ou photo de session]
+      </div>
+      <div class="wwa-block">
+        <p>En 2021, Pierrick découvre <strong>Choir! Choir! Choir!</strong> au Canada : des centaines de personnes qui se retrouvent pour chanter ensemble, sans prérequis, juste pour le plaisir de la voix collective.</p>
+        <div class="wwa-quote">"Un moment de cohésion, hors du monde. On se retrouve pour chanter ensemble — pas pour performer, pas pour briller."</div>
+        <p>Depuis, La ChorAlchimie s'est construite session après session, au bord du lac du Parc de la Tête d'Or.</p>
+      </div>
+      <div class="divider"></div>
+      <div class="mob-section"><div class="mob-section-title">La charte</div></div>
+      <div class="charte-section" style="margin-top:8px;">
+        <div class="charte-item"><div class="charte-bullet"></div>Un espace safe, ouvert, accueillant. Ta voix a sa place.</div>
+        <div class="charte-item"><div class="charte-bullet"></div>Répertoire varié, multilingue et contemporain</div>
+        <div class="charte-item"><div class="charte-bullet b"></div>Sessions bénévoles et auto-gérées — ton respect compte</div>
+        <div class="charte-item"><div class="charte-bullet"></div>Tes idées construisent la ChorAlchimie</div>
+      </div>
+      <div class="divider"></div>
+      <div class="mob-section"><div class="mob-section-title">L'équipe</div></div>
+      <div class="link-list">
+        <div class="link-item"><div class="li-left"><div class="li-ico braise">👤</div><div><div class="li-title">Pierrick OBLIN</div><div class="li-sub">Président · Organisation</div></div></div></div>
+        <div class="link-item"><div class="li-left"><div class="li-ico euca">🎵</div><div><div class="li-title">Laëtitia</div><div class="li-sub">Cheffe de chœur · ChorAlchimie</div></div></div></div>
+        <div class="link-item"><div class="li-left"><div class="li-ico gold">🎤</div><div><div class="li-title">Axel</div><div class="li-sub">Animateur · Choraoké</div></div></div></div>
+      </div>
+      <div class="spacer"></div>
+    `
+  },
+
+  'hub-musiciens': {
+    status: 'todo',
+    title: 'Hub Musiciens & Partenaires',
+    desc: 'Pour les musiciens et les chorales / groupes partenaires.',
+    annots: [
+      { type: 'todo', text: 'Présentation côté musical (répertoire, ambiance)' },
+      { type: 'todo', text: 'Ce qu\'on cherche comme profil musicien' },
+      { type: 'todo', text: 'Deux formulaires distincts : musicien vs collab' },
+    ],
+    html: `
+      <div class="status-bar"><span>9:41</span><div class="status-icons"><span>●●●●</span><span>■</span></div></div>
+      <div class="mob-header">
+        <button class="mob-back" onclick="showScreen('accueil')">← Accueil</button>
+        <div class="mob-logo">🎸 Musiciens</div>
+      </div>
+      <div class="hero" style="padding-bottom:16px;">
+        <h1 style="font-size:22px;">Tu joues,<br>on <em>chante</em> dessus.</h1>
+        <p>On cherche des musiciens pour accompagner nos sessions. Piano, guitare, basse, tout instrument bienvenu.</p>
+      </div>
+      <div class="info-block">
+        <strong>Ce qu'on propose :</strong> Sessions informelles, répertoire varié (587 titres EN/FR), 25-40 chanteurs autour de toi, Parc de la Tête d'Or en été.
+      </div>
+      <div class="mob-section"><div class="mob-section-title">Tu es…</div></div>
+      <div class="cta-grid">
+        <button class="cta-btn primary" onclick="showScreen('form-musicien')">
+          <div><div class="cta-label">🎹 Musicien·ne solo</div><div class="cta-sub">Guitare, piano, basse…</div></div>
+          <span class="cta-arrow">→</span>
+        </button>
+        <button class="cta-btn secondary" onclick="showScreen('form-collab')">
+          <div><div class="cta-label">🎶 Chorale ou groupe</div><div class="cta-sub">On monte un projet ensemble</div></div>
+          <span class="cta-arrow">→</span>
+        </button>
+      </div>
+    `
+  },
+
+  'form-musicien': {
+    status: 'todo',
+    title: 'Formulaire Musicien',
+    desc: 'Instrument, dispo, répertoire, lien audio. → Notif email Pierrick.',
+    annots: [
+      { type: 'todo', text: 'Apps Script → Google Sheets' },
+      { type: 'todo', text: 'Notification email automatique à Pierrick' },
+      { type: 'todo', text: 'Champ lien audio (SoundCloud, YouTube…)' },
+      { type: 'todo', text: 'Disponibilités (mercredi soir)' },
+    ],
+    html: `
+      <div class="status-bar"><span>9:41</span><div class="status-icons"><span>●●●●</span><span>■</span></div></div>
+      <div class="mob-header">
+        <button class="mob-back" onclick="showScreen('hub-musiciens')">← Hub musiciens</button>
+        <div class="mob-logo">🎹 Rejoindre</div>
+      </div>
+      <div class="spacer"></div>
+      <div class="form-group">
+        <label class="form-label">Prénom & Nom *</label>
+        <input class="form-input" type="text" placeholder="Ex : Sophie Martin" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Instrument(s) *</label>
+        <div class="form-chips">
+          <div class="form-chip sel">🎹 Piano</div>
+          <div class="form-chip">🎸 Guitare</div>
+          <div class="form-chip">🎸 Basse</div>
+          <div class="form-chip">🥁 Batterie</div>
+          <div class="form-chip">🎷 Autre</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Disponibilité</label>
+        <div class="form-chips">
+          <div class="form-chip sel">Mercredi soir</div>
+          <div class="form-chip">Flexible</div>
+          <div class="form-chip">Week-end</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Ton niveau / style</label>
+        <input class="form-input" type="text" placeholder="Ex : Je lis les partitions, j'aime le pop-rock…" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Lien audio (SoundCloud, YouTube…)</label>
+        <input class="form-input" type="text" placeholder="https://…" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email *</label>
+        <input class="form-input" type="text" placeholder="ton@email.fr" readonly>
+      </div>
+      <button class="submit-btn">Envoyer ma candidature →</button>
+    `
+  },
+
+  'form-collab': {
+    status: 'todo',
+    title: 'Formulaire Collaboration',
+    desc: 'Pour chorales et groupes qui veulent monter un projet.',
+    annots: [
+      { type: 'todo', text: 'Court — 4 champs max' },
+      { type: 'todo', text: 'Notif email Pierrick immédiate' },
+      { type: 'todo', text: 'Champ libre pour décrire le projet' },
+    ],
+    html: `
+      <div class="status-bar"><span>9:41</span><div class="status-icons"><span>●●●●</span><span>■</span></div></div>
+      <div class="mob-header">
+        <button class="mob-back" onclick="showScreen('hub-musiciens')">← Hub musiciens</button>
+        <div class="mob-logo">🤝 Collaboration</div>
+      </div>
+      <div class="hero" style="padding-bottom:16px;">
+        <h1 style="font-size:20px;">Un projet <em>commun</em> ?</h1>
+        <p>Chorale, groupe de musique, collectif artistique — parlons-en.</p>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Votre structure *</label>
+        <input class="form-input" type="text" placeholder="Ex : Les Voix du Rhône, association…" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Vous êtes…</label>
+        <div class="form-chips">
+          <div class="form-chip sel">🎶 Chorale</div>
+          <div class="form-chip">🎵 Groupe de musique</div>
+          <div class="form-chip">🎭 Collectif</div>
+          <div class="form-chip">🏢 Structure culturelle</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Votre idée de projet</label>
+        <textarea class="form-input" style="height:90px; resize:none;" placeholder="Ex : On imagine un concert commun cet été, 200 personnes, Parc de la Tête d'Or…" readonly></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contact *</label>
+        <input class="form-input" type="text" placeholder="Email ou téléphone" readonly>
+      </div>
+      <button class="submit-btn">Envoyer notre proposition →</button>
+    `
+  }
+};
+
+/* ════════════════════════════════
+   RENDER ENGINE
+════════════════════════════════ */
+const statusLabels = { done: '✓ Déjà fait', todo: '→ À construire' };
+const statusColors = { done: '#4E7A65', todo: '#C25918' };
+
+function showScreen(id) {
+  const screen = SCREENS[id];
+  if (!screen) return;
+
+  // Update sidebar
+  document.querySelectorAll('.screen-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.querySelector(`[onclick="showScreen('${id}')"]`);
+  if (btn) btn.classList.add('active');
+
+  // Render phone
+  document.getElementById('phone-screen').innerHTML = screen.html;
+
+  // Render annotations
+  const panel = document.getElementById('annot-panel');
+  const statusColor = statusColors[screen.status];
+  panel.innerHTML = `
+    <div class="annot-card">
+      <div class="annot-title" style="color:${statusColor}">${screen.title}</div>
+      <div style="font-size:12px; color:rgba(255,255,255,.35); margin-bottom:10px;">${screen.desc}</div>
+      <div style="font-size:11px; font-weight:600; padding:4px 10px; border-radius:12px; display:inline-block; background:${statusColor}22; color:${statusColor}; border:1px solid ${statusColor}44; margin-bottom:10px; letter-spacing:.06em; text-transform:uppercase;">
+        ${statusLabels[screen.status]}
+      </div>
+      ${screen.annots.map(a => `
+        <div class="annot-row ${a.type}">
+          <span class="a-dot"></span>
+          <span>${a.text}</span>
+        </div>`).join('')}
+    </div>
+    ${screen.links ? `
+    <div class="annot-card">
+      <div class="annot-title">Navigation depuis cet écran</div>
+      ${screen.links.map(l => `
+        <div class="annot-link" onclick="showScreen('${l.screen}')">
+          → ${l.label}
+        </div>`).join('')}
+    </div>` : ''}
+    <div class="annot-card">
+      <div class="annot-title">Légende</div>
+      <div class="annot-row done"><span class="a-dot"></span> Déjà construit et live</div>
+      <div class="annot-row todo"><span class="a-dot"></span> À construire lors de la reprise</div>
+    </div>
+  `;
+}
+
+function setView(v) {
+  document.getElementById('canvas-phone').style.display = v === 'phone' ? 'flex' : 'none';
+  document.getElementById('canvas-flow').style.display = v === 'flow' ? 'flex' : 'none';
+  document.getElementById('btn-phone').classList.toggle('active', v === 'phone');
+  document.getElementById('btn-flow').classList.toggle('active', v === 'flow');
+}
+
+// Init
+showScreen('accueil');
+</script>
+</body>
+</html>
