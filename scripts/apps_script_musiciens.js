@@ -33,17 +33,22 @@ function doPost(e) {
       ]);
     }
 
+    var lastRow = sheet.getLastRow();
+    var nextNum = lastRow; // row 1 = header
+
     sheet.appendRow([
-      new Date(),
+      nextNum,
       data.nom || '',
       data.prenom || '',
       data.instruments || '',
       data.telephone || '',
       data.email || '',
-      data.niveau || '',
-      data.format || '',
       data.disponibilites || '',
-      data.remuneration || ''
+      data.format || '',
+      data.niveau || '',
+      data.lien_audio || '',
+      data.remuneration || 'Bénévole',
+      ''
     ]);
 
     // Notification email
