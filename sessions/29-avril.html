@@ -53,6 +53,8 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 .toast{position:fixed;bottom:24px;left:20px;right:20px;padding:16px 20px;border-radius:14px;font-size:14px;font-weight:600;text-align:center;transform:translateY(120%);transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:500}
 .toast.success{background:var(--euca);color:#fff}
 .toast.error{background:var(--braise);color:#fff}
+.toast.ok{background:var(--euca);color:#fff}
+.toast.err{background:var(--braise);color:#fff}
 .toast.show{transform:translateY(0)}
 </style>
 </head>
@@ -136,39 +138,35 @@ function showToast(msg, type) {
   setTimeout(function() { t.classList.remove('show'); }, 4000);
 }
 
-document.getElementById('presenceForm').addEventListener('submit', function(e) {
+var form = document.getElementById('presenceForm');
+form.addEventListener('submit', function(e) {
   e.preventDefault();
   var prenom = document.getElementById('prenom').value.trim();
-  if (!prenom) { showToast('Ajoute ton prénom', 'error'); return; }
+  if (!prenom) { showToast('Ajoute ton prénom', 'err'); return; }
 
+  var source = (function(){ var c=document.querySelector('#sourceChips .chip.on'); return c?c.dataset.val:''; })();
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.textContent = 'Envoi...';
 
   fetch(APPS_SCRIPT_SESSION_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify({
-      prenom: prenom,
-      source: (function(){ var c=document.querySelector('#sourceChips .chip.on'); return c?c.dataset.val:''; })(),
-      session_name: SESSION_NAME
-    })
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ prenom: prenom, source: source, session_name: SESSION_NAME }),
+    redirect: 'follow'
   })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (data.status === 'ok') {
-      showToast('✓ À mardi 29 ! 🎤', 'success');
-      document.getElementById('presenceForm').reset();
-    } else {
-      showToast('Erreur — réessaie', 'error');
-    }
+  .then(function(r) { return r.text(); })
+  .then(function() {
+    showToast('Bien reçu ! Hâte de partager ce moment avec toi 🎶', 'ok');
+    form.reset();
+    document.querySelectorAll('#sourceChips .chip.on').forEach(function(c){ c.classList.remove('on'); });
     btn.disabled = false;
-    btn.textContent = 'J'y serai ! 🎤';
+    btn.textContent = "J'y serai ! 🎤";
   })
   .catch(function() {
-    showToast('Erreur réseau', 'error');
+    showToast('Erreur réseau — réessaie', 'err');
     btn.disabled = false;
-    btn.textContent = 'J'y serai ! 🎤';
+    btn.textContent = "J'y serai ! 🎤";
   });
 });
 </script>
