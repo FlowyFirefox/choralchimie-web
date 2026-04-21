@@ -46,9 +46,9 @@ function doPost(e) {
       data.instruments || '',
       data.telephone || '',
       data.email || '',
-      data.disponibilites || '',
-      data.format || '',
       data.niveau || '',
+      data.format || '',
+      data.disponibilites || '',
       data.lien_audio || '',
       data.remuneration || 'Bénévole',
       ''
