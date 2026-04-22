@@ -200,15 +200,15 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   <!-- Opt-ins -->
   <label class="check-row" for="charteCheck">
     <input type="checkbox" id="charteCheck">
-    <span>J'ai lu la Charte et j'en accepte l'esprit — inclusion, écoute, bienveillance <span style="color:var(--braise);font-weight:700">*</span></span>
+    <span style="font-size:13px">J'ai lu la Charte et j'en accepte l'esprit — inclusion, écoute, bienveillance <span style="color:var(--braise);font-weight:700">*</span></span>
   </label>
   <label class="check-row" for="imageCheck">
     <input type="checkbox" id="imageCheck">
-    <span>J'autorise La ChorAlchimie à utiliser des rushs courts me montrant lors des sessions sur Instagram et TikTok. Seuls des plans de mise en valeur sont sélectionnés.</span>
+    <span style="font-size:13px">J'autorise La ChorAlchimie à utiliser des rushs courts me montrant lors des sessions sur Instagram et TikTok (droit à l'image).</span>
   </label>
   <label class="check-row" for="infoCheck">
     <input type="checkbox" id="infoCheck">
-    <span>J'accepte de recevoir les informations de sessions par WhatsApp ou email</span>
+    <span style="font-size:13px">J'accepte de recevoir les informations de sessions par WhatsApp ou email</span>
   </label>
 
   <!-- Coordonnées -->
@@ -226,8 +226,8 @@ body{padding-bottom:env(safe-area-inset-bottom)}
       <input type="tel" id="telephone" placeholder="06 XX XX XX XX" required>
     </div>
     <div class="field">
-      <label>Email <span style="color:var(--muted);font-weight:400">(optionnel)</span></label>
-      <input type="email" id="email" placeholder="ton@email.com">
+      <label>Email <span class="req">*</span></label>
+      <input type="email" id="email" placeholder="ton@email.com" required>
     </div>
   </div>
 </div>
@@ -335,7 +335,7 @@ document.getElementById('submitBtn').addEventListener('click', function() {
   var adhesionOk = document.getElementById('adhesionCheck').checked;
 
   if (!charteOk) { showToast('Lis et accepte la Charte pour continuer', 'err'); return; }
-  if (!nom || !prenom || !telephone) { showToast('Remplis les champs obligatoires (*)', 'err'); return; }
+  if (!nom || !prenom || !telephone || !email) { showToast('Remplis les champs obligatoires (*)', 'err'); return; }
 
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
