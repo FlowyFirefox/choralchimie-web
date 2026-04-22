@@ -36,6 +36,18 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 .link-list{display:flex;flex-direction:column;gap:8px;padding:0 20px 20px}
 .link-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--white);border:1px solid var(--border2);border-radius:8px;cursor:pointer;transition:all .15s;text-decoration:none;color:var(--ink);min-height:48px}
 .link-item:active{background:var(--cream)}
+
+.cta-session{display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 20px;padding:18px;background:var(--braise);color:#fff;border-radius:14px;text-decoration:none;font-weight:700;font-size:16px;min-height:56px;transition:all .18s}
+.cta-session:active{transform:scale(.98);background:#a54b13}
+
+.reassurance{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:0 20px 4px}
+.reassurance .pill{background:var(--cream2);border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--ink2)}
+
+.compact-list{margin:0 20px 24px;background:var(--cream2);border-radius:14px;padding:6px;display:flex;flex-direction:column;gap:2px}
+.compact-list .link-item{background:transparent;border:none;padding:10px 12px;min-height:44px;border-radius:10px}
+.compact-list .link-item:active{background:var(--cream3)}
+.compact-list .li-ico{width:32px;height:32px;font-size:14px}
+.compact-list .li-title{font-size:13px}
 .li-left{display:flex;align-items:center;gap:12px}
 .li-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .li-ico.braise{background:var(--braise-bg)}
@@ -56,6 +68,9 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   <img src="../assets/ChorAlchimie_Horizontal_Texte_Day.png" alt="La ChorAlchimie" class="header-logo">
 </header>
 
+<!-- Phrase de transition -->
+<p style="text-align:center;font-size:15px;font-weight:500;color:var(--sub);padding:16px 20px 0;line-height:1.5">Pas d'inscription. Pas d'audition.<br>Tu viens, tu chantes.</p>
+
 <!-- Prochaine session -->
 <div class="banner">
   <div class="banner-label">Prochaine session</div>
@@ -63,8 +78,18 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   <div class="banner-meta">📅 Mercredi 29 avril · 19h00 · Animé par Axel</div>
 </div>
 
-<!-- Nous rejoindre -->
-<div class="section"><div class="section-title">Nous rejoindre</div></div>
+<!-- Niveau 1 — CTA fort -->
+<a href="../sessions/29-avril.html" class="cta-session">Je viens à la prochaine session →</a>
+
+<!-- Réassurance -->
+<div class="reassurance">
+  <span class="pill">Sans audition</span>
+  <span class="pill">1ère session gratuite 🔥</span>
+  <span class="pill">Tous niveaux</span>
+</div>
+
+<!-- Niveau 2 — Rester connecté -->
+<div class="section"><div class="section-title">Rester connecté</div></div>
 <div class="link-list">
   <a href="https://chat.whatsapp.com/DWzssCj3cDS9Gng6vbXJpm" target="_blank" rel="noopener" class="link-item" id="whatsappLink">
     <div class="li-left">
@@ -82,9 +107,9 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   </a>
 </div>
 
-<!-- Ressources -->
-<div class="section"><div class="section-title">Ressources</div></div>
-<div class="link-list">
+<!-- Niveau 3 — Aller plus loin -->
+<div class="section"><div class="section-title">Aller plus loin</div></div>
+<div class="compact-list">
   <a href="../choraoke-app/" class="link-item">
     <div class="li-left">
       <div class="li-ico braise">🎤</div>
@@ -102,7 +127,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   <a href="../outils/adhesion.html" class="link-item">
     <div class="li-left">
       <div class="li-ico euca">✅</div>
-      <div><div class="li-title">Adhérer</div><div class="li-sub">Soutenir le projet · 20€/an</div></div>
+      <div><div class="li-title">Adhérer</div><div class="li-sub">Soutenir le projet · 10€/an</div></div>
     </div>
     <div class="li-right"><span class="li-badge">Live ✓</span><span class="li-arrow">→</span></div>
   </a>
