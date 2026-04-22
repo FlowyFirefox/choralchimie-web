@@ -25,30 +25,40 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 .back:active{background:var(--cream2)}
 .header-logo{height:32px;width:auto}
 
-.hero-placeholder{margin:16px 20px;padding:40px 20px;background:var(--cream2);border-radius:14px;text-align:center;min-height:200px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px}
+.hero-photo{width:100%;display:block;object-fit:cover;max-height:340px}
 
-.content{padding:0 20px;max-width:500px;margin:0 auto}
+.stats{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:16px 20px}
+.stats .pill{background:var(--cream2);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;color:var(--ink2)}
 
-.section-title{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:24px 0 12px}
+.card{background:var(--white);border:1px solid var(--border2);border-radius:14px;padding:20px}
+.card + .card{margin-top:0}
+.card-top{margin:16px 20px}
+.card-mid{margin:0 20px 16px}
+.card-title{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--braise);margin-bottom:14px}
 
-.story{font-size:14px;color:var(--ink2);line-height:1.7;margin-bottom:16px}
+.story{display:flex;flex-direction:column;gap:12px}
+.story p{font-size:14px;color:var(--ink2);line-height:1.7}
+.story .accent{color:var(--braise);font-weight:600}
+.story blockquote{border-left:3px solid var(--braise);padding-left:14px;margin-top:16px;font-style:italic;font-size:14px;color:var(--sub);line-height:1.6}
 
-blockquote{margin:16px 0 20px;padding:14px 18px;border-left:3px solid var(--braise);font-size:14px;font-style:italic;color:var(--ink);line-height:1.6;background:var(--braise-bg);border-radius:0 10px 10px 0}
-
-.sep{margin:20px 0;border:none;border-top:1px solid var(--border)}
-
-.charte-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
-.charte-list li{display:flex;gap:10px;font-size:14px;color:var(--ink2);line-height:1.5}
+.charte-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.charte-list li{display:flex;gap:10px;font-size:14px;color:var(--ink2);line-height:1.55}
 .charte-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--braise);flex-shrink:0;margin-top:7px}
+.charte-more{display:inline-block;margin-top:12px;font-size:13px;color:var(--braise);font-weight:600;text-decoration:none;border-bottom:1px solid var(--braise-bd)}
 
-.team-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
-.team-card{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--white);border:1px solid var(--border2);border-radius:12px}
-.team-emoji{font-size:22px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--cream2);border-radius:10px;flex-shrink:0}
-.team-name{font-size:14px;font-weight:600;color:var(--ink)}
-.team-role{font-size:12px;color:var(--muted);margin-top:1px}
+.team-row{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.team-member{display:flex;flex-direction:column;align-items:center;gap:8px;width:calc(50% - 8px);max-width:140px;text-align:center}
+.team-avatar{width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid var(--border2);background:var(--cream2)}
+.team-name{font-size:14px;font-weight:700;color:var(--ink)}
+.team-role{font-size:12px;color:var(--sub);line-height:1.4;text-align:center}
 
-.btn-back{display:block;margin:8px 20px 32px;padding:16px;border-radius:14px;background:var(--ink);color:#fff;text-decoration:none;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;text-align:center;min-height:48px;transition:all .15s}
-.btn-back:active{transform:scale(.98)}
+.cta-block{padding:0 20px 32px;display:flex;flex-direction:column;gap:10px}
+.cta-primary{display:block;background:var(--braise);color:#fff;border-radius:14px;padding:16px;font-weight:700;font-size:15px;text-align:center;text-decoration:none;min-height:52px;transition:all .18s}
+.cta-primary:active{transform:scale(.98);background:#a54b13}
+.cta-outline{display:block;border:1.5px solid var(--border);border-radius:14px;padding:14px;text-align:center;color:var(--ink);font-weight:600;font-size:15px;text-decoration:none;background:transparent;min-height:52px;transition:all .15s}
+.cta-outline:active{background:var(--cream2)}
+
+.footer{padding:20px;text-align:center;font-size:11px;color:var(--muted);line-height:1.6}
 </style>
 </head>
 <body>
@@ -58,59 +68,81 @@ blockquote{margin:16px 0 20px;padding:14px 18px;border-left:3px solid var(--brai
   <img src="../assets/ChorAlchimie_Horizontal_Texte_Day.png" alt="La ChorAlchimie" class="header-logo">
 </header>
 
-<div class="hero-placeholder">📸 Photo de session à venir</div>
+<!-- Hero photo -->
+<img src="../assets/PhotoGroup3.jpg" alt="La ChorAlchimie Lyon — session au Parc de la Tête d'Or" class="hero-photo">
 
-<div class="content">
-
-  <div class="section-title">Notre histoire</div>
-
-  <p class="story">En 2021, une idée simple : et si on faisait ça à Lyon ? Inspiré de Choir! Choir! Choir! au Canada, Pierrick lance les premières sessions au Parc de la Tête d'Or.</p>
-
-  <blockquote>Un mercredi soir, des inconnus qui deviennent une voix. C'est ça, la ChorAlchimie.</blockquote>
-
-  <p class="story">Depuis, on se retrouve un mercredi sur 2, en plein air, au bord du Rhône ou au Parc de la Tête d'Or. 250 membres plus tard, l'alchimie opère toujours.</p>
-
-  <hr class="sep">
-
-  <div class="section-title">La charte</div>
-
-  <ul class="charte-list">
-    <li>Un espace safe et ouvert — ta voix a sa place ici</li>
-    <li>Répertoire varié, multilingue, contemporain</li>
-    <li>Sessions autogérées — ton respect et ton énergie comptent</li>
-    <li>Tes idées construisent la ChorAlchimie</li>
-  </ul>
-
-  <hr class="sep">
-
-  <div class="section-title">L'équipe</div>
-
-  <div class="team-grid">
-    <div class="team-card">
-      <div class="team-emoji">🎯</div>
-      <div><div class="team-name">Pierrick</div><div class="team-role">Président · Organisation</div></div>
-    </div>
-    <div class="team-card">
-      <div class="team-emoji">🎵</div>
-      <div><div class="team-name">Laëtitia</div><div class="team-role">Cheffe de chœur · ChorAlchimie</div></div>
-    </div>
-    <div class="team-card">
-      <div class="team-emoji">🎸</div>
-      <div><div class="team-name">Axel</div><div class="team-role">Animateur · Choraoké</div></div>
-    </div>
-    <div class="team-card">
-      <div class="team-emoji">📋</div>
-      <div><div class="team-name">Benoît</div><div class="team-role">Secrétaire général</div></div>
-    </div>
-    <div class="team-card">
-      <div class="team-emoji">💛</div>
-      <div><div class="team-name">Véronica</div><div class="team-role">Trésorière</div></div>
-    </div>
-  </div>
-
+<!-- Stats pills -->
+<div class="stats">
+  <span class="pill">4 ans d'existence</span>
+  <span class="pill">32 sessions</span>
+  <span class="pill">250+ voix</span>
 </div>
 
-<a href="../accueil/" class="btn-back">← Retour à l'accueil</a>
+<!-- Histoire -->
+<div class="card card-top">
+  <div class="card-title">Notre histoire</div>
+  <div class="story">
+    <p>La ChorAlchimie est né d'une découverte fortuite en 2020 à Toronto : « Choir! Choir! Choir! » Des inconnus qui vibrent à l'unisson, des voix qui se libèrent, des sourires francs, un sentiment de plénitude palpable…</p>
+    <p>Alors pourquoi pas à Lyon ?</p>
+    <p>Un post sur les meilleures pages Facebook, du bouche à oreille, et nous voilà rassemblés à 12 pour une première épique reprise de « Sous le Vent » avec notre OG cheffe de chœur Irène.</p>
+    <p>Depuis… 32 sessions de ChorAlchimie en 4 ans.</p>
+    <p>Le concept s'étoffe, les notes s'ajustent, le bal des artistes et cheffes de chœur bat son plein… et nous voici en 2026, avec Laëtitia pour conduire nos voix.</p>
+    <p>Cette année, c'est l'éclosion. Les dates sont posées. Les terrains de jeux apprêtés. Les concepts rodés…</p>
+    <p class="accent">Les ami·e·s… y'a plus qu'à vibrer ❤️</p>
+    <blockquote>Un mercredi soir, des inconnus qui deviennent une voix. C'est ça, la ChorAlchimie.</blockquote>
+  </div>
+</div>
+
+<!-- Charte -->
+<div class="card card-mid">
+  <div class="card-title">La charte</div>
+  <ul class="charte-list">
+    <li>Un espace safe et ouvert — ta voix a sa place ici, sans audition, sans jugement</li>
+    <li>Répertoire varié, multilingue, contemporain</li>
+    <li>Sessions bénévoles et autogérées — ton respect et ton énergie comptent</li>
+    <li>Tes idées construisent la ChorAlchimie</li>
+  </ul>
+  <a href="../outils/adhesion.html" class="charte-more">→ Lire la charte complète</a>
+</div>
+
+<!-- Équipe -->
+<div class="card card-mid">
+  <div class="card-title">L'équipe</div>
+  <div class="team-row">
+    <div class="team-member">
+      <div class="team-avatar"><img src="../assets/Pierrick.png" alt="Pierrick" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="team-name">Pierrick</div>
+      <div class="team-role">Président · Fondateur</div>
+    </div>
+    <div class="team-member">
+      <div class="team-avatar"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:24px">🎵🪄</div></div>
+      <div class="team-name">Laëtitia</div>
+      <div class="team-role">Cheffe de chœur · ChorAlchimie</div>
+    </div>
+    <div class="team-member">
+      <div class="team-avatar"><img src="../assets/Beno%C3%AEt.png" alt="Benoît" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="team-name">Benoît</div>
+      <div class="team-role">Secrétaire général</div>
+    </div>
+    <div class="team-member">
+      <div class="team-avatar"><img src="../assets/Veronica.png" alt="Véronica" style="width:100%;height:100%;object-fit:cover"></div>
+      <div class="team-name">Véronica</div>
+      <div class="team-role">Trésorière</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTAs -->
+<div class="cta-block">
+  <a href="../sessions/29-avril.html" class="cta-primary">Je viens à la prochaine session →</a>
+  <a href="https://chat.whatsapp.com/DWzssCj3cDS9Gng6vbXJpm" target="_blank" rel="noopener" class="cta-outline">Rejoindre le WhatsApp →</a>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  La ChorAlchimie Lyon · RNA W691110282<br>
+  112 rue de Sèze, 69006 Lyon
+</div>
 
 </body>
 </html>
