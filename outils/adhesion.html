@@ -15,6 +15,7 @@
   --braise:#C25918;--braise-bg:rgba(194,89,24,0.08);--braise-bd:rgba(194,89,24,0.22);
   --euca:#4E7A65;--euca-bg:rgba(78,122,101,0.08);--euca-bd:rgba(78,122,101,0.22);
   --gold:#B08640;--gold-bg:rgba(176,134,64,0.08);
+  --ameth:#7A5F8C;--ameth-bg:rgba(122,95,140,0.08);--ameth-bd:rgba(122,95,140,0.25);
   --border:rgba(44,36,22,0.1);--border2:rgba(44,36,22,0.06);
 }
 html,body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;min-height:100vh;min-height:100dvh}
@@ -25,52 +26,87 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 .back:active{background:var(--cream2)}
 .header-logo{height:32px;width:auto}
 
-.hero{padding:24px 20px 16px;text-align:center}
-.hero h1{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.hero p{font-size:14px;color:var(--sub)}
+.hero{padding:32px 20px 20px;text-align:center}
+.hero h1{font-size:26px;font-weight:800;color:var(--ink);line-height:1.2;margin-bottom:8px;letter-spacing:-0.01em}
+.hero p{font-size:15px;color:var(--sub);font-weight:500}
 
-.card{margin:0 20px 16px;padding:18px;background:var(--white);border:1px solid var(--border2);border-radius:14px}
-.card-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.card{margin:0 20px 16px;padding:20px;background:var(--white);border:1px solid var(--border2);border-radius:14px}
+.card-title{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:14px}
 
-.accordion-toggle{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:0;border:none;background:none;width:100%;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;color:var(--ink);text-align:left}
-.accordion-toggle .arrow{transition:transform .2s;font-size:14px;color:var(--muted)}
+/* Card "Soutenir le projet" — visuellement distincte */
+.card-support{background:var(--cream2);border:1.5px solid var(--braise-bd)}
+.card-support .card-title{color:var(--braise)}
+.card-support p{font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:12px}
+.card-support p:last-of-type{margin-bottom:16px}
+
+/* Accordéon */
+.accordion-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;padding:14px 16px;border:1px solid var(--border);background:var(--cream);border-radius:12px;width:100%;font-family:'Outfit',sans-serif;text-align:left}
+.accordion-toggle:active{background:var(--cream2)}
+.accordion-toggle .toggle-main{font-size:15px;font-weight:700;color:var(--ink);display:block}
+.accordion-toggle .toggle-sub{font-size:12px;font-weight:400;color:var(--muted);display:block;margin-top:2px}
+.accordion-toggle .arrow{transition:transform .25s;font-size:12px;color:var(--muted);flex-shrink:0}
 .accordion-toggle.open .arrow{transform:rotate(180deg)}
-.accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
-.accordion-body.open{max-height:600px}
-.charte-list{list-style:none;padding:12px 0 0;display:flex;flex-direction:column;gap:10px}
-.charte-list li{display:flex;gap:8px;font-size:13px;color:var(--ink2);line-height:1.5}
-.charte-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--braise);flex-shrink:0;margin-top:6px}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.accordion-body.open{max-height:4000px}
+.accordion-inner{padding:16px 4px 4px}
+
+.charte-intro{font-size:13px;color:var(--sub);line-height:1.6;font-style:italic;padding:0 2px;margin-bottom:18px}
+.charte-section{margin-bottom:18px}
+.charte-section-title{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--braise);margin-bottom:10px}
+.charte-sub-title{font-size:12px;font-weight:700;color:var(--ink);margin:14px 0 8px;letter-spacing:.02em}
+.charte-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px}
+.charte-list li{display:flex;gap:10px;font-size:13px;color:var(--ink2);line-height:1.55}
+.charte-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--braise);flex-shrink:0;margin-top:7px}
+.charte-list li a{color:var(--braise);text-decoration:none;font-weight:600;border-bottom:1px solid var(--braise-bd)}
+
+/* Cartes colorées dans la charte */
+.charte-callout{padding:14px 16px;border-radius:12px;margin:14px 0}
+.charte-callout .cc-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.charte-callout p{font-size:13px;line-height:1.6;color:var(--ink2)}
+.cc-ameth{background:var(--ameth-bg);border:1px solid var(--ameth-bd)}
+.cc-ameth .cc-title{color:var(--ameth)}
+.cc-braise{background:var(--braise-bg);border:1px solid var(--braise-bd)}
+.cc-braise .cc-title{color:var(--braise)}
+
+.charte-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.charte-text a{color:var(--braise);text-decoration:none;font-weight:600;border-bottom:1px solid var(--braise-bd)}
+.charte-engagement{font-size:13px;color:var(--ink);font-style:italic;line-height:1.6;padding:14px 2px 4px;border-top:1px solid var(--border2);margin-top:18px;text-align:center}
+
+.transition-text{font-size:13px;color:var(--sub);line-height:1.6;margin:18px 4px 10px}
 
 .check-row{display:flex;align-items:flex-start;gap:10px;margin-top:12px;cursor:pointer}
 .check-row input[type="checkbox"]{width:20px;height:20px;accent-color:var(--braise);flex-shrink:0;margin-top:1px}
-.check-row label{font-size:13px;color:var(--ink2);line-height:1.5;cursor:pointer}
+.check-row label{font-size:13px;color:var(--ink2);line-height:1.5;cursor:pointer;flex:1}
 
 .don-field{display:none;margin-top:10px;padding-left:30px}
 .don-field.show{display:block}
-.don-field input{width:120px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-family:'Outfit',sans-serif;font-size:16px;color:var(--ink);outline:none;-webkit-appearance:none}
+.don-field input{width:140px;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-family:'Outfit',sans-serif;font-size:16px;color:var(--ink);outline:none;-webkit-appearance:none}
 .don-field input:focus{border-color:var(--braise)}
 
-.field{margin-bottom:16px}
+.field{margin-top:14px}
 .field label{display:block;font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:6px;letter-spacing:.02em}
 .field label .req{color:var(--braise)}
 .field input{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'Outfit',sans-serif;font-size:16px;color:var(--ink);outline:none;-webkit-appearance:none;transition:border-color .15s}
 .field input:focus{border-color:var(--braise)}
 .field input::placeholder{color:var(--muted)}
 
-.submit-btn{display:block;width:calc(100% - 40px);margin:0 20px 16px;padding:16px;border:none;border-radius:14px;background:var(--braise);color:#fff;font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all .18s;min-height:52px;text-align:center}
+.fields-block{margin-top:20px;padding-top:18px;border-top:1px solid var(--border2)}
+
+.submit-btn{display:block;width:calc(100% - 40px);margin:8px 20px 20px;padding:16px;border:none;border-radius:14px;background:var(--braise);color:#fff;font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .18s;min-height:56px;text-align:center;letter-spacing:.01em}
 .submit-btn:active{transform:scale(.98)}
 .submit-btn:disabled{opacity:.5;cursor:not-allowed}
 
-.success-screen{display:none;padding:32px 20px;text-align:center}
+.success-screen{display:none;padding:32px 20px}
 .success-screen.show{display:block}
-.success-screen h2{font-size:28px;font-weight:800;color:var(--ink);margin-bottom:8px}
-.success-screen .sub{font-size:14px;color:var(--sub);margin-bottom:24px}
-.pay-card{margin:0 auto 12px;max-width:400px;padding:16px;background:var(--white);border:1px solid var(--border2);border-radius:12px;text-align:left}
-.pay-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
-.pay-detail{font-size:13px;color:var(--sub);line-height:1.5}
+.success-screen h2{font-size:26px;font-weight:800;color:var(--ink);margin-bottom:10px;text-align:center;line-height:1.25}
+.success-screen .sub{font-size:14px;color:var(--sub);margin-bottom:28px;text-align:center;line-height:1.5}
+.pay-card{margin:0 auto 12px;max-width:420px;padding:16px;background:var(--white);border:1px solid var(--border2);border-radius:12px}
+.pay-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.pay-detail{font-size:13px;color:var(--sub);line-height:1.6;word-break:break-word}
 .pay-detail a{color:var(--braise);text-decoration:none;font-weight:600}
+.pay-detail .iban{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;color:var(--ink);background:var(--cream);padding:2px 6px;border-radius:6px;display:inline-block;margin-top:4px;letter-spacing:.02em}
 
-.footer{padding:20px;text-align:center;font-size:11px;color:var(--muted);line-height:1.6}
+.footer{padding:24px 20px 32px;text-align:center;font-size:11px;color:var(--muted);line-height:1.6}
 
 .toast{position:fixed;bottom:24px;left:20px;right:20px;padding:16px 20px;border-radius:14px;font-size:14px;font-weight:600;text-align:center;transform:translateY(120%);transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:500}
 .toast.ok{background:var(--euca);color:#fff}
@@ -88,75 +124,144 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 <div id="formView">
 
 <div class="hero">
-  <h1>Adhérer à La ChorAlchimie</h1>
-  <p>Saison 2026–2027 · 20€</p>
+  <h1>Pour le plaisir d'emmêler nos voix.</h1>
+  <p>Bienvenue dans La ChorAlchimie.</p>
 </div>
 
-<!-- Charte -->
+<!-- ══════════════════════════════════════
+     SECTION 1 — Rejoindre la ChorAlchimie
+     ══════════════════════════════════════ -->
 <div class="card">
+  <div class="card-title">Rejoindre la ChorAlchimie</div>
+
+  <!-- Accordéon Charte -->
   <button class="accordion-toggle" id="charteToggle" type="button">
-    <span>📜 La Charte</span>
+    <span>
+      <span class="toggle-main">📜 Notre Charte</span>
+      <span class="toggle-sub">À lire avant d'adhérer</span>
+    </span>
     <span class="arrow">▼</span>
   </button>
   <div class="accordion-body" id="charteBody">
-    <ul class="charte-list">
-      <li>Respecter les autres participants — écoute, bienveillance, inclusivité</li>
-      <li>Respecter le travail de Laëtitia et des musiciens — on suit les consignes, on s'amuse ensemble</li>
-      <li>Laisser les lieux en état — on ramasse, on range, on laisse propre</li>
-      <li>Garder en tête que c'est bénévole — patience, gratitude, bonne humeur</li>
-    </ul>
+    <div class="accordion-inner">
+
+      <p class="charte-intro">Ce n'est pas un règlement. C'est le contrat tacite entre nous — ce qui fait que cet espace existe, se respecte, et donne envie de revenir.</p>
+
+      <div class="charte-section">
+        <div class="charte-section-title">01 · Ce que c'est</div>
+        <ul class="charte-list">
+          <li>Un rendez-vous au grand air, où l'on pose le téléphone, la tension, les problèmes. Et on chante… Pas pour être bon, mais pour être là.</li>
+          <li>Un mercredi sur deux (+ dates exceptionnelles — voir <a href="../planning/">agenda</a>), on s'harmonise sur un morceau réarrangé pour 3 voix par Laëtitia, notre cheffe de chœur (ChorAlchimie). L'autre mercredi sur 2, on enchaîne les morceaux à l'unisson sur accompagnement de musiciens live en rotation (Choraoké).</li>
+          <li>Un espace délibérément coloré, chaleureux et lumineux — conçu pour que chacun·e s'y sente bien.</li>
+        </ul>
+      </div>
+
+      <div class="charte-callout cc-ameth">
+        <div class="cc-title">Ce qui ne se négocie pas</div>
+        <p>La ChorAlchimie est laïque et résolument inclusive. Nous croyons que la musique collective ne peut exister que dans un espace où chacun·e — quelle que soit son origine, son genre, son orientation — se sent pleinement en sécurité. Le racisme, la misogynie, l'homophobie et toute forme de discrimination n'ont pas leur place ici. Pas en tant que « règle » — mais parce que c'est simplement qui nous sommes.</p>
+      </div>
+
+      <div class="charte-section">
+        <div class="charte-section-title">02 · Ce qu'on se promet</div>
+
+        <div class="charte-callout cc-braise">
+          <div class="cc-title">Notre engagement</div>
+          <p>Un cadre où chaque voix a sa place. Une cheffe de chœur qui construit avec toi, pas devant toi. Et une communauté qui veille à ce que cet espace reste ce qu'il promet d'être.</p>
+        </div>
+
+        <div class="charte-sub-title">Ce qu'on te demande en retour</div>
+        <ul class="charte-list">
+          <li>Être présent·e — vraiment. Écouter autant que chanter.</li>
+          <li>Ajuster ton volume à l'ensemble : une voix qui domine casse la magie pour tout le monde.</li>
+          <li>Respecter le travail de Laëtitia et des musiciens — leur bénévolat est un cadeau, pas une évidence.</li>
+          <li>Laisser les lieux comme tu les as trouvés.</li>
+          <li>Défendre l'espace que tu intègres : si quelque chose ne va pas, on en parle — entre nous, directement.</li>
+        </ul>
+      </div>
+
+      <div class="charte-section">
+        <div class="charte-section-title">03 · Ce qui est le bienvenu</div>
+        <p class="charte-text">Tes idées, tes suggestions, tes chansons (voir <a href="../choraoke-app/">app</a>) — cette communauté se construit avec ceux qui la vivent, pas pour eux. Amener quelqu'un. Parler de nous. Le rêve, c'est 1 000 voix en plein air d'ici 2030 — et ce rêve, il est aussi le tien maintenant 😉</p>
+      </div>
+
+      <p class="charte-engagement">En adhérant, je reconnais avoir lu et m'engage à incarner l'esprit de cette charte.</p>
+
+    </div>
   </div>
-  <div class="check-row" style="margin-top:14px">
+
+  <!-- Transition -->
+  <p class="transition-text">La ChorAlchimie se construit sur la confiance. En signant, tu rejoins une communauté qui partage les mêmes valeurs — et tu nous donnes le droit de te tenir au courant de ce qu'on prépare.</p>
+
+  <!-- Opt-ins -->
+  <label class="check-row" for="charteCheck">
     <input type="checkbox" id="charteCheck">
-    <label for="charteCheck">J'ai lu et m'engage à respecter la Charte</label>
+    <span>J'ai lu la Charte et j'en accepte l'esprit — inclusion, écoute, bienveillance <span style="color:var(--braise);font-weight:700">*</span></span>
+  </label>
+  <label class="check-row" for="imageCheck">
+    <input type="checkbox" id="imageCheck">
+    <span>J'autorise La ChorAlchimie à utiliser des rushs courts me montrant lors des sessions sur Instagram et TikTok. Seuls des plans de mise en valeur sont sélectionnés.</span>
+  </label>
+  <label class="check-row" for="infoCheck">
+    <input type="checkbox" id="infoCheck">
+    <span>J'accepte de recevoir les informations de sessions par WhatsApp ou email</span>
+  </label>
+
+  <!-- Coordonnées -->
+  <div class="fields-block">
+    <div class="field" style="margin-top:0">
+      <label>Nom <span class="req">*</span></label>
+      <input type="text" id="nom" placeholder="Ton nom" required>
+    </div>
+    <div class="field">
+      <label>Prénom <span class="req">*</span></label>
+      <input type="text" id="prenom" placeholder="Ton prénom" required>
+    </div>
+    <div class="field">
+      <label>Téléphone <span class="req">*</span></label>
+      <input type="tel" id="telephone" placeholder="06 XX XX XX XX" required>
+    </div>
+    <div class="field">
+      <label>Email <span style="color:var(--muted);font-weight:400">(optionnel)</span></label>
+      <input type="email" id="email" placeholder="ton@email.com">
+    </div>
   </div>
 </div>
 
-<!-- Adhésion -->
-<div class="card">
-  <div class="card-title">Adhésion</div>
-  <div class="check-row">
+<!-- ══════════════════════════════════════
+     SECTION 2 — Soutenir le projet
+     ══════════════════════════════════════ -->
+<div class="card card-support">
+  <div class="card-title">Soutenir le projet</div>
+
+  <p>La ChorAlchimie est une association loi 1901 qui fonctionne sur fonds propres. Pas de billetterie, pas de sponsors. Juste des gens qui croient que la musique collective mérite d'exister.</p>
+
+  <p>Les sessions fonctionnent sur un principe de prix libre et conscient. Viens d'abord — la première session est gratuite 🔥. Ressens ce que ça fait. Puis contribue selon ce que tu peux — chaque euro va directement à Laëtitia et aux musiciens, au matériel, et au rêve de pouvoir un jour filmer tout ça correctement.</p>
+
+  <p>La cotisation annuelle de 10€ est ce qui nous permet d'exister juridiquement, de candidater à des subventions, et de prouver que ce projet a de la traction. Elle donne accès à l'assemblée générale et à la communauté officielle des membres.</p>
+
+  <label class="check-row" for="adhesionCheck">
     <input type="checkbox" id="adhesionCheck" checked>
-    <label for="adhesionCheck">J'adhère pour la saison 2026–2027 · 20€ · 6 sessions ChorAlchimie</label>
-  </div>
-  <div class="check-row">
+    <span>J'adhère pour la saison 2026–2027 · 10€</span>
+  </label>
+  <label class="check-row" for="donCheck">
     <input type="checkbox" id="donCheck">
-    <label for="donCheck">Je souhaite faire un don supplémentaire</label>
-  </div>
+    <span>Je souhaite faire un don supplémentaire</span>
+  </label>
   <div class="don-field" id="donField">
     <input type="number" id="donMontant" placeholder="Montant €" min="1" step="1">
   </div>
 </div>
 
-<!-- Infos -->
-<div class="card">
-  <div class="card-title">Tes coordonnées</div>
-  <div class="field">
-    <label>Nom <span class="req">*</span></label>
-    <input type="text" id="nom" placeholder="Ton nom" required>
-  </div>
-  <div class="field">
-    <label>Prénom <span class="req">*</span></label>
-    <input type="text" id="prenom" placeholder="Ton prénom" required>
-  </div>
-  <div class="field">
-    <label>Téléphone <span class="req">*</span></label>
-    <input type="tel" id="telephone" placeholder="06 XX XX XX XX" required>
-  </div>
-  <div class="field" style="margin-bottom:0">
-    <label>Email <span style="color:var(--muted);font-weight:400">(optionnel)</span></label>
-    <input type="email" id="email" placeholder="ton@email.com">
-  </div>
-</div>
-
-<button class="submit-btn" id="submitBtn" type="button">J'adhère à La ChorAlchimie ✦</button>
+<button class="submit-btn" id="submitBtn" type="button">Je rejoins La ChorAlchimie ✦</button>
 
 </div><!-- /formView -->
 
-<!-- Écran succès -->
+<!-- ══════════════════════════════════════
+     ÉCRAN SUCCÈS
+     ══════════════════════════════════════ -->
 <div class="success-screen" id="successView">
-  <h2>Bienvenue ! 🎶</h2>
-  <p class="sub">Ton adhésion est enregistrée. Il ne reste plus qu'à régler les 20€.</p>
+  <h2>Tu fais partie de l'alchimie maintenant. ✦</h2>
+  <p class="sub">Ton adhésion est enregistrée — on se retrouve mercredi.</p>
 
   <div class="pay-card">
     <div class="pay-title">💳 HelloAsso</div>
@@ -164,13 +269,17 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   </div>
 
   <div class="pay-card">
-    <div class="pay-title">📱 Lydia / Wero</div>
-    <div class="pay-detail">Envoie 20€ au 06 45 45 00 89</div>
+    <div class="pay-title">🏦 Virement</div>
+    <div class="pay-detail">
+      IBAN <span class="iban">FR76 1027 8073 1200 0219 3550 138</span><br>
+      BIC <span class="iban">CMCIFR2A</span><br>
+      Titulaire : LA CHORALCHIMIE LYON
+    </div>
   </div>
 
   <div class="pay-card">
-    <div class="pay-title">🏦 Virement</div>
-    <div class="pay-detail">RIB sur demande à <a href="mailto:choralchimielyon2@gmail.com">choralchimielyon2@gmail.com</a></div>
+    <div class="pay-title">📱 Lydia / Wero</div>
+    <div class="pay-detail">Envoie au <strong>06 45 45 00 89</strong></div>
   </div>
 </div>
 
@@ -209,14 +318,18 @@ document.getElementById('submitBtn').addEventListener('click', function() {
   var nom = document.getElementById('nom').value.trim();
   var prenom = document.getElementById('prenom').value.trim();
   var telephone = document.getElementById('telephone').value.trim();
+  var email = document.getElementById('email').value.trim();
   var charteOk = document.getElementById('charteCheck').checked;
+  var imageOk = document.getElementById('imageCheck').checked;
+  var infoOk = document.getElementById('infoCheck').checked;
+  var adhesionOk = document.getElementById('adhesionCheck').checked;
 
   if (!charteOk) { showToast('Lis et accepte la Charte pour continuer', 'err'); return; }
   if (!nom || !prenom || !telephone) { showToast('Remplis les champs obligatoires (*)', 'err'); return; }
 
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
-  btn.textContent = 'Envoi...';
+  btn.textContent = 'Envoi…';
 
   var donMontant = document.getElementById('donCheck').checked
     ? (document.getElementById('donMontant').value || '0')
@@ -228,15 +341,13 @@ document.getElementById('submitBtn').addEventListener('click', function() {
     body: JSON.stringify({
       nom: nom,
       prenom: prenom,
-      email: document.getElementById('email').value.trim(),
+      email: email,
       telephone: telephone,
-      adhesion: 'Saison 2026-2027 · 20€',
-      don_montant: donMontant,
-      charte: 'Acceptée',
-      cotisation_payee: 'En attente',
-      montant: '20',
-      consentement_photo: '',
-      comment_connu: ''
+      charte: charteOk ? 'Oui' : 'Non',
+      image: imageOk ? 'Oui' : 'Non',
+      info: infoOk ? 'Oui' : 'Non',
+      adhesion: adhesionOk ? 'Saison 2026-2027 · 10€' : 'Non',
+      don_montant: donMontant
     }),
     redirect: 'follow'
   })
@@ -244,12 +355,13 @@ document.getElementById('submitBtn').addEventListener('click', function() {
   .then(function() {
     document.getElementById('formView').style.display = 'none';
     document.getElementById('successView').classList.add('show');
-    showToast('Bienvenue dans la ChorAlchimie ! 🎶', 'ok');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    showToast('Bienvenue dans l\'alchimie ✦', 'ok');
   })
   .catch(function() {
     showToast('Erreur réseau — réessaie', 'err');
     btn.disabled = false;
-    btn.textContent = 'J\'adhère à La ChorAlchimie ✦';
+    btn.textContent = 'Je rejoins La ChorAlchimie ✦';
   });
 });
 </script>
