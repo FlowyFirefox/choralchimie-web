@@ -45,28 +45,32 @@ HTML_PATH = REPO_ROOT / "choraoke-app" / "index.html"
 
 # ============================================================================
 # COLONNES DU SHEET — mapping exact (ordre dans le Sheet, 0-indexé)
-# # | Langue | Track Name | Artist Name(s) | Instrument | Difficulté vocale |
-# BPM | Tonalité | Key (EN) | Capo (guitare) | Genres |
-# Validée Choraoké | Spotify Link | Lien UltimateGuitar | genius_url | Notes
+# # | Langue | (vide) | Track Name | Artist Name(s) | Instrument |
+# Difficulté vocale | BPM | Tonalité | Key (EN) | Capo (guitare) | Genres |
+# Validée Choraoké | Spotify Link | Lien UltimateGuitar | Notes
+# Note : la colonne 2 est vide dans le Sheet (entre Langue et Track Name).
+#        genius_url est détectée dynamiquement si la colonne existe.
 # ============================================================================
 
 COL_NUM = 0
 COL_LANGUE = 1
-COL_TRACK = 2
-COL_ARTIST = 3
-COL_INSTRUMENT = 4
-COL_DIFFICULTE = 5
-COL_BPM = 6
-COL_TONALITE = 7
-COL_KEY_EN = 8
-COL_CAPO = 9
-COL_GENRES = 10
-COL_VALIDEE = 11
-COL_SPOTIFY = 12
-COL_UG = 13
-COL_GENIUS_URL = 14
+# Col 2 = vide (séparateur dans le Sheet)
+COL_TRACK = 3
+COL_ARTIST = 4
+COL_INSTRUMENT = 5
+COL_DIFFICULTE = 6
+COL_BPM = 7
+COL_TONALITE = 8
+COL_KEY_EN = 9
+COL_CAPO = 10
+COL_GENRES = 11
+COL_VALIDEE = 12
+COL_SPOTIFY = 13
+COL_UG = 14
 COL_NOTES = 15
-# Colonne Setlist — checkbox ajoutée après Notes
+# Colonnes détectées dynamiquement si présentes (voir parse_csv_to_songs) :
+# - genius_url (entre UG et Notes, ou n'importe où)
+# - Setlist (checkbox)
 COL_SETLIST = 16
 
 
@@ -139,13 +143,15 @@ def parse_csv_to_songs(csv_text: str):
         print("❌ Le Sheet est vide.")
         sys.exit(1)
 
-    # Détecter dynamiquement la colonne Setlist si elle existe
+    # Détecter dynamiquement les colonnes optionnelles (Setlist, genius_url)
     setlist_col = COL_SETLIST
+    genius_col = -1  # -1 = absente
     header_lower = [h.strip().lower() for h in header]
     for i, h in enumerate(header_lower):
         if "setlist" in h:
             setlist_col = i
-            break
+        if "genius" in h and "url" in h:
+            genius_col = i
 
     all_songs = []
     setlist_songs = []
@@ -173,10 +179,11 @@ def parse_csv_to_songs(csv_text: str):
             "c": row[COL_CAPO].strip() if len(row) > COL_CAPO else "",
         }
 
-        # genius_url (optionnel)
-        genius_url = row[COL_GENIUS_URL].strip() if len(row) > COL_GENIUS_URL else ""
-        if genius_url:
-            song["gu"] = genius_url
+        # genius_url (optionnel, détecté dynamiquement)
+        if genius_col >= 0 and len(row) > genius_col:
+            genius_url = row[genius_col].strip()
+            if genius_url:
+                song["gu"] = genius_url
 
         all_songs.append(song)
 
