@@ -50,8 +50,8 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 .submit-btn:disabled{opacity:.5;cursor:not-allowed}
 
 .toast{position:fixed;bottom:24px;left:20px;right:20px;padding:16px 20px;border-radius:14px;font-size:14px;font-weight:600;text-align:center;transform:translateY(120%);transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:500}
-.toast.success{background:var(--euca);color:#fff}
-.toast.error{background:var(--braise);color:#fff}
+.toast.ok{background:var(--euca);color:#fff}
+.toast.err{background:var(--braise);color:#fff}
 .toast.show{transform:translateY(0)}
 </style>
 </head>
@@ -91,6 +91,11 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   </div>
 
   <div class="field">
+    <label>Ton nom <span class="req">*</span></label>
+    <input type="text" id="nom" placeholder="Ton prénom ou le nom de ta structure">
+  </div>
+
+  <div class="field">
     <label>Contact <span class="req">*</span></label>
     <input type="text" id="contact" placeholder="Email ou téléphone" required>
   </div>
@@ -102,7 +107,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 <div class="toast" id="toast"></div>
 
 <script>
-var APPS_SCRIPT_COLLAB_URL = 'APPS_SCRIPT_COLLAB_URL';
+var APPS_SCRIPT_COLLAB_URL = 'https://script.google.com/macros/s/AKfycby83ISI713NNCeiItXX9H3XRnXHJhmkJxyPQ03nhh92MDur1FJYSc9w_5SA-hxJpoYvLQ/exec';
 
 // Chips single-select
 document.getElementById('chipsType').addEventListener('click', function(e) {
@@ -128,8 +133,9 @@ function showToast(msg, type) {
 document.getElementById('formCollab').addEventListener('submit', function(e) {
   e.preventDefault();
   var structure = document.getElementById('structure').value.trim();
+  var nom = document.getElementById('nom').value.trim();
   var contact = document.getElementById('contact').value.trim();
-  if (!structure || !contact) { showToast('Remplis les champs obligatoires (*)', 'error'); return; }
+  if (!structure || !nom || !contact) { showToast('Remplis les champs obligatoires (*)', 'err'); return; }
 
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
@@ -137,26 +143,26 @@ document.getElementById('formCollab').addEventListener('submit', function(e) {
 
   fetch(APPS_SCRIPT_COLLAB_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'text/plain' },
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify({
       structure: structure,
       type: getChipVal('chipsType'),
       projet: document.getElementById('projet').value.trim(),
+      nom: nom,
       contact: contact
-    })
+    }),
+    redirect: 'follow'
   })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (data.status === 'ok') {
-      showToast('✓ Proposition envoyée !', 'success');
-      document.getElementById('formCollab').reset();
-      document.querySelectorAll('.chip.on').forEach(function(c) { c.classList.remove('on'); });
-    } else { showToast('Erreur : ' + (data.message || 'réessaie'), 'error'); }
+  .then(function(r) { return r.text(); })
+  .then(function() {
+    showToast('Bien reçu ! On vous répond dans les 48h 🎶', 'ok');
+    document.getElementById('formCollab').reset();
+    document.querySelectorAll('.chip.on').forEach(function(c) { c.classList.remove('on'); });
     btn.disabled = false;
     btn.textContent = 'Envoyer notre proposition →';
   })
   .catch(function() {
-    showToast('Erreur réseau — vérifie ta connexion', 'error');
+    showToast('Erreur réseau — vérifie ta connexion', 'err');
     btn.disabled = false;
     btn.textContent = 'Envoyer notre proposition →';
   });
