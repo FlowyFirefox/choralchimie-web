@@ -18,6 +18,7 @@
   --ameth:#7A5F8C;--ameth-bg:rgba(122,95,140,0.08);--ameth-bd:rgba(122,95,140,0.25);
   --border:rgba(44,36,22,0.1);--border2:rgba(44,36,22,0.06);
 }
+html{scroll-behavior:smooth}
 html,body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;min-height:100vh;min-height:100dvh}
 body{padding-bottom:env(safe-area-inset-bottom)}
 
@@ -96,10 +97,14 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 .submit-btn:active{transform:scale(.98)}
 .submit-btn:disabled{opacity:.5;cursor:not-allowed}
 
-.success-screen{display:none;padding:32px 20px}
-.success-screen.show{display:block}
-.success-screen h2{font-size:26px;font-weight:800;color:var(--ink);margin-bottom:10px;text-align:center;line-height:1.25}
-.success-screen .sub{font-size:14px;color:var(--sub);margin-bottom:28px;text-align:center;line-height:1.5}
+.success-screen{padding:32px 20px}
+.success-intro{display:none;text-align:center;margin-bottom:28px}
+.success-screen.show .success-intro{display:block}
+.success-screen h2{font-size:26px;font-weight:800;color:var(--ink);margin-bottom:10px;line-height:1.25}
+.success-screen .sub{font-size:14px;color:var(--sub);line-height:1.5}
+.pay-header{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:center;margin:0 auto 14px;max-width:420px}
+.preview-link{display:block;text-align:center;font-size:13px;color:var(--sub);text-decoration:none;padding:4px 20px 12px;margin:-8px 0 16px;font-weight:500}
+.preview-link:active{color:var(--braise)}
 .pay-card{margin:0 auto 12px;max-width:420px;padding:16px;background:var(--white);border:1px solid var(--border2);border-radius:12px}
 .pay-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:6px}
 .pay-detail{font-size:13px;color:var(--sub);line-height:1.6;word-break:break-word}
@@ -151,7 +156,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
         <div class="charte-section-title">01 · Ce que c'est</div>
         <ul class="charte-list">
           <li>Un rendez-vous au grand air, où l'on pose le téléphone, la tension, les problèmes. Et on chante… Pas pour être bon, mais pour être là.</li>
-          <li>Un mercredi sur deux (+ dates exceptionnelles — voir <a href="../planning/">agenda</a>), on s'harmonise sur un morceau réarrangé pour 3 voix par Laëtitia, notre cheffe de chœur (ChorAlchimie). L'autre mercredi sur 2, on enchaîne les morceaux à l'unisson sur accompagnement de musiciens live en rotation (Choraoké).</li>
+          <li>Un mercredi sur deux (+ dates exceptionnelles), on s'harmonise sur un morceau réarrangé pour 3 voix par Laëtitia, notre cheffe de chœur (ChorAlchimie). L'autre mercredi sur 2, on enchaîne les morceaux à l'unisson sur accompagnement de musiciens live en rotation (Choraoké). <a href="../planning/" style="display:block;margin-top:4px">→ Voir l'agenda</a></li>
           <li>Un espace délibérément coloré, chaleureux et lumineux — conçu pour que chacun·e s'y sente bien.</li>
         </ul>
       </div>
@@ -173,9 +178,9 @@ body{padding-bottom:env(safe-area-inset-bottom)}
         <ul class="charte-list">
           <li>Être présent·e — vraiment. Écouter autant que chanter.</li>
           <li>Ajuster ton volume à l'ensemble : une voix qui domine casse la magie pour tout le monde.</li>
-          <li>Respecter le travail de Laëtitia et des musiciens — leur bénévolat est un cadeau, pas une évidence.</li>
+          <li>Respecter le travail de Laëtitia et des musiciens.</li>
           <li>Laisser les lieux comme tu les as trouvés.</li>
-          <li>Défendre l'espace que tu intègres : si quelque chose ne va pas, on en parle — entre nous, directement.</li>
+          <li>Défendre l'espace que tu intègres : si quelque chose ne va pas, on en parle.</li>
         </ul>
       </div>
 
@@ -253,6 +258,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 </div>
 
 <button class="submit-btn" id="submitBtn" type="button">Je rejoins La ChorAlchimie ✦</button>
+<a href="#successView" class="preview-link">→ Voir les moyens de paiement</a>
 
 </div><!-- /formView -->
 
@@ -260,8 +266,12 @@ body{padding-bottom:env(safe-area-inset-bottom)}
      ÉCRAN SUCCÈS
      ══════════════════════════════════════ -->
 <div class="success-screen" id="successView">
-  <h2>Tu fais partie de l'alchimie maintenant. ✦</h2>
-  <p class="sub">Ton adhésion est enregistrée — on se retrouve mercredi.</p>
+  <div class="success-intro">
+    <h2>Tu fais partie de l'alchimie maintenant. ✦</h2>
+    <p class="sub">Ton adhésion est enregistrée — on se retrouve mercredi.</p>
+  </div>
+
+  <div class="pay-header">Moyens de paiement</div>
 
   <div class="pay-card">
     <div class="pay-title">💳 HelloAsso</div>
