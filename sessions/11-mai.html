@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <meta name="theme-color" content="#F5EFE3">
-<title>ChorAlchimie — 12 mai 2026 — La ChorAlchimie</title>
+<title>ChorAlchimie — 11 mai 2026 — La ChorAlchimie</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -56,7 +56,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 
 <div class="hero-card">
   <div class="format">ChorAlchimie</div>
-  <div class="date">Mardi 12 mai · 19h — 22h30</div>
+  <div class="date">Lundi 11 mai · 19h — 22h30</div>
   <div class="hint">Affiche à venir</div>
 </div>
 
@@ -105,7 +105,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 
 <script>
 var APPS_SCRIPT_SESSION_URL = 'https://script.google.com/macros/s/AKfycbynLReyKmoWz3pwBnsi6aDgfbYYAxdy0NRRP-MU4g2hIj4Hqns1o00e5o0FK8mO_NjKWQ/exec';
-var SESSION_NAME = '12 Mai 2026';
+var SESSION_NAME = '11 Mai 2026';
 
 document.getElementById('sourceChips').addEventListener('click', function(e) {
   var c = e.target.closest('.chip');
@@ -141,7 +141,7 @@ document.getElementById('presenceForm').addEventListener('submit', function(e) {
   .then(function(r) { return r.json(); })
   .then(function(data) {
     if (data.status === 'ok') {
-      showToast('✓ À mardi 12 ! 🎵', 'success');
+      showToast('✓ À lundi 11 ! 🎵', 'success');
       document.getElementById('presenceForm').reset();
       document.querySelectorAll('#sourceChips .chip.on').forEach(function(c){c.classList.remove('on');});
     } else { showToast('Erreur — réessaie', 'error'); }

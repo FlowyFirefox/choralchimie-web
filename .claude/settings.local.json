@@ -13,7 +13,15 @@
       "Bash(py:*)",
       "Bash(PYTHONIOENCODING=utf-8 py:*)",
       "Bash(wc:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(git mv *)",
+      "Bash(git status *)",
+      "Bash(awk NR==123 {print substr\\($0, 1, 400\\)} *)",
+      "Bash(python *)",
+      "Bash(PYTHONIOENCODING=utf-8 python scripts/sync_repertoire.py)",
+      "Bash(awk NR==123 {print substr\\($0, 1, 500\\)} *)",
+      "Bash(awk NR>=88 && NR<=100 *)",
+      "Bash(awk 'NR==92' choraoke-app/index.html)"
     ]
   }
 }
