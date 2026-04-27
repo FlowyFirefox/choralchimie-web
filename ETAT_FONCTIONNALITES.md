@@ -13,12 +13,12 @@
 - Hub musiciens — photo kiosque Gandhi, formulaire musicien
 - PostHog analytics — installé sur toutes les pages (API key : phc_pMHwRzFBmQ5ofa5jibDA8rqMJXHooKk87SDE5RvNuzG5)
 - Onglet Membres Gsheet — connecté, colonnes alignées
+- PWA installable — manifest.json + sw.js + snippet head sur 21 pages (Android + iOS Safari)
 
 ## 🔴 À FAIRE — URGENT
 - HelloAsso — créer page cotisation 10€, remplacer LIEN_HELLOASSO dans outils/adhesion.html
 - Setlist / tracklist — fonctionnalité à construire (voir ci-dessous)
 - Noms artistes dans app Choraoké — non affichés, à investiguer dans sync_repertoire.py
-- Favicon — erreur 404 console sur toutes les pages
 
 ## 🟡 À FAIRE — MOYEN TERME
 - Mode jour/nuit — propager sur toutes les pages via assets/theme.js

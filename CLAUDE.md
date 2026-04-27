@@ -435,6 +435,7 @@ Google Sheet master       : [à remplir]
 - [21/04/2026] — WhatsApp communauté URL ajoutée partout : https://chat.whatsapp.com/DWzssCj3cDS9Gng6vbXJpm
 - [21/04/2026] — Planning : chaque session = lien cliquable vers sa page dédiée
 - [27/04/2026] — Correction date : session ChorAlchimie de mai = **11 mai** (lundi), pas 12 mai. Fichier `sessions/11-mai.html` (renommage déjà effectué côté repo)
+- [27/04/2026] — PWA ajoutée : manifest.json + sw.js à la racine. Snippet head (favicon + manifest + SW) injecté dans les 21 pages HTML. Site installable Android et iOS Safari. Cache offline partiel activé.
 
 ---
 
