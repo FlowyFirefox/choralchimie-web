@@ -11,7 +11,8 @@
 ## Charte graphique IMMUABLE
 - Police : Outfit (Google Fonts, 300-800)
 - Fond : #F5EFE3 crème · Texte : #2C2416 encre
-- Braise #C25918 = actions · Eucalyptus #4E7A65 = validation
+- Braise #C25918 = actions uniquement (jamais texte courant)
+- Eucalyptus #4E7A65 = validation
 - Boutons min 48px · inputs min 16px · mobile-first 375px
 
 ## Google Sheets
@@ -40,7 +41,7 @@
 ## Pipeline répertoire
 - Script : scripts/sync_repertoire.py
 - Commande : PYTHONIOENCODING=utf-8 py -3 scripts/sync_repertoire.py
-- Lit l'onglet "Base de données" du Sheet Répertoire
+- Lit l'onglet "Base de données" du Sheet Répertoire (attention : sans emoji, renommé le 27/04/2026)
 - Génère choraoke-app/index.html
 
 ## Règles fetch vers Apps Script
@@ -66,3 +67,4 @@ https://chat.whatsapp.com/DWzssCj3cDS9Gng6vbXJpm
 - Laetitia (sans tréma) partout dans le site
 - Cotisation : 10€/an (PV bureau du 22/04/2026)
 - IBAN : FR76 1027 8073 1200 0219 3550 138 · BIC : CMCIFR2A
+- Onglet Sheet Répertoire : "Base de données" (sans emoji — renommé 27/04/2026)

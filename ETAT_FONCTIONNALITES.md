@@ -9,15 +9,15 @@
 - Inscriptions sessions — Apps Script universel, onglet par session
 - Planning 12 sessions — toutes cliquables vers leur page dédiée
 - Qui sommes-nous — photo groupe, histoire, équipe en ligne, CTAs
-- Hub chanteurs — hiérarchie 3 niveaux, card Adhérer gradient, photo
+- Hub chanteurs — hiérarchie 3 niveaux, card Adhérer gradient, photo groupe
 - Hub musiciens — photo kiosque Gandhi, formulaire musicien
-- PostHog analytics — installé sur toutes les pages
+- PostHog analytics — installé sur toutes les pages (API key : phc_pMHwRzFBmQ5ofa5jibDA8rqMJXHooKk87SDE5RvNuzG5)
 - Onglet Membres Gsheet — connecté, colonnes alignées
 
 ## 🔴 À FAIRE — URGENT
-- HelloAsso — créer page cotisation 10€, remplacer LIEN_HELLOASSO dans adhesion.html
+- HelloAsso — créer page cotisation 10€, remplacer LIEN_HELLOASSO dans outils/adhesion.html
 - Setlist / tracklist — fonctionnalité à construire (voir ci-dessous)
-- Noms artistes dans app Choraoké — bug à investiguer
+- Noms artistes dans app Choraoké — non affichés, à investiguer dans sync_repertoire.py
 - Favicon — erreur 404 console sur toutes les pages
 
 ## 🟡 À FAIRE — MOYEN TERME
@@ -25,6 +25,7 @@
 - Linktree — supprimer / rediriger vers le site
 - QR code — générer nouveau pointant vers accueil du site
 - Carte de fidélité — DA à finaliser
+- Logo — harmoniser ChorAlchimie_Horizontal_Fond_Foncé_New.png sur toutes les pages (hub-chanteurs et hub-musiciens déjà mis à jour, autres pages utilisent encore Texte_Day)
 
 ## 🟢 STRATÉGIE / FOND
 - Instagram — 3 posts épinglés (teaser, face caméra, photo groupe)
@@ -54,12 +55,12 @@ PYTHONIOENCODING=utf-8 py -3 scripts/sync_repertoire.py
 
 ## FICHIERS ASSETS DISPONIBLES
 - assets/PhotoGroup1.jpg — photo groupe intérieur violet
-- assets/PhotoGroup2.jpg — photo groupe nuit piano
+- assets/PhotoGroup2.jpg — photo groupe nuit piano (utilisée hub-chanteurs)
 - assets/PhotoGroup3.jpg — photo groupe parc tête d'or (utilisée quisommesnous)
 - assets/PhotoMusiciens.JPEG — piano kiosque Gandhi (utilisée hub-musiciens)
 - assets/Pierrick.png — photo équipe
-- assets/Laetitia.png — photo équipe (pas encore utilisée dans quisommesnous)
+- assets/Laetitia.png — photo équipe (pas encore utilisée dans quisommesnous — emoji 🎵🪄 à la place)
 - assets/Benoît.png — photo équipe
 - assets/Veronica.png — photo équipe
-- assets/ChorAlchimie_Horizontal_Fond_Foncé_New.png — logo header actuel
-- assets/ChorAlchimie_Horizontal_Texte_Day.png — ancien logo (encore sur certaines pages)
+- assets/ChorAlchimie_Horizontal_Fond_Foncé_New.png — logo header hub-chanteurs + hub-musiciens
+- assets/ChorAlchimie_Horizontal_Texte_Day.png — logo header autres pages (à harmoniser)
