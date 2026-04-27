@@ -57,6 +57,21 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 .toast.error{background:var(--braise);color:#fff}
 .toast.show{transform:translateY(0)}
 </style>
+<!-- PWA -->
+<link rel="icon" href="/assets/favicon_192_choralchimie.png" type="image/png">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/assets/favicon_512_choralchimie.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ChorAlchimie">
+<meta name="theme-color" content="#C25918">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(err => console.warn('[SW] Enregistrement échoué :', err));
+    });
+  }
+</script>
 </head>
 <body>
 
