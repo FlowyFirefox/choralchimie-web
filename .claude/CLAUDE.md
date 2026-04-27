@@ -239,7 +239,7 @@ choralchimie-web/
 ```
 15 avr → ChorAlchimie · Parc de la Tête d'Or
 29 avr → Choraoké · Berges du Rhône (Axel)
-12 mai → ChorAlchimie · Parc de la Tête d'Or
+11 mai → ChorAlchimie · Parc de la Tête d'Or
 27 mai → Choraoké · TBD
 10 jun → ChorAlchimie · Parc de la Tête d'Or
 ```

@@ -177,7 +177,7 @@ choralchimie-web/
 │   └── collab.html                  ← Collaboration ✓
 ├── sessions/
 │   ├── 29-avril.html                ← Session 29 avr ✓
-│   ├── 12-mai.html                  ← Session 12 mai ✓
+│   ├── 11-mai.html                  ← Session 11 mai ✓
 │   ├── 27-mai.html                  ← Session 27 mai ✓
 │   ├── 10-juin.html                 ← Session 10 jun ✓
 │   ├── 24-juin.html                 ← Session 24 jun ✓
@@ -252,7 +252,7 @@ choralchimie-web/
 ```
 15 avr → ChorAlchimie · Parc de la Tête d'Or
 29 avr → Choraoké · Berges du Rhône (Axel)
-12 mai → ChorAlchimie · Parc de la Tête d'Or
+11 mai → ChorAlchimie · Parc de la Tête d'Or
 27 mai → Choraoké · TBD
 10 jun → ChorAlchimie · Parc de la Tête d'Or
 ```
@@ -434,8 +434,9 @@ Google Sheet master       : [à remplir]
 - [21/04/2026] — Pages sessions × 12 créées · quisommesnous · collab · Apps Script universel sessions
 - [21/04/2026] — WhatsApp communauté URL ajoutée partout : https://chat.whatsapp.com/DWzssCj3cDS9Gng6vbXJpm
 - [21/04/2026] — Planning : chaque session = lien cliquable vers sa page dédiée
+- [27/04/2026] — Correction date : session ChorAlchimie de mai = **11 mai** (lundi), pas 12 mai. Fichier `sessions/11-mai.html` (renommage déjà effectué côté repo)
 
 ---
 
 *Document vivant — compléter sans jamais supprimer de sections*
-*Dernière mise à jour : 15 avril 2026*
+*Dernière mise à jour : 27 avril 2026*
