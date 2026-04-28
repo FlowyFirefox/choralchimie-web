@@ -118,6 +118,20 @@ mark{background:rgba(194,89,24,.35);color:var(--braise);border-radius:2px;paddin
 #lyricsProgressBar{height:100%;width:0%;background:#C25918;transition:width 80ms linear}
 #lyricsNextChip{display:none;font-size:10px;color:#C25918;border:1px solid rgba(194,89,24,0.3);border-radius:8px;padding:4px 8px;cursor:pointer;white-space:nowrap;max-width:90px;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;-webkit-tap-highlight-color:transparent}
 #lyricsNextChip.visible{display:block}
+#lyricsThemeBtn{background:none;border:none;font-size:16px;cursor:pointer;min-width:32px;min-height:44px;opacity:0.6;transition:opacity .15s;-webkit-tap-highlight-color:transparent}
+#lyricsThemeBtn:active{opacity:1}
+#lyricsSpacingBtn{background:none;border:none;font-size:13px;cursor:pointer;min-width:32px;min-height:44px;color:#8A7B6A;font-family:'Cormorant Garamond',serif;letter-spacing:0;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center}
+.lyrics-overlay.light{background:#EAE3CE}
+.lyrics-overlay.light .lyrics-header{background:#EAE3CE;border-bottom-color:rgba(44,36,22,0.12)}
+.lyrics-overlay.light .lyrics-title{color:#2C2416}
+.lyrics-overlay.light .lyrics-artist{color:#6B5E4E}
+.lyrics-overlay.light .lyrics-brand{color:#C25918}
+.lyrics-overlay.light .lyrics-back{color:#2C2416}
+.lyrics-overlay.light #lyricsProgress{background:rgba(44,36,22,0.1)}
+.lyrics-overlay.light .lyrics-body{background:#EAE3CE}
+.lyrics-overlay.light .lyrics-line{color:#2C2416}
+.lyrics-overlay.light .lyrics-section-label{color:#C25918}
+.lyrics-overlay.light .lyrics-watermark{color:#8A7B6A;border-top-color:rgba(44,36,22,0.1)}
 </style>
 <!-- PWA -->
 <link rel="icon" href="/assets/favicon_192_choralchimie.png" type="image/png">
@@ -486,6 +500,7 @@ function openLyricsOverlay(idx, fromSetlist){
   });
   html+='<div class="lyrics-watermark">La ChorAlchimie Lyon · @lachoralchimie</div>';
   document.getElementById('lyricsBody').innerHTML=html;
+  document.getElementById('lyricsBody').style.lineHeight=SPACING_LEVELS[lyricsSpacing];
   var ov=document.getElementById('lyricsOverlay');
   ov.classList.add('open');
   ov.scrollTop=0;
@@ -592,6 +607,32 @@ var lyricsScale=1;
     if(e.touches.length<2) startDist=0;
   },{passive:true});
 })();
+
+// Lyrics — fond clair/sombre + hauteur de ligne (préfs partagées entre chansons)
+var lyricsLight=false;
+function toggleLyricsTheme(){
+  lyricsLight=!lyricsLight;
+  var ov=document.getElementById('lyricsOverlay');
+  var btn=document.getElementById('lyricsThemeBtn');
+  if(lyricsLight){
+    ov.classList.add('light');
+    btn.textContent='☀️';
+  }else{
+    ov.classList.remove('light');
+    btn.textContent='🌙';
+  }
+}
+var lyricsSpacing=0;
+var SPACING_LEVELS=[1.8,2.4,3.0];
+function cycleLyricsSpacing(){
+  lyricsSpacing=(lyricsSpacing+1)%3;
+  var lh=SPACING_LEVELS[lyricsSpacing];
+  var body=document.getElementById('lyricsBody');
+  body.style.lineHeight=lh;
+  var btn=document.getElementById('lyricsSpacingBtn');
+  btn.style.opacity=lyricsSpacing===0?'0.4':'1';
+  btn.style.color=lyricsSpacing>0?'#C25918':'#8A7B6A';
+}
 
 render();
 </script>
@@ -715,6 +756,8 @@ render();
 
 <div class="lyrics-overlay" id="lyricsOverlay">
   <div class="lyrics-header">
+    <button id="lyricsThemeBtn" onclick="toggleLyricsTheme()" title="Changer le fond">🌙</button>
+    <button id="lyricsSpacingBtn" onclick="cycleLyricsSpacing()" title="Espacement des lignes">↕</button>
     <button class="lyrics-back" onclick="closeLyricsOverlay()">&larr;</button>
     <div class="lyrics-meta">
       <div class="lyrics-title" id="lyricsTitle"></div>
