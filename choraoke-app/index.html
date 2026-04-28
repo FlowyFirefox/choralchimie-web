@@ -114,6 +114,10 @@ mark{background:rgba(194,89,24,.35);color:var(--braise);border-radius:2px;paddin
 .lyrics-section-label{font-size:12px;color:#C25918;letter-spacing:0.12em;text-transform:uppercase;margin:20px 0 8px;font-family:'Cormorant Garamond',serif}
 .lyrics-line{font-family:'DM Serif Display',serif;font-size:19px;color:#EAE3CE;line-height:1.8;margin:0}
 .lyrics-watermark{margin-top:32px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;font-size:10px;color:#4A3E2E;letter-spacing:0.1em;padding-bottom:32px;font-family:'Cormorant Garamond',serif}
+#lyricsProgress{position:sticky;top:0;height:3px;background:rgba(255,255,255,0.08);z-index:402}
+#lyricsProgressBar{height:100%;width:0%;background:#C25918;transition:width 80ms linear}
+#lyricsNextChip{display:none;font-size:10px;color:#C25918;border:1px solid rgba(194,89,24,0.3);border-radius:8px;padding:4px 8px;cursor:pointer;white-space:nowrap;max-width:90px;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+#lyricsNextChip.visible{display:block}
 </style>
 <!-- PWA -->
 <link rel="icon" href="/assets/favicon_192_choralchimie.png" type="image/png">
@@ -259,7 +263,8 @@ document.addEventListener('click',function(e){
   var lb=e.target.closest('[data-lyrics]');
   if(lb){
     e.stopPropagation();
-    openLyricsOverlay(+lb.dataset.lyrics);
+    var fromSetlist=!!lb.closest('#setlistList');
+    openLyricsOverlay(+lb.dataset.lyrics, fromSetlist);
     return;
   }
   var btn=e.target.closest('[data-href]');
@@ -462,7 +467,7 @@ document.addEventListener('visibilitychange',async function(){
 })();
 
 // Lyrics — overlay branded
-function openLyricsOverlay(idx){
+function openLyricsOverlay(idx, fromSetlist){
   var s=S[idx];
   if(!s||!s.ly)return;
   document.getElementById('lyricsTitle').textContent=s.n;
@@ -484,6 +489,48 @@ function openLyricsOverlay(idx){
   var ov=document.getElementById('lyricsOverlay');
   ov.classList.add('open');
   ov.scrollTop=0;
+
+  // Progress bar — réattacher un handler propre à chaque ouverture
+  document.getElementById('lyricsProgressBar').style.width='0%';
+  var _lyricsScroll=function(){
+    var pct=ov.scrollTop/(ov.scrollHeight-ov.clientHeight)*100;
+    document.getElementById('lyricsProgressBar').style.width=Math.min(100,pct||0)+'%';
+  };
+  ov.removeEventListener('scroll',ov._lyricsScrollHandler||null);
+  ov._lyricsScrollHandler=_lyricsScroll;
+  ov.addEventListener('scroll',_lyricsScroll,{passive:true});
+
+  // Chip prochaine chanson de la setlist (avec paroles)
+  var chip=document.getElementById('lyricsNextChip');
+  chip.className='';
+  chip.onclick=null;
+  if(fromSetlist && SETLIST && SETLIST.songs){
+    var setlistSongs=SETLIST.songs;
+    var pos=-1;
+    for(var k=0;k<setlistSongs.length;k++){
+      if(setlistSongs[k].n===S[idx].n && setlistSongs[k].a===S[idx].a){
+        pos=k; break;
+      }
+    }
+    var nextIdx=-1;
+    for(var j=pos+1;j<setlistSongs.length;j++){
+      for(var m=0;m<S.length;m++){
+        if(S[m].n===setlistSongs[j].n && S[m].a===setlistSongs[j].a && S[m].ly){
+          nextIdx=m; break;
+        }
+      }
+      if(nextIdx>=0) break;
+    }
+    if(nextIdx>=0){
+      var nextTitle=S[nextIdx].n.length>12?S[nextIdx].n.slice(0,12)+'…':S[nextIdx].n;
+      chip.textContent='→ '+nextTitle;
+      chip.className='visible';
+      chip.onclick=function(e){
+        e.stopPropagation();
+        openLyricsOverlay(nextIdx, true);
+      };
+    }
+  }
 }
 function closeLyricsOverlay(){
   var ov=document.getElementById('lyricsOverlay');
@@ -674,7 +721,9 @@ render();
       <div class="lyrics-artist" id="lyricsArtist"></div>
     </div>
     <div class="lyrics-brand">LA CHORALCHIMIE</div>
+    <div id="lyricsNextChip"></div>
   </div>
+  <div id="lyricsProgress"><div id="lyricsProgressBar"></div></div>
   <div class="lyrics-body" id="lyricsBody"></div>
 </div>
 </body>
