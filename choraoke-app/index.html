@@ -102,6 +102,18 @@ mark{background:rgba(194,89,24,.35);color:var(--braise);border-radius:2px;paddin
 .setlist-nav .snav{flex:1;height:44px;background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--sub);font-family:'Cormorant Garamond',serif;font-size:14px;cursor:pointer;transition:opacity .15s,background .15s;-webkit-tap-highlight-color:transparent}
 .setlist-nav .snav:active{background:var(--s2)}
 .setlist-nav .snav[disabled]{opacity:.3;pointer-events:none;cursor:default}
+.lyrics-overlay{display:none;position:fixed;inset:0;background:#0A0A0A;z-index:400;overflow-y:auto;-webkit-overflow-scrolling:touch;flex-direction:column}
+.lyrics-overlay.open{display:flex}
+.lyrics-header{position:sticky;top:0;background:#0A0A0A;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px;z-index:401}
+.lyrics-back{background:none;border:none;color:#EAE3CE;font-size:22px;cursor:pointer;min-width:32px;min-height:44px}
+.lyrics-meta{flex:1;min-width:0}
+.lyrics-title{font-family:'DM Serif Display',serif;font-size:15px;color:#EAE3CE;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lyrics-artist{font-size:11px;color:#8A7B6A;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lyrics-brand{font-size:10px;color:#C25918;letter-spacing:0.08em;font-family:'Cormorant Garamond',serif;flex-shrink:0}
+.lyrics-body{padding:16px;flex:1}
+.lyrics-section-label{font-size:10px;color:#C25918;letter-spacing:0.12em;text-transform:uppercase;margin:20px 0 8px;font-family:'Cormorant Garamond',serif}
+.lyrics-line{font-family:'DM Serif Display',serif;font-size:16px;color:#EAE3CE;line-height:1.8;margin:0}
+.lyrics-watermark{margin-top:32px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;font-size:10px;color:#4A3E2E;letter-spacing:0.1em;padding-bottom:32px;font-family:'Cormorant Garamond',serif}
 </style>
 <!-- PWA -->
 <link rel="icon" href="/assets/favicon_192_choralchimie.png" type="image/png">
@@ -199,7 +211,7 @@ function card(s,idx){
     +'<div class="si-actions"><div class="act-inner">'
       +'<div class="ki"><span class="kb">🎵 <strong>'+s.t+'</strong></span>'+bpmk+capo+'</div>'
       +'<div class="abtns">'
-        +(s.gu?'<button class="abtn bge" data-href="'+ege+'" title="Lien direct">📖 Paroles — Genius ⚡</button>':'<button class="abtn bge" data-href="'+ege+'">📖 Paroles — Genius</button>')
+        +(s.ly?'<button class="abtn bge" data-lyrics="'+idx+'">📖 Paroles</button>':(s.gu?'<button class="abtn bge" data-href="'+ege+'" title="Lien direct">📖 Paroles — Genius ⚡</button>':'<button class="abtn bge" data-href="'+ege+'">📖 Paroles — Genius</button>'))
         +'<button class="abtn bsp" data-href="'+esp+'" data-sp>🎤 Spotify</button>'
         +'<button class="abtn bdz" data-href="'+edz+'" data-dz>🎵 Deezer</button>'
         +'<button class="abtn bjr" data-href="'+eug+'">'+ii+' Pour jouer</button>'
@@ -244,6 +256,12 @@ function openDeezer(url){
 }
 
 document.addEventListener('click',function(e){
+  var lb=e.target.closest('[data-lyrics]');
+  if(lb){
+    e.stopPropagation();
+    openLyricsOverlay(+lb.dataset.lyrics);
+    return;
+  }
   var btn=e.target.closest('[data-href]');
   if(btn){
     e.stopPropagation();
@@ -443,6 +461,52 @@ document.addEventListener('visibilitychange',async function(){
   });
 })();
 
+// Lyrics — overlay branded
+function openLyricsOverlay(idx){
+  var s=S[idx];
+  if(!s||!s.ly)return;
+  document.getElementById('lyricsTitle').textContent=s.n;
+  document.getElementById('lyricsArtist').textContent=s.a;
+  var lines=s.ly.split('\n');
+  var html='';
+  lines.forEach(function(line){
+    line=line.trim();
+    if(!line){
+      html+='<div style="height:8px"></div>';
+    }else if(line.startsWith('[')&&line.endsWith(']')){
+      html+='<div class="lyrics-section-label">'+line.slice(1,-1).replace(/</g,'&lt;')+'</div>';
+    }else{
+      html+='<p class="lyrics-line">'+line.replace(/</g,'&lt;')+'</p>';
+    }
+  });
+  html+='<div class="lyrics-watermark">La ChorAlchimie Lyon · @lachoralchimie</div>';
+  document.getElementById('lyricsBody').innerHTML=html;
+  var ov=document.getElementById('lyricsOverlay');
+  ov.classList.add('open');
+  ov.scrollTop=0;
+}
+function closeLyricsOverlay(){
+  var ov=document.getElementById('lyricsOverlay');
+  if(ov)ov.classList.remove('open');
+}
+// Swipe down to close (même pattern que setlist)
+(function(){
+  var ov=document.getElementById('lyricsOverlay');
+  if(!ov)return;
+  var sy=0,sx=0,allowed=false;
+  ov.addEventListener('touchstart',function(e){
+    var t=e.touches[0];
+    sy=t.clientY; sx=t.clientX;
+    allowed=!!e.target.closest('.lyrics-header')||ov.scrollTop===0;
+  },{passive:true});
+  ov.addEventListener('touchend',function(e){
+    if(!allowed)return;
+    var t=e.changedTouches[0];
+    var dy=t.clientY-sy, dx=t.clientX-sx;
+    if(dy>80 && Math.abs(dx)<30) closeLyricsOverlay();
+  },{passive:true});
+})();
+
 render();
 </script>
 <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" title="Mode jour / nuit">🌙</button>
@@ -561,6 +625,18 @@ render();
     <span id="setlistProgress"></span>
   </div>
   <ul class="list" id="setlistList"></ul>
+</div>
+
+<div class="lyrics-overlay" id="lyricsOverlay">
+  <div class="lyrics-header">
+    <button class="lyrics-back" onclick="closeLyricsOverlay()">&larr;</button>
+    <div class="lyrics-meta">
+      <div class="lyrics-title" id="lyricsTitle"></div>
+      <div class="lyrics-artist" id="lyricsArtist"></div>
+    </div>
+    <div class="lyrics-brand">LA CHORALCHIMIE</div>
+  </div>
+  <div class="lyrics-body" id="lyricsBody"></div>
 </div>
 </body>
 </html>

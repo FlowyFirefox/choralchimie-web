@@ -6,7 +6,7 @@ Lit le Google Sheet "Base de données" via export CSV public,
 régénère le tableau JSON des morceaux dans l'app Choraoké,
 et injecte la setlist du soir si la colonne Tracklist est remplie.
 
-Structure du Sheet (colonnes A->O, 0-indexées 0..14) :
+Structure du Sheet (colonnes A->P, 0-indexées 0..15) :
   A=0  #
   B=1  Langue
   C=2  Track Name
@@ -23,6 +23,8 @@ Structure du Sheet (colonnes A->O, 0-indexées 0..14) :
   N=13 Lien UltimateGuitar
   O=14 Tracklist_XX_XX  -> numéro 1..N pour la setlist du soir,
                            "Backup" pour les backups, vide sinon.
+  P=15 Paroles          -> texte des paroles (peut contenir des balises
+                           [Verse]/[Chorus]). Renseigné par fetch_lyrics.py.
 
 Auto-détectées (par nom d'en-tête, optionnelles) :
   - genius_url   (header contenant "genius" et "url")
@@ -79,6 +81,7 @@ COL_VALIDEE = 11
 COL_SPOTIFY = 12
 COL_UG = 13
 COL_TRACKLIST = 14   # O — numéro d'ordre, "Backup", ou vide
+COL_LYRICS = 15      # P — paroles (rempli par fetch_lyrics.py)
 
 
 def fetch_sheet_csv(sheet_id: str, tab_name: str) -> str:
@@ -214,6 +217,11 @@ def parse_csv_to_songs(csv_text: str):
             gu = row[genius_col].strip()
             if gu:
                 song["gu"] = gu
+
+        if len(row) > COL_LYRICS:
+            ly = row[COL_LYRICS].strip()
+            if ly:
+                song["ly"] = ly
 
         all_songs.append(song)
 
