@@ -96,6 +96,10 @@ mark{background:rgba(194,89,24,.35);color:var(--braise);border-radius:2px;paddin
 #setlistProgress{margin-left:auto;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--sub);transition:opacity .15s}
 .setlist-num{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--braise);color:#fff;font-size:13px;font-weight:700;flex-shrink:0;margin-right:8px}
 .setlist-divider{list-style:none;padding:18px 16px 8px;font-family:'DM Serif Display',serif;font-size:13px;color:var(--sub);text-transform:uppercase;letter-spacing:.12em;border-top:1px solid var(--border);margin-top:8px}
+.setlist-nav{display:flex;gap:8px;margin-top:14px;border-top:1px solid var(--border);padding-top:12px}
+.setlist-nav .snav{flex:1;height:44px;background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--sub);font-family:'Cormorant Garamond',serif;font-size:14px;cursor:pointer;transition:opacity .15s,background .15s;-webkit-tap-highlight-color:transparent}
+.setlist-nav .snav:active{background:var(--s2)}
+.setlist-nav .snav[disabled]{opacity:.3;pointer-events:none;cursor:default}
 </style>
 <!-- PWA -->
 <link rel="icon" href="/assets/favicon_192_choralchimie.png" type="image/png">
@@ -295,6 +299,18 @@ function openSetlist(){
   var html=mainHtml;
   if(bkHtml) html+='<li class="setlist-divider">Backups</li>'+bkHtml;
   document.getElementById('setlistList').innerHTML=html;
+  var slItems=document.getElementById('setlistList').querySelectorAll('.si-item');
+  slItems.forEach(function(item,i){
+    var inner=item.querySelector('.si-actions .act-inner');
+    if(!inner) return;
+    var dPrev=i===0?' disabled':'';
+    var dNext=i===slItems.length-1?' disabled':'';
+    inner.insertAdjacentHTML('beforeend',
+      '<div class="setlist-nav">'+
+        '<button class="snav" data-snav="prev"'+dPrev+'>← Précédent</button>'+
+        '<button class="snav" data-snav="next"'+dNext+'>Suivant →</button>'+
+      '</div>');
+  });
   var pg=document.getElementById('setlistProgress');
   if(pg){
     pg.style.opacity='1';
@@ -326,6 +342,36 @@ if(SETLIST && ((SETLIST.songs && SETLIST.songs.length>0) || (SETLIST.backup && S
     var dy=t.clientY-sy, dx=t.clientX-sx;
     if(dy>80 && Math.abs(dx)<30) ov.classList.remove('open');
   },{passive:true});
+})();
+
+// Setlist : navigation Précédent / Suivant
+(function(){
+  var sl=document.getElementById('setlistList');
+  if(!sl)return;
+  sl.addEventListener('click',function(e){
+    var nav=e.target.closest('[data-snav]');
+    if(!nav||nav.disabled)return;
+    e.stopPropagation();
+    var items=Array.from(sl.querySelectorAll('.si-item'));
+    var cur=nav.closest('.si-item');
+    var idx=items.indexOf(cur);
+    var dir=nav.getAttribute('data-snav')==='next'?1:-1;
+    var nx=items[idx+dir];
+    if(!nx)return;
+    items.forEach(function(el){el.classList.remove('open');});
+    nx.classList.add('open');
+    var pg=document.getElementById('setlistProgress');
+    if(pg && typeof SETLIST==='object' && SETLIST && SETLIST.songs){
+      var nb=SETLIST.songs.length;
+      var nm=nx.querySelector('.setlist-num');
+      var txt=nm?nm.textContent+' / '+nb:'Backup';
+      if(pg.textContent!==txt){
+        pg.style.opacity='0';
+        setTimeout(function(){pg.textContent=txt;pg.style.opacity='1';},150);
+      }
+    }
+    nx.scrollIntoView({behavior:'smooth',block:'center'});
+  });
 })();
 
 render();
