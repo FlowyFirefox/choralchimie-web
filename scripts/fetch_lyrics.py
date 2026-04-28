@@ -182,7 +182,6 @@ def main():
         GENIUS_TOKEN,
         timeout=GENIUS_TIMEOUT,
         retries=0,
-        verbose=False,
         skip_non_songs=True,
         remove_section_headers=True,
     )
