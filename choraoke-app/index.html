@@ -247,9 +247,10 @@ document.addEventListener('click',function(e){
   }
   var tg=e.target.closest('[data-tg]');
   if(tg){
-    var items=document.querySelectorAll('.si-item');
-    var item=Array.from(items).find(el=>+el.dataset.idx===+tg.dataset.tg);
+    var item=tg.closest('.si-item');
     if(!item)return;
+    var container=item.parentElement;
+    var items=container.querySelectorAll('.si-item');
     var was=item.classList.contains('open');
     items.forEach(function(el){el.classList.remove('open');});
     if(!was)item.classList.add('open');
