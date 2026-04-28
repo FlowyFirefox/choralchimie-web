@@ -115,7 +115,7 @@ mark{background:rgba(194,89,24,.35);color:var(--braise);border-radius:2px;paddin
 .lyrics-watermark{margin-top:32px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;font-size:10px;color:#4A3E2E;letter-spacing:0.1em;padding-bottom:32px;font-family:'Cormorant Garamond',serif}
 #lyricsProgress{position:sticky;top:0;height:3px;background:rgba(255,255,255,0.08);z-index:402}
 #lyricsProgressBar{height:100%;width:0%;background:#C25918;transition:width 80ms linear}
-#lyricsNextChip{display:none;font-size:10px;color:#C25918;border:1px solid rgba(194,89,24,0.3);border-radius:8px;padding:4px 8px;cursor:pointer;white-space:nowrap;max-width:90px;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+#lyricsNextChip{display:none;font-size:13px;color:#C25918;border:1px solid rgba(194,89,24,0.3);border-radius:8px;padding:6px 10px;cursor:pointer;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis;flex-shrink:0;-webkit-tap-highlight-color:transparent}
 #lyricsNextChip.visible{display:block}
 #lyricsControls{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));right:16px;display:flex;flex-direction:column;gap:8px;z-index:410}
 #lyricsControls button{width:44px;height:44px;border-radius:50%;background:#1A1A1A;border:1px solid rgba(255,255,255,0.12);color:#EAE3CE;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:opacity .15s}
@@ -498,7 +498,10 @@ function openLyricsOverlay(idx, fromSetlist){
   });
   html+='<div class="lyrics-watermark">La ChorAlchimie Lyon · @lachoralchimie</div>';
   document.getElementById('lyricsBody').innerHTML=html;
-  document.getElementById('lyricsBody').style.lineHeight=SPACING_LEVELS[lyricsSpacing];
+  var lyBody=document.getElementById('lyricsBody');
+  lyBody.querySelectorAll('.lyrics-line').forEach(function(el){
+    el.style.lineHeight=SPACING_LEVELS[lyricsSpacing];
+  });
   var ov=document.getElementById('lyricsOverlay');
   ov.classList.add('open');
   ov.scrollTop=0;
@@ -629,7 +632,9 @@ function cycleLyricsSpacing(){
   lyricsSpacing=(lyricsSpacing+1)%3;
   var lh=SPACING_LEVELS[lyricsSpacing];
   var body=document.getElementById('lyricsBody');
-  if(body) body.style.lineHeight=lh;
+  if(body) body.querySelectorAll('.lyrics-line').forEach(function(el){
+    el.style.lineHeight=lh;
+  });
   var btn=document.getElementById('lyricsSpacingBtn');
   if(btn){
     btn.style.opacity=lyricsSpacing===0?'0.5':'1';
