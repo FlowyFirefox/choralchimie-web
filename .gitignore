@@ -1,1 +1,10 @@
 .claude/settings.local.json
+
+# Credentials et secrets — JAMAIS commiter
+scripts/credentials.json
+scripts/.env
+*.env
+
+# Logs / artefacts générés par les scripts
+scripts/lyrics_not_found.txt
+scripts/__pycache__/
