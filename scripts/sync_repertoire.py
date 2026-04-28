@@ -56,9 +56,9 @@ SHEET_ID = "1tkQ1J7bzU_4reaTiF4LMvWeRwE0auRheOWofjVnJyFw"
 SHEET_TAB = "Base de données"
 
 # Métadonnées affichées dans l'overlay setlist (toutes optionnelles)
-SESSION_NAME = ""     # Vide -> label par défaut "Ce soir 🎵"
+SESSION_NAME = ""     # Vide -> label par défaut "Choraoké 29/04"
 SESSION_DATE = ""     # Ex: "29 avril 2026"
-SESSION_LIEU = ""     # Ex: "Berges du Rhône"
+SESSION_LIEU = "Parc de la Tête d'Or"
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 HTML_PATH = REPO_ROOT / "choraoke-app" / "index.html"
@@ -242,7 +242,7 @@ def build_setlist_data(setlist_songs, backup_songs):
     """Retourne le dict SETLIST à injecter dans l'app, ou None si rien à afficher."""
     if not setlist_songs and not backup_songs:
         return None
-    label = SESSION_NAME or "Ce soir 🎵"
+    label = SESSION_NAME or "Choraoké 29/04"
     parts = [p for p in [SESSION_DATE, SESSION_LIEU] if p]
     return {
         "label": label,
@@ -378,7 +378,7 @@ def main():
     print(f"\n✅ {HTML_PATH.name} mis à jour")
     print(f"   → {len(all_songs)} morceaux injectés")
     if setlist_songs or backup_songs:
-        label = SESSION_NAME or "Ce soir 🎵"
+        label = SESSION_NAME or "Choraoké 29/04"
         print(f"   → Setlist active : {label} ({len(setlist_songs)} principaux + {len(backup_songs)} backups)")
         if SESSION_DATE:
             print(f"   → Date : {SESSION_DATE}")
