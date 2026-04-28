@@ -173,7 +173,7 @@ function hl(t,q){if(!q)return t;return t.replace(new RegExp('('+q.replace(/[.*+?
 function card(s,idx){
   const sp='https://open.spotify.com/search/'+encodeURIComponent(s.n+' '+s.a);
   const dz='https://www.deezer.com/search/'+encodeURIComponent(s.n+' '+s.a);
-  const cleanTitle=s.n.replace(/\s*[-–]\s*(remaster(ed)?|live|remix|version|acoustic|radio edit|feat\.?|ft\.?).*/i,'').trim();
+  const cleanTitle=s.n.replace(/\s*[-–]\s*(\d{4}\s+)?(remaster(ed)?|live|remix|version|acoustic|radio edit|feat\.?|ft\.?).*/i,'').trim();
   const ge=s.gu?s.gu:'https://genius.com/search?q='+encodeURIComponent(s.a+' '+cleanTitle);
   const ug='https://www.ultimate-guitar.com/search.php?search_type=title&value='+encodeURIComponent(s.n);
   const lc='l'+s.l;
