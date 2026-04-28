@@ -108,11 +108,11 @@ mark{background:rgba(194,89,24,.35);color:var(--braise);border-radius:2px;paddin
 .lyrics-back{background:none;border:none;color:#EAE3CE;font-size:22px;cursor:pointer;min-width:32px;min-height:44px}
 .lyrics-meta{flex:1;min-width:0}
 .lyrics-title{font-family:'DM Serif Display',serif;font-size:15px;color:#EAE3CE;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lyrics-artist{font-size:11px;color:#8A7B6A;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lyrics-artist{font-size:13px;color:#8A7B6A;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lyrics-brand{font-size:10px;color:#C25918;letter-spacing:0.08em;font-family:'Cormorant Garamond',serif;flex-shrink:0}
-.lyrics-body{padding:16px;flex:1}
-.lyrics-section-label{font-size:10px;color:#C25918;letter-spacing:0.12em;text-transform:uppercase;margin:20px 0 8px;font-family:'Cormorant Garamond',serif}
-.lyrics-line{font-family:'DM Serif Display',serif;font-size:16px;color:#EAE3CE;line-height:1.8;margin:0}
+.lyrics-body{padding:16px;flex:1;transform-origin:top center;transition:none}
+.lyrics-section-label{font-size:12px;color:#C25918;letter-spacing:0.12em;text-transform:uppercase;margin:20px 0 8px;font-family:'Cormorant Garamond',serif}
+.lyrics-line{font-family:'DM Serif Display',serif;font-size:19px;color:#EAE3CE;line-height:1.8;margin:0}
 .lyrics-watermark{margin-top:32px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;font-size:10px;color:#4A3E2E;letter-spacing:0.1em;padding-bottom:32px;font-family:'Cormorant Garamond',serif}
 </style>
 <!-- PWA -->
@@ -504,6 +504,45 @@ function closeLyricsOverlay(){
     var t=e.changedTouches[0];
     var dy=t.clientY-sy, dx=t.clientX-sx;
     if(dy>80 && Math.abs(dx)<30) closeLyricsOverlay();
+  },{passive:true});
+})();
+
+// Lyrics — pinch-to-zoom + double-tap reset (zoom partagé entre chansons)
+var lyricsScale=1;
+(function(){
+  var body=document.getElementById('lyricsBody');
+  if(!body)return;
+  var startDist=0, startScale=1, lastTap=0;
+  function dist(a,b){
+    var dx=a.clientX-b.clientX, dy=a.clientY-b.clientY;
+    return Math.sqrt(dx*dx+dy*dy);
+  }
+  function clamp(v){return Math.max(0.8,Math.min(2.5,v));}
+  body.addEventListener('touchstart',function(e){
+    if(e.touches.length===2){
+      startDist=dist(e.touches[0],e.touches[1]);
+      startScale=lyricsScale;
+    }else if(e.touches.length===1){
+      var now=Date.now();
+      if(now-lastTap<300){
+        lyricsScale=1;
+        body.style.transform='scale(1)';
+        lastTap=0;
+      }else{
+        lastTap=now;
+      }
+    }
+  },{passive:true});
+  body.addEventListener('touchmove',function(e){
+    if(e.touches.length===2 && startDist>0){
+      e.preventDefault();
+      var d=dist(e.touches[0],e.touches[1]);
+      lyricsScale=clamp(startScale*(d/startDist));
+      body.style.transform='scale('+lyricsScale+')';
+    }
+  },{passive:false});
+  body.addEventListener('touchend',function(e){
+    if(e.touches.length<2) startDist=0;
   },{passive:true});
 })();
 
