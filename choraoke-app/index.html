@@ -291,6 +291,24 @@ if(SETLIST && ((SETLIST.songs && SETLIST.songs.length>0) || (SETLIST.backup && S
   }
 }
 
+// Setlist : swipe vers le bas pour fermer l'overlay
+(function(){
+  var ov=document.getElementById('setlistOverlay');
+  if(!ov)return;
+  var sy=0,sx=0,allowed=false;
+  ov.addEventListener('touchstart',function(e){
+    var t=e.touches[0];
+    sy=t.clientY; sx=t.clientX;
+    allowed=!!e.target.closest('.setlist-header')||ov.scrollTop===0;
+  },{passive:true});
+  ov.addEventListener('touchend',function(e){
+    if(!allowed)return;
+    var t=e.changedTouches[0];
+    var dy=t.clientY-sy, dx=t.clientX-sx;
+    if(dy>80 && Math.abs(dx)<30) ov.classList.remove('open');
+  },{passive:true});
+})();
+
 render();
 </script>
 <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" title="Mode jour / nuit">🌙</button>
