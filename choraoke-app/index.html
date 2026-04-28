@@ -94,6 +94,8 @@ mark{background:rgba(194,89,24,.35);color:var(--braise);border-radius:2px;paddin
 .setlist-back{background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;padding:4px;min-width:36px;min-height:36px}
 .setlist-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text)}
 #setlistProgress{margin-left:auto;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--sub);transition:opacity .15s}
+#wakeLockBtn{background:none;border:none;font-size:20px;opacity:.4;transition:opacity .2s;min-width:36px;min-height:36px;color:var(--text);cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent}
+#wakeLockBtn.active{opacity:1}
 .setlist-num{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--braise);color:#fff;font-size:13px;font-weight:700;flex-shrink:0;margin-right:8px}
 .setlist-divider{list-style:none;padding:18px 16px 8px;font-family:'DM Serif Display',serif;font-size:13px;color:var(--sub);text-transform:uppercase;letter-spacing:.12em;border-top:1px solid var(--border);margin-top:8px}
 .setlist-nav{display:flex;gap:8px;margin-top:14px;border-top:1px solid var(--border);padding-top:12px}
@@ -340,7 +342,7 @@ if(SETLIST && ((SETLIST.songs && SETLIST.songs.length>0) || (SETLIST.backup && S
     if(!allowed)return;
     var t=e.changedTouches[0];
     var dy=t.clientY-sy, dx=t.clientX-sx;
-    if(dy>80 && Math.abs(dx)<30) ov.classList.remove('open');
+    if(dy>80 && Math.abs(dx)<30) closeSetlistOverlay();
   },{passive:true});
 })();
 
@@ -371,6 +373,72 @@ if(SETLIST && ((SETLIST.songs && SETLIST.songs.length>0) || (SETLIST.backup && S
       }
     }
     nx.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+})();
+
+// Wake Lock — garder l'écran allumé pendant la setlist
+var wakeLock=null;
+var wakeLockWanted=false;
+async function requestWakeLock(){
+  if(!('wakeLock' in navigator))return false;
+  try{
+    wakeLock=await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release',function(){
+      wakeLock=null;
+      var b=document.getElementById('wakeLockBtn');
+      if(b)b.classList.remove('active');
+    });
+    return true;
+  }catch(e){
+    console.warn('[WakeLock]',e);
+    return false;
+  }
+}
+async function releaseWakeLock(){
+  wakeLockWanted=false;
+  if(wakeLock){
+    try{await wakeLock.release();}catch(e){}
+    wakeLock=null;
+  }
+  var b=document.getElementById('wakeLockBtn');
+  if(b)b.classList.remove('active');
+}
+async function toggleWakeLock(){
+  if(wakeLock){
+    await releaseWakeLock();
+  }else{
+    var ok=await requestWakeLock();
+    if(ok){
+      wakeLockWanted=true;
+      var b=document.getElementById('wakeLockBtn');
+      if(b)b.classList.add('active');
+    }
+  }
+}
+function closeSetlistOverlay(){
+  releaseWakeLock();
+  var ov=document.getElementById('setlistOverlay');
+  if(ov)ov.classList.remove('open');
+}
+document.addEventListener('visibilitychange',async function(){
+  if(document.visibilityState==='visible' && wakeLockWanted && !wakeLock){
+    var ok=await requestWakeLock();
+    if(ok){
+      var b=document.getElementById('wakeLockBtn');
+      if(b)b.classList.add('active');
+    }
+  }
+});
+(function(){
+  var btn=document.getElementById('wakeLockBtn');
+  if(!btn)return;
+  if(!('wakeLock' in navigator)){
+    btn.style.display='none';
+    return;
+  }
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    toggleWakeLock();
   });
 })();
 
@@ -486,8 +554,9 @@ render();
 
 <div class="setlist-overlay" id="setlistOverlay">
   <div class="setlist-header">
-    <button class="setlist-back" onclick="document.getElementById('setlistOverlay').classList.remove('open')">&larr;</button>
+    <button class="setlist-back" onclick="closeSetlistOverlay()">&larr;</button>
     <div class="setlist-title" id="setlistTitle">Setlist</div>
+    <button id="wakeLockBtn" type="button" title="Garder l'écran allumé">🔆</button>
     <span id="setlistProgress"></span>
   </div>
   <ul class="list" id="setlistList"></ul>
