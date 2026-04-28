@@ -85,6 +85,16 @@ body.light{--bg:#F5EFE3;--s1:#FDFAF5;--s2:#EDE6D6;--s3:#E3D9C6;--text:#2C2416;--
 mark{background:rgba(194,89,24,.35);color:var(--braise);border-radius:2px;padding:0 1px}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:#222;border-radius:2px}
+.setlist-btn{display:block;width:calc(100% - 32px);margin:8px 16px 12px;padding:14px;background:var(--braise);color:#fff;border:none;border-radius:14px;font-family:'DM Serif Display',serif;font-size:16px;cursor:pointer;text-align:center;transition:transform .15s;box-shadow:0 4px 16px rgba(194,89,24,.35)}
+.setlist-btn:active{transform:scale(.97)}
+.setlist-btn .sl-meta{font-family:'Cormorant Garamond',serif;font-size:12px;opacity:.85;margin-top:2px}
+.setlist-overlay{display:none;position:fixed;inset:0;background:var(--bg);z-index:300;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.setlist-overlay.open{display:block}
+.setlist-header{position:sticky;top:0;background:var(--bg);padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;z-index:301}
+.setlist-back{background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;padding:4px;min-width:36px;min-height:36px}
+.setlist-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text)}
+.setlist-num{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--braise);color:#fff;font-size:13px;font-weight:700;flex-shrink:0;margin-right:8px}
+.setlist-divider{list-style:none;padding:18px 16px 8px;font-family:'DM Serif Display',serif;font-size:13px;color:var(--sub);text-transform:uppercase;letter-spacing:.12em;border-top:1px solid var(--border);margin-top:8px}
 </style>
 <!-- PWA -->
 <link rel="icon" href="/assets/favicon_192_choralchimie.png" type="image/png">
@@ -116,6 +126,7 @@ mark{background:rgba(194,89,24,.35);color:var(--braise);border-radius:2px;paddin
     </div>
     <div class="count"><span id="cn">587</span> titres</div>
   </div>
+  <div id="setlistBtnWrap"></div>
   <div class="search-wrap">
     <svg class="si" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
     <input class="search-input" type="text" id="si" placeholder="Titre, artiste…" autocomplete="off" autocorrect="off" spellcheck="false">
@@ -257,6 +268,28 @@ filt.addEventListener('click',function(e){
   render();
 });
 
+// Setlist du soir
+function openSetlist(){
+  var ov=document.getElementById('setlistOverlay');
+  document.getElementById('setlistTitle').textContent=SETLIST.label;
+  function findIdx(s){return S.indexOf(S.find(function(x){return x.n===s.n&&x.a===s.a;}));}
+  var mainHtml=(SETLIST.songs||[]).map(function(s,i){
+    return card(s,findIdx(s)).replace('<div class="lang','<div class="setlist-num">'+(i+1)+'</div><div class="lang');
+  }).join('');
+  var bkHtml=(SETLIST.backup||[]).map(function(s){return card(s,findIdx(s));}).join('');
+  var html=mainHtml;
+  if(bkHtml) html+='<li class="setlist-divider">Backups</li>'+bkHtml;
+  document.getElementById('setlistList').innerHTML=html;
+  ov.classList.add('open');
+}
+if(SETLIST && ((SETLIST.songs && SETLIST.songs.length>0) || (SETLIST.backup && SETLIST.backup.length>0))){
+  var slWrap=document.getElementById('setlistBtnWrap');
+  if(slWrap){
+    var slMeta=SETLIST.meta?'<div class="sl-meta">'+SETLIST.meta+'</div>':'';
+    slWrap.innerHTML='<button class="setlist-btn" id="setlist-btn" onclick="openSetlist()">'+SETLIST.label+slMeta+'</button>';
+  }
+}
+
 render();
 </script>
 <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" title="Mode jour / nuit">🌙</button>
@@ -367,5 +400,12 @@ render();
 })();
 </script>
 
+<div class="setlist-overlay" id="setlistOverlay">
+  <div class="setlist-header">
+    <button class="setlist-back" onclick="document.getElementById('setlistOverlay').classList.remove('open')">&larr;</button>
+    <div class="setlist-title" id="setlistTitle">Setlist</div>
+  </div>
+  <ul class="list" id="setlistList"></ul>
+</div>
 </body>
 </html>
