@@ -302,12 +302,17 @@ def inject_into_html(html: str, all_songs, setlist_songs, backup_songs) -> str:
     """Remplace const S=[...] et const SETLIST=...; injecte l'UI si absente."""
 
     # 1. Remplacer const S=[...];
+    # Ancrage `(?=\n|$)` : la ligne se termine par `;` suivi d'un newline.
+    # Indispensable pour ne pas matcher un `;` situé dans une string JSON
+    # (ex : artiste "Michel Fugain;Le Big Bazar").
     songs_json = json.dumps(all_songs, ensure_ascii=False, separators=(",", ":"))
-    pattern_s = re.compile(r"const S=\[.*?\];", re.DOTALL)
+    pattern_s = re.compile(r"const S=\[.*?\];(?=\n|$)", re.DOTALL)
     if not pattern_s.search(html):
         print("❌ Impossible de trouver 'const S=[...];' dans le HTML.")
         sys.exit(1)
-    html = pattern_s.sub(f"const S={songs_json};", html, count=1)
+    # lambda pour empêcher re.sub de réinterpréter les backslashes du JSON
+    # (sinon les "\n" / "\t" / "\\" dans les paroles cassent le JSON injecté)
+    html = pattern_s.sub(lambda _m: f"const S={songs_json};", html, count=1)
 
     # 2. Remplacer const SETLIST=...;
     setlist_data = build_setlist_data(setlist_songs, backup_songs)
@@ -316,14 +321,14 @@ def inject_into_html(html: str, all_songs, setlist_songs, backup_songs) -> str:
         if setlist_data is not None else "null"
     )
     setlist_line = f"const SETLIST={setlist_value};"
-    pattern_sl = re.compile(r"const SETLIST=.*?;", re.DOTALL)
+    pattern_sl = re.compile(r"const SETLIST=.*?;(?=\n|$)", re.DOTALL)
     if pattern_sl.search(html):
-        html = pattern_sl.sub(setlist_line, html, count=1)
+        html = pattern_sl.sub(lambda _m: setlist_line, html, count=1)
     else:
-        # Insérer juste après const S=[...];
+        # Insérer juste après const S=[...];  (lambda → backslashes JSON préservés)
         html = re.sub(
-            r"(const S=\[.*?\];)",
-            r"\1\n" + setlist_line,
+            r"const S=\[.*?\];(?=\n|$)",
+            lambda m: m.group(0) + "\n" + setlist_line,
             html, count=1, flags=re.DOTALL,
         )
 
