@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fiche Choraoké — La ChorAlchimie</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --cream: #F5EFE3;
+    --ink: #2C2416;
+    --ink2: #4A3E2E;
+    --muted: #8A7B6A;
+    --sub: #6B5E4E;
+    --braise: #C25918;
+    --euca: #4E7A65;
+    --border: rgba(44,36,22,0.12);
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    background: var(--cream);
+    font-family: 'Outfit', sans-serif;
+    color: var(--ink);
+    overflow: hidden;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 12mm 14mm 10mm;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Trait décoratif vertical braise */
+  .page::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: var(--braise);
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid var(--border);
+    margin-bottom: 10px;
+  }
+  .header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+  }
+  .header-name {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .header-name span { color: var(--braise); }
+  .header-tagline {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .format-badge {
+    background: var(--ink);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .hero-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--braise);
+    margin-bottom: 4px;
+  }
+  .hero-title {
+    font-size: 23px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 5px;
+  }
+  .hero-sub {
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.75;
+  }
+
+  /* Q&A section */
+  .qa-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    flex: 1;
+  }
+
+  .qa {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 12px;
+  }
+  .qa-q {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--braise);
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .qa-a {
+    font-size: 13.5px;
+    font-weight: 400;
+    color: var(--ink2);
+    line-height: 1.5;
+  }
+  .qa-a strong {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* QR + CTA row */
+  .cta-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .cta-box {
+    flex: 1;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .cta-box.dark {
+    background: var(--ink);
+    border-color: transparent;
+  }
+  .cta-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .cta-box.dark .cta-label { color: rgba(255,255,255,0.5); }
+  .cta-main {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .cta-box.dark .cta-main { color: #fff; }
+  .cta-sub {
+    font-size: 11.5px;
+    color: var(--sub);
+  }
+  .cta-box.dark .cta-sub { color: rgba(255,255,255,0.6); }
+
+  .qr-placeholder {
+    width: 52px;
+    height: 52px;
+    background: var(--cream);
+    border: 1.5px dashed rgba(44,36,22,0.25);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+  .cta-with-qr {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Date au feutre */
+  .date-blank {
+    display: inline-block;
+    border-bottom: 1.5px solid var(--ink);
+    min-width: 90px;
+    height: 14px;
+    vertical-align: bottom;
+    margin: 0 3px;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 8px;
+    padding-top: 7px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-info {
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .footer-logo {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  /* Phrase militante */
+  .manifesto {
+    background: var(--braise);
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .manifesto p {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.55;
+    opacity: 0.95;
+  }
+  .manifesto em {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 14.5px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="header-left">
+      <img src="../assets/ChorAlchimie_Horizontal_Texte_Day.png" alt="La ChorAlchimie" style="height:80px;width:auto;display:block;object-fit:contain">
+      <div class="header-tagline">Chant choral participatif · Lyon · Association loi 1901</div>
+    </div>
+    <img src="../assets/ChorAlchimie_Carré_Logo_New.png" alt="Logo" style="height:46px;width:46px;object-fit:contain">
+  </div>
+
+  <div class="hero">
+    <div class="hero-label">Ce soir</div>
+    <div class="hero-title">Chante avec nous.<br>Maintenant. Là.</div>
+    <div class="hero-sub">Pas besoin de savoir chanter. Pas besoin de prévenir.<br>Si tu as envie de chanter avec nous, la liste des morceaux du soir est dans l'app ci-dessous.</div>
+  </div>
+
+  <div class="qa-grid">
+
+    <div class="qa">
+      <div class="qa-q">C'est quoi exactement ?</div>
+      <div class="qa-a">Un karaoké live, mais en groupe. Un (ou plusieurs) musicien·ne·s joue·nt, on chante tous ensemble — juste pour se faire du bien et se connecter par et pour la musique. <strong>Une trentaine de titres dans la soirée.</strong> Tout le monde à l'unisson.</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Je peux me joindre maintenant ?</div>
+      <div class="qa-a"><strong>Oui, à tout moment.</strong> Le Choraoké se rejoint en cours de route sans problème — contrairement à notre format ChorAlchimie (voir app). Glisse-toi dans le groupe, attrape les paroles dans l'app (<em>Je veux chanter → App Choraoké</em>), et c'est parti.</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">C'est payant ?</div>
+      <div class="qa-a"><strong>Ta première fois est gratuite.</strong> Ensuite, on fonctionne à prix libre et conscient — la plupart des participant·e·s laissent 5€. Ce que tu donnes permet à l'association de continuer à exister.</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Ça dure jusqu'à quand ?</div>
+      <div class="qa-a">Le créneau habituel est <strong>19h30 – 22h.</strong> Tu peux partir quand tu veux — aucun engagement.</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">C'est toujours ici ?</div>
+      <div class="qa-a">On alterne entre ce lieu et un spot nature secret — partagé dans notre groupe WhatsApp. <strong>Rejoins la commu</strong> pour être informé·e des prochaines !</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Y'en aura d'autres ?</div>
+      <div class="qa-a">Un mercredi sur 2, toute la saison. Et 2 samedis dans l'année avec une double session : ChorAlchimie à 17h puis Choraoké jusqu'à 22h. Le planning complet est dans l'application — <strong>scanne le QR code ci-dessous.</strong></div>
+    </div>
+
+  </div>
+
+  <div class="manifesto">
+    <p><em>On soutient l'idée que tout le monde peut chanter.</em><br>
+    Pas comme une performance. Comme une invitation pour soi. Comme un cadeau 🎁<br>
+    Ce soir, ta voix a une place ici.</p>
+  </div>
+
+  <div style="text-align:center; font-size:12px; color:#8A7B6A; padding: 8mm 0 4mm; font-family:'Outfit',sans-serif;">
+    Retrouve l'app et rejoins la commu · <strong style="color:#2C2416;">@lachoralchimie</strong> sur Instagram · ou demande-nous directement ce soir 🎵
+  </div>
+
+  <div class="footer">
+    <div class="footer-info">
+      @lachoralchimie · choralchimielyon2@gmail.com
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
