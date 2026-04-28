@@ -66,8 +66,8 @@ body.light{--bg:#F5EFE3;--s1:#FDFAF5;--s2:#EDE6D6;--s3:#E3D9C6;--text:#2C2416;--
 .tb{color:var(--muted);font-size:10px}
 .chev{flex-shrink:0;color:var(--muted);transition:transform .2s;margin-top:2px}
 .si-item.open .chev{transform:rotate(180deg)}
-.si-actions{overflow:hidden;max-height:0;transition:max-height .25s cubic-bezier(.4,0,.2,1);background:#181818!important}
-.si-item.open .si-actions{max-height:200px}
+.si-actions{overflow:hidden;max-height:0;opacity:0;transition:max-height 200ms ease,opacity 150ms ease;background:#181818!important}
+.si-item.open .si-actions{max-height:200px;opacity:1}
 .act-inner{padding:10px 16px 14px}
 .ki{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .kb{background:#222!important;border:1px solid var(--border);border-radius:8px;padding:4px 10px;font-size:12px;color:var(--sub);font-family:'Cormorant Garamond',serif}
