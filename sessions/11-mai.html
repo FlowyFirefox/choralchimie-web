@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
 <meta name="theme-color" content="#F5EFE3">
-<title>ChorAlchimie — 11 mai 2026 — La ChorAlchimie</title>
+<title>ChoraViva — 11 mai 2026 — La ChorAlchimie</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -23,10 +23,16 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 .back{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--white);border:1px solid var(--border2);color:var(--ink);text-decoration:none;font-size:18px;flex-shrink:0}
 .back:active{background:var(--cream2)}
 .header-title{font-size:16px;font-weight:600}
-.hero-card{margin:16px 20px;padding:40px 20px;background:var(--cream2);border-radius:14px;text-align:center;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
-.hero-card .format{font-size:32px;font-weight:800;color:var(--braise)}
-.hero-card .date{font-size:18px;color:var(--sub)}
-.hero-card .hint{font-size:12px;color:var(--muted);margin-top:8px}
+.hero-affiche{display:block;width:calc(100% - 40px);margin:16px 20px 0;border-radius:12px;-webkit-user-select:none;user-select:none}
+.info-block{margin:16px 20px;padding:24px 20px;background:var(--cream2);border-radius:14px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.info-block .format{font-size:32px;font-weight:800;color:var(--braise);line-height:1.1}
+.info-block .tagline{font-size:15px;font-weight:500;font-style:italic;color:var(--ink2);margin-top:2px}
+.info-block .desc{font-size:13px;color:var(--sub);margin-top:6px;line-height:1.5}
+.info-block .meta{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:14px;font-size:14px;font-weight:500;color:var(--ink)}
+.partners{margin:8px 20px 24px;padding:18px 20px;background:var(--white);border:1px solid var(--border2);border-radius:14px;text-align:center}
+.partners-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.partners-main{font-size:14px;font-weight:600;color:var(--ink);line-height:1.4}
+.partners-sub{font-size:12px;color:var(--sub);margin-top:6px;line-height:1.4}
 .form-section{padding:0 20px 24px;max-width:400px;margin:0 auto}
 .form-title{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:12px}
 .field{margin-bottom:16px}
@@ -70,10 +76,16 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   <span class="header-title">La ChorAlchimie</span>
 </header>
 
-<div class="hero-card">
-  <div class="format">ChorAlchimie</div>
-  <div class="date">Lundi 11 mai · 19h — 22h30</div>
-  <div class="hint">Affiche à venir</div>
+<img src="../assets/2026_05-11 - ChorAviva_Affiche_App.png" alt="ChoraViva — Lundi 11 mai · Kiosque Gandhi" class="hero-affiche">
+
+<div class="info-block">
+  <div class="format">ChoraViva</div>
+  <div class="tagline">Quand voix et corps s'emmêlent</div>
+  <div class="desc">Chant collectif · danse libre · plein air · entrée libre</div>
+  <div class="meta">
+    <div>📅 Lundi 11 mai · 19h – 22h</div>
+    <div>📍 Kiosque Gandhi — Parc de la Tête d'Or</div>
+  </div>
 </div>
 
 <div class="form-section">
@@ -109,6 +121,12 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   </a>
 </div>
 
+<div class="partners">
+  <div class="partners-label">Partenaires</div>
+  <div class="partners-main">La ChorAlchimie × Danse La Rue</div>
+  <div class="partners-sub">En partenariat avec Autour du Piano d'Or</div>
+</div>
+
 <div style="padding:0 20px 32px;max-width:400px;margin:0 auto">
   <div style="font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">Et après ?</div>
   <div style="display:flex;flex-direction:column;gap:6px">
@@ -121,7 +139,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 
 <script>
 var APPS_SCRIPT_SESSION_URL = 'https://script.google.com/macros/s/AKfycbynLReyKmoWz3pwBnsi6aDgfbYYAxdy0NRRP-MU4g2hIj4Hqns1o00e5o0FK8mO_NjKWQ/exec';
-var SESSION_NAME = '11 Mai 2026';
+var SESSION_NAME = 'ChoraViva — 11 mai 2026';
 
 document.getElementById('sourceChips').addEventListener('click', function(e) {
   var c = e.target.closest('.chip');
