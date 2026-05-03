@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lachoralchimie.github.io/sitemap.xml
