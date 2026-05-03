@@ -21,7 +21,7 @@ Association loi 1901 · RNA W691110282 · Créée le 26/10/2024
 Siège social : 112 rue de Sèze, 69006 Lyon
 Contact : choralchimielyon2@gmail.com
 Instagram : @lachoralchimie
-Linktree provisoire : linktr.ee/choralchimie (à remplacer par la page custom)
+Site officiel : https://flowyfirefox.github.io/choralchimie-web
 
 **Concept** : Chorale participative et inclusive. Inspiré de Choir! Choir! Choir! (Canada).
 Tout le monde peut chanter, sans prérequis, sans audition.
@@ -338,7 +338,7 @@ Apps Script + HelloAsso + charte + droit à l'image. Ne pas reconstruire.
 GitHub repo principal     : [à remplir]
 App Choraoké live         : [à remplir]
 Netlify (ancien)          : https://creative-lolly-8e5933.netlify.app/
-Linktree provisoire       : https://linktr.ee/choralchimie
+Site officiel             : https://flowyfirefox.github.io/choralchimie-web
 Instagram                 : https://www.instagram.com/lachoralchimie/
 WhatsApp communauté       : https://chat.whatsapp.com/DWzssCj3cDS9Gng6vbXJpm
 HelloAsso                 : [à remplir]
