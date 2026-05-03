@@ -388,7 +388,7 @@ Google Sheet master       : [à remplir]
 - [15/04/2026] — Architecture validée : 1 accueil + 2 hubs + modules existants
 - [15/04/2026] — Pipeline : script Python manuel (→ GitHub Actions à terme)
 - [15/04/2026] — Bouton suggestion in-app : Apps Script → onglet Suggestions du Sheet
-- [15/04/2026] — Décision : tout en HTML custom GitHub Pages, pas de Linktree payant
+- [15/04/2026] — Décision : tout en HTML custom GitHub Pages, pas de service externe payant
 - [15/04/2026] — Décision : Vanilla JS uniquement, pas de framework
 - [15/04/2026] — App Choraoké : live sur GitHub (choraoke-app repo) + Netlify (temporaire)
 - [15/04/2026] — Maquette navigable créée comme référence visuelle

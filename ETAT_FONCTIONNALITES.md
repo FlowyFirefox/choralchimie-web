@@ -1,5 +1,5 @@
 # ÉTAT FONCTIONNALITÉS — La ChorAlchimie
-> Mis à jour : 27 avril 2026
+> Mis à jour : 3 mai 2026
 
 ## ✅ LIVE ET FONCTIONNEL
 - App Choraoké — 600 morceaux, suggestions connectées, mode jour/nuit
@@ -15,6 +15,9 @@
 - Onglet Membres Gsheet — connecté, colonnes alignées
 - PWA installable — manifest.json + sw.js + snippet head sur 21 pages (Android + iOS Safari)
 - HelloAsso — page cotisation 10€ live, lien actif dans outils/adhesion.html
+- Domaine lachoralchimie.fr — configuré (OVH + GitHub Pages, DNS du 03/05/2026, fichier CNAME en place)
+- SEO complet — meta description/keywords, og:url, canonical, sitemap.xml, robots.txt, Schema.org JSON-LD (Organization + Event) sur toutes les pages
+- Google Search Console — sitemap prêt (https://lachoralchimie.fr/sitemap.xml) à soumettre une fois DNS propagé
 
 ## 🔴 À FAIRE — URGENT
 - Setlist / tracklist — fonctionnalité à construire (voir ci-dessous)
@@ -22,7 +25,6 @@
 
 ## 🟡 À FAIRE — MOYEN TERME
 - Mode jour/nuit — propager sur toutes les pages via assets/theme.js
-- Linktree — supprimer / rediriger vers le site
 - QR code — générer nouveau pointant vers accueil du site
 - Carte de fidélité — DA à finaliser
 - Logo — harmoniser ChorAlchimie_Horizontal_Fond_Foncé_New.png sur toutes les pages (hub-chanteurs et hub-musiciens déjà mis à jour, autres pages utilisent encore Texte_Day)

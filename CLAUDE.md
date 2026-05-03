@@ -332,6 +332,18 @@ Apps Script + HelloAsso + charte + droit à l'image. Ne pas reconstruire.
 
 ---
 
+## 🌐 DOMAINE & HÉBERGEMENT
+
+- **Domaine** : `lachoralchimie.fr` (OVH, exp. mai 2029)
+- **Hébergement** : GitHub Pages — repo `FlowyFirefox/choralchimie-web`
+- **URL finale** : https://lachoralchimie.fr
+- **URL GitHub (legacy)** : https://flowyfirefox.github.io/choralchimie-web
+- **Email pro inclus** : contact@lachoralchimie.fr (Zimbra OVH)
+- **DNS configurés le** : 03/05/2026 (4 entrées A GitHub Pages : 185.199.108.153/.109/.110/.111 + CNAME www → flowyfirefox.github.io.)
+- **CNAME** : fichier `/CNAME` à la racine contient `lachoralchimie.fr`
+
+---
+
 ## 🔗 URLS — À REMPLIR AU FUR ET À MESURE
 
 ```
@@ -417,7 +429,7 @@ Google Sheet master       : [à remplir]
 - [15/04/2026] — Architecture validée : 1 accueil + 2 hubs + modules existants
 - [15/04/2026] — Pipeline : script Python manuel (→ GitHub Actions à terme)
 - [15/04/2026] — Bouton suggestion in-app : Apps Script → onglet Suggestions du Sheet
-- [15/04/2026] — Décision : tout en HTML custom GitHub Pages, pas de Linktree payant
+- [15/04/2026] — Décision : tout en HTML custom GitHub Pages, pas de service externe payant
 - [15/04/2026] — Décision : Vanilla JS uniquement, pas de framework
 - [15/04/2026] — App Choraoké : live sur GitHub (choraoke-app repo) + Netlify (temporaire)
 - [15/04/2026] — Maquette navigable créée comme référence visuelle
