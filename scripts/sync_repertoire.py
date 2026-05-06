@@ -153,38 +153,61 @@ def parse_tracklist(val: str):
         return None, None
 
 
-def detect_columns(header):
-    """Auto-détecte tracklist_col par nom d'en-tête (peut être absente)."""
-    tracklist_col = COL_TRACKLIST_FALLBACK
+def detect_columns(header, data_rows):
+    """Auto-détecte la colonne tracklist active.
+
+    Plusieurs colonnes "Tracklist_*" peuvent coexister (une par session).
+    On retient celle qui a le plus de cellules non-vides — elle correspond
+    à la prochaine session. Si aucune cellule remplie : -1 (pas de setlist).
+    """
     header_lower = [h.strip().lower() for h in header]
+    tracklist_candidates = [i for i, h in enumerate(header_lower) if "tracklist" in h]
+    setlist_candidates = [i for i, h in enumerate(header_lower) if "setlist" in h]
+    candidates = tracklist_candidates or setlist_candidates
 
-    # Tracklist : priorité au header contenant "tracklist", sinon "setlist"
-    for i, h in enumerate(header_lower):
-        if "tracklist" in h:
-            return i
-    for i, h in enumerate(header_lower):
-        if "setlist" in h:
-            return i
+    if not candidates:
+        return COL_TRACKLIST_FALLBACK
 
-    return tracklist_col
+    best_col = COL_TRACKLIST_FALLBACK
+    best_count = 0
+    counts = {}
+    for col in candidates:
+        count = sum(1 for row in data_rows if len(row) > col and row[col].strip())
+        counts[header[col].strip()] = count
+        if count > best_count:
+            best_count = count
+            best_col = col
+
+    if best_count == 0:
+        print(f"   ℹ️  Colonnes Tracklist détectées mais toutes vides : {list(counts.keys())}")
+        return COL_TRACKLIST_FALLBACK
+
+    print(f"   ✓ Colonne setlist retenue : '{header[best_col].strip()}' (col {best_col}, {best_count} cellules remplies)")
+    if len(counts) > 1:
+        ignored = {h: c for h, c in counts.items() if h != header[best_col].strip()}
+        print(f"     Ignorées : {ignored}")
+    return best_col
 
 
 def parse_csv_to_songs(csv_text: str):
     """Parse le CSV et retourne (all_songs, setlist_songs, backup_songs)."""
     reader = csv.reader(io.StringIO(csv_text))
+    rows = list(reader)
 
-    header = next(reader, None)
-    if header is None:
+    if not rows:
         print("❌ Le Sheet est vide.")
         sys.exit(1)
 
-    tracklist_col = detect_columns(header)
+    header = rows[0]
+    data_rows = rows[1:]
+
+    tracklist_col = detect_columns(header, data_rows)
 
     all_songs = []
     setlist_indexed = []   # liste de tuples (order:int, song)
     backup_songs = []
 
-    for row in reader:
+    for row in data_rows:
         if not row or len(row) < COL_TRACK + 1:
             continue
 
