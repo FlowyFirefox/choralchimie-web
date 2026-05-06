@@ -306,10 +306,12 @@ Apps Script + HelloAsso + charte + droit à l'image. Ne pas reconstruire.
 🤝 Collaborations     → demandes partenariat
 ```
 
-### Colonnes IMMUABLES du Sheet principal
-`# | Langue | Track Name | Artist Name(s) | Instrument | Difficulté vocale | BPM | Tonalité | Key (EN) | Capo (guitare) | Genres | Validée Choraoké | Spotify Link | Lien UltimateGuitar | genius_url | Notes`
+### Colonnes IMMUABLES du Sheet principal — 14 colonnes (A → N)
+`# | Langue | Track Name | Artist Name(s) | Instrument | Difficulté vocale | BPM | Tonalité | Key (EN) | Capo (guitare) | Genres | Spotify Link | Lien UltimateGuitar | Paroles`
 
-`genius_url` : optionnel. Si rempli, bouton Genius pointe directement sur la page paroles (ex: `https://genius.com/4-non-blondes-whats-up-lyrics`). Si vide, fallback sur recherche Genius.
+`Paroles` (N) : texte des paroles directement dans le Sheet. Peut contenir des balises `[Verse]` / `[Chorus]`. Si vide, le bouton Paroles dans l'app fait un fallback sur une recherche Genius générique (`https://genius.com/search?q=Artiste+Titre`).
+
+> Colonne setlist : ajoutée temporairement avant chaque session (généralement colonne O+, header contenant `Tracklist` ou `Setlist`). Auto-détectée par le script. Vide hors période de session.
 
 ### Flux mise à jour répertoire
 ```
@@ -442,6 +444,7 @@ Google Sheet master       : [à remplir]
 - [21/04/2026] — Setlist disparaît de l'app si aucun morceau coché → pas de bouton fantôme
 - [21/04/2026] — Mode jour/nuit ajouté : bouton 🌙/🌑 flottant en bas à droite. Préférence sauvegardée en localStorage
 - [21/04/2026] — Colonne optionnelle `genius_url` ajoutée au Sheet. Si remplie → lien direct paroles (1 clic). Si vide → fallback recherche Genius
+- [06/05/2026] — Refonte schéma Sheet : passage à 14 colonnes (A→N). Suppression `Validée Choraoké`, `genius_url`, `Notes`. Ajout `Paroles` (N) — texte des paroles directement dans le Sheet, plus besoin de fetch_lyrics.py. Bouton Paroles dans l'app : si `paroles` rempli → modale interne ; sinon → recherche Genius générique. Clé JSON renommée `ly` → `paroles` dans `const S`
 - [21/04/2026] — Sur GitHub Pages : popup Claude.ai disparaît → 2 clics pour les paroles (vs 5 en test Claude.ai)
 - [21/04/2026] — Pages sessions × 12 créées · quisommesnous · collab · Apps Script universel sessions
 - [21/04/2026] — WhatsApp communauté URL ajoutée partout : https://chat.whatsapp.com/DWzssCj3cDS9Gng6vbXJpm

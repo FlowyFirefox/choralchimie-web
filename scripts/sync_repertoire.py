@@ -2,11 +2,11 @@
 """
 sync_repertoire.py — Pipeline Google Sheet -> choraoke-app/index.html
 
-Lit le Google Sheet "Base de données" via export CSV public,
+Lit le Google Sheet " 🎵 Base de données" via export CSV public,
 régénère le tableau JSON des morceaux dans l'app Choraoké,
-et injecte la setlist du soir si la colonne Tracklist est remplie.
+et injecte la setlist du soir si une colonne Tracklist/Setlist est remplie.
 
-Structure du Sheet (colonnes A->P, 0-indexées 0..15) :
+Structure du Sheet (14 colonnes A->N, 0-indexées 0..13) :
   A=0  #
   B=1  Langue
   C=2  Track Name
@@ -18,17 +18,16 @@ Structure du Sheet (colonnes A->P, 0-indexées 0..15) :
   I=8  Key (EN)
   J=9  Capo (guitare)
   K=10 Genres
-  L=11 Validée Choraoké
-  M=12 Spotify Link
-  N=13 Lien UltimateGuitar
-  O=14 Tracklist_XX_XX  -> numéro 1..N pour la setlist du soir,
-                           "Backup" pour les backups, vide sinon.
-  P=15 Paroles          -> texte des paroles (peut contenir des balises
-                           [Verse]/[Chorus]). Renseigné par fetch_lyrics.py.
+  L=11 Spotify Link
+  M=12 Lien UltimateGuitar
+  N=13 Paroles          -> texte des paroles (peut contenir des balises
+                           [Verse]/[Chorus])
 
-Auto-détectées (par nom d'en-tête, optionnelles) :
-  - genius_url   (header contenant "genius" et "url")
+Auto-détectée (par nom d'en-tête, optionnelle, généralement en colonne O+
+ajoutée temporairement avant une session) :
   - tracklist    (header contenant "tracklist" — sinon fallback "setlist")
+                 Valeur attendue : entier 1..N pour l'ordre, "Backup" pour
+                 un backup, vide sinon.
 
 Usage :
     python scripts/sync_repertoire.py
@@ -53,7 +52,7 @@ from pathlib import Path
 # ============================================================================
 
 SHEET_ID = "1tkQ1J7bzU_4reaTiF4LMvWeRwE0auRheOWofjVnJyFw"
-SHEET_TAB = "Base de données"
+SHEET_TAB = " 🎵 Base de données"
 
 # Métadonnées affichées dans l'overlay setlist (toutes optionnelles)
 SESSION_NAME = ""     # Vide -> label par défaut "Choraoké 29/04"
@@ -64,7 +63,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 HTML_PATH = REPO_ROOT / "choraoke-app" / "index.html"
 
 # ============================================================================
-# COLONNES (0-indexées) — A->O
+# COLONNES (0-indexées) — A->N (14 colonnes)
 # ============================================================================
 COL_NUM = 0
 COL_LANGUE = 1
@@ -77,11 +76,14 @@ COL_TONALITE = 7
 COL_KEY_EN = 8
 COL_CAPO = 9
 COL_GENRES = 10
-COL_VALIDEE = 11
-COL_SPOTIFY = 12
-COL_UG = 13
-COL_TRACKLIST = 14   # O — numéro d'ordre, "Backup", ou vide
-COL_LYRICS = 15      # P — paroles (rempli par fetch_lyrics.py)
+COL_SPOTIFY = 11
+COL_UG = 12
+COL_LYRICS = 13      # N — paroles (texte direct, balises [Verse]/[Chorus] OK)
+
+# Colonne Tracklist : pas dans le schéma immuable, ajoutée temporairement
+# avant une session (généralement colonne O+). Auto-détectée par header,
+# fallback à -1 si absente.
+COL_TRACKLIST_FALLBACK = -1
 
 
 def fetch_sheet_csv(sheet_id: str, tab_name: str) -> str:
@@ -152,30 +154,19 @@ def parse_tracklist(val: str):
 
 
 def detect_columns(header):
-    """Auto-détecte tracklist_col et genius_col par nom d'en-tête."""
-    tracklist_col = COL_TRACKLIST
-    genius_col = -1
+    """Auto-détecte tracklist_col par nom d'en-tête (peut être absente)."""
+    tracklist_col = COL_TRACKLIST_FALLBACK
     header_lower = [h.strip().lower() for h in header]
 
     # Tracklist : priorité au header contenant "tracklist", sinon "setlist"
-    found_tracklist = False
     for i, h in enumerate(header_lower):
         if "tracklist" in h:
-            tracklist_col = i
-            found_tracklist = True
-            break
-    if not found_tracklist:
-        for i, h in enumerate(header_lower):
-            if "setlist" in h:
-                tracklist_col = i
-                break
-
+            return i
     for i, h in enumerate(header_lower):
-        if "genius" in h and "url" in h:
-            genius_col = i
-            break
+        if "setlist" in h:
+            return i
 
-    return tracklist_col, genius_col
+    return tracklist_col
 
 
 def parse_csv_to_songs(csv_text: str):
@@ -187,7 +178,7 @@ def parse_csv_to_songs(csv_text: str):
         print("❌ Le Sheet est vide.")
         sys.exit(1)
 
-    tracklist_col, genius_col = detect_columns(header)
+    tracklist_col = detect_columns(header)
 
     all_songs = []
     setlist_indexed = []   # liste de tuples (order:int, song)
@@ -213,19 +204,14 @@ def parse_csv_to_songs(csv_text: str):
             "c": row[COL_CAPO].strip() if len(row) > COL_CAPO else "",
         }
 
-        if genius_col >= 0 and len(row) > genius_col:
-            gu = row[genius_col].strip()
-            if gu:
-                song["gu"] = gu
-
         if len(row) > COL_LYRICS:
-            ly = row[COL_LYRICS].strip()
-            if ly:
-                song["ly"] = ly
+            paroles = row[COL_LYRICS].strip()
+            if paroles:
+                song["paroles"] = paroles
 
         all_songs.append(song)
 
-        if len(row) > tracklist_col:
+        if tracklist_col >= 0 and len(row) > tracklist_col:
             kind, order = parse_tracklist(row[tracklist_col])
             if kind == "order":
                 setlist_indexed.append((order, song))
