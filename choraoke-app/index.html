@@ -147,6 +147,18 @@ mark{background:rgba(194,89,24,.35);color:var(--braise);border-radius:2px;paddin
     });
   }
 </script>
+<script>
+// Bouton retour Android — ferme l'overlay setlist au lieu de quitter l'app
+window.addEventListener('popstate', function(e) {
+  var setlistOverlay = document.getElementById('setlistOverlay');
+  if (setlistOverlay && setlistOverlay.classList.contains('open')) {
+    e.preventDefault();
+    setlistOverlay.classList.remove('open');
+    // Re-pousse un state pour rester sur l'app si on appuie back à nouveau
+    history.pushState(null, '', window.location.href);
+  }
+});
+</script>
 </head>
 <body>
 <header class="header">
@@ -355,6 +367,8 @@ function openSetlist(){
     pg.textContent=(SETLIST.songs||[]).length+' titres';
   }
   ov.classList.add('open');
+  // Crée une entrée dans l'historique pour intercepter le bouton retour Android
+  history.pushState(null, '', window.location.href);
 }
 if(SETLIST && ((SETLIST.songs && SETLIST.songs.length>0) || (SETLIST.backup && SETLIST.backup.length>0))){
   var slWrap=document.getElementById('setlistBtnWrap');
